@@ -1,7 +1,7 @@
 ---
 title: Arm's Platform Security Architecture (PSA) Attestation Verifier Endorsements
 abbrev: PSA Endorsements
-docname: draft-fdb-rats-psa-endorsements
+docname: draft-fdb-rats-psa-endorsements-latest
 date: {DATE}
 category: info
 ipr: trust200902
