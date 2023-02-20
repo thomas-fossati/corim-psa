@@ -5,8 +5,8 @@ docname: draft-fdb-rats-psa-endorsements-latest
 date: {DATE}
 category: info
 ipr: trust200902
-area: Security
-workgroup: RATS
+area: "Security"
+workgroup: "Remote ATtestation ProcedureS"
 
 stand_alone: yes
 pi:
