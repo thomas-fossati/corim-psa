@@ -1,0 +1,45 @@
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+  },
+  / comid.triples / 4 : {
+    / comid.psa-swrel-triples / 5 : [
+      [
+        / environment-map / {
+          / comid.class-id / 0 :
+          / tagged-impl-id-type / 600(
+            h'61636d652d696d706c656d656e746174
+              696f6e2d69642d303030303030303031'
+          ),
+          / comid.vendor / 1 : "ACME Ltd.",
+          / comid.model /  2 : "Roadrunner 1.0"
+        },
+
+        / sw-rel / [
+          / new / {
+            / psa.measurement-type / 1 : "PRoT",
+            / psa.version /          4 : "1.4.0",
+            / psa.signer-id /        5 : h'acbb11c7e4da2172
+                                           05523ce4ce1a245a
+                                           e1a239ae3c6bfd9e
+                                           7871f7e5d8bae86b'
+          },
+
+          / rel / [
+            / type / 1, / psa.updates /
+            / security-critical / true
+          ],
+
+          / old / {
+            / psa.measurement-type / 1 : "PRoT",
+            / psa.version /          4 : "1.3.5",
+            / psa.signer-id /        5 : h'acbb11c7e4da2172
+                                           05523ce4ce1a245a
+                                           e1a239ae3c6bfd9e
+                                           7871f7e5d8bae86b'
+          }
+        ]
+      ]
+    ]
+  }
+}

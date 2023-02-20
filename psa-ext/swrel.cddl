@@ -1,0 +1,24 @@
+comid.psa-swrel-triples = 5
+
+$$triples-map-extension //= (
+  comid.psa-swrel-triples => [ + psa-swrel-triple-record ]
+)
+
+psa.updates = 1
+psa.patches = 2
+
+psa-swrel-rel = [
+  type: psa.updates / psa.patches
+  security-critical: bool ; true means it's a fix for a security bug
+]
+
+sw-rel = [
+  new: psa-swcomp-id ; identifier of the "new" firmware
+  rel: psa-swrel-rel ; patches, updates and the security flag
+  old: psa-swcomp-id ; identifier of the "old" firmware
+]
+
+psa-swrel-triple-record = [
+  environment-map
+  sw-rel
+]

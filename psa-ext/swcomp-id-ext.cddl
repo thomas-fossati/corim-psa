@@ -1,0 +1,3 @@
+tagged-psa-swcomp-id = #6.601(psa-swcomp-id)
+
+$measured-element-type-choice /= tagged-psa-swcomp-id

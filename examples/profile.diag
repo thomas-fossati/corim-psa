@@ -1,0 +1,6 @@
+/ corim-map / {
+  / corim.profile / 3: [ 
+    32("http://arm.com/psa/iot/1")
+  ]
+  / ... /
+}

@@ -1,0 +1,27 @@
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+  }, 
+  / comid.triples / 4 : {
+    / comid.psa-cert-triples / 4 : [
+      [
+        / psa-rot-descriptor / {
+          / psa.immutable-rot / 1 :
+            h'61636d652d696d706c656d656e746174
+              696f6e2d69642d303030303030303031',
+          / psa.mutable-rot / 2 : [
+            / psa-swcomp-id / {
+              / psa.measurement-type / 1 : "PRoT",
+              / psa.version /          4 : "1.3.5",
+              / psa.signer-id /        5 : h'acbb11c7e4da2172
+                                             05523ce4ce1a245a
+                                             e1a239ae3c6bfd9e
+                                             7871f7e5d8bae86b'
+            }
+          ]
+        },
+        / psa-cert-num-type / "1234567890123 - 12345"
+      ]
+    ]
+  }
+}
