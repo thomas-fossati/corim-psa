@@ -1,6 +1,6 @@
 ---
-title: Arm's Platform Security Architecture (PSA) Attestation Verifier Endorsements
-abbrev: PSA Endorsements
+title: A CoRIM Profile for Arm's Platform Security Architecture (PSA)
+abbrev: CoRIM PSA Profile
 docname: draft-fdb-rats-psa-endorsements-latest
 date: {DATE}
 category: info
@@ -92,7 +92,7 @@ There are five types of PSA Endorsements:
   that can be used to verify signed Evidence produced by the PSA RoT, along
   with the identifiers that bind the keys to their device instances;
 * Certification Claims ({{sec-certificates}}), i.e., metadata that describe
-  the certification status associated with a PSA device.
+  the certification status associated with a PSA device;
 * Software Relations ({{sec-swrel}}), used to model upgrade and patch
   relationships between software components;
 * Endorsements Block List ({{sec-endorsements-block-list}}), used to invalidate
@@ -140,7 +140,7 @@ in an `environment-map` as shown in {{ex-psa-rot-id}}.
 
 Optional `vendor` and `model` can be specified as well.  Together, they are
 interpreted as a unique identifier of the product that embeds the PSA RoT.
-Consistently providing a product identifier is RECOMMENDED.
+It is RECOMMENDED to consistently provide a product identifier.
 
 ## Reference Values
 {: #sec-ref-values}
@@ -154,7 +154,7 @@ Each measurement is encoded in a `measurement-map` of a CoMID
 `reference-triple-record`.  Since a `measurement-map` can encode one or more
 measurements, a single `reference-triple-record` can carry as many measurements
 as needed, provided they belong to the same PSA RoT identified in the subject of
-the "reference value" triple.  A single `reference-triple-record` SHALL
+the "reference value" triple.  A single `reference-triple-record` MUST
 completely describe the updatable PSA RoT.
 
 The identifier of a measured software component is encoded in a `psa-swcomp-id`
@@ -184,9 +184,9 @@ entry.  The `digests-type` array MAY contain more than one entry if multiple
 digests (obtained with different hash algorithms) of the same measured
 component exist.
 
-The example in {{ex-reference-value}} shows a CoMID a PSA Endorsement of type
-Reference Value for a firmware measurement associated with Implementation ID
-`acme-implementation-id-000000001`.
+The example in {{ex-reference-value}} shows a CoMID encoding a PSA Endorsement
+of type Reference Value for a firmware measurement associated with
+Implementation ID `acme-implementation-id-000000001`.
 
 ~~~
 {::include examples/ref-value.diag}
