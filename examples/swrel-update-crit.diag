@@ -17,12 +17,14 @@
 
         / sw-rel / [
           / new / {
-            / psa.measurement-type / 1 : "PRoT",
-            / psa.version /          4 : "1.4.0",
-            / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                           05523ce4ce1a245a
-                                           e1a239ae3c6bfd9e
-                                           7871f7e5d8bae86b'
+            / signer-id /      0 : h'acbb11c7e4da2172
+                                     05523ce4ce1a245a
+                                     e1a239ae3c6bfd9e
+                                     7871f7e5d8bae86b',
+            / measurement-id / 1 : h'f690f7e924614995
+                                     dd26bf38cda79a25
+                                     d308eef0a6f4b5cf
+                                     b57bfbbd55efad57'
           },
 
           / rel / [
@@ -31,12 +33,14 @@
           ],
 
           / old / {
-            / psa.measurement-type / 1 : "PRoT",
-            / psa.version /          4 : "1.3.5",
-            / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                           05523ce4ce1a245a
-                                           e1a239ae3c6bfd9e
-                                           7871f7e5d8bae86b'
+            / signer-id /      0 : h'acbb11c7e4da2172
+                                     05523ce4ce1a245a
+                                     e1a239ae3c6bfd9e
+                                     7871f7e5d8bae86b',
+            / measurement-id / 1 : h'98b06c3f4bfeb294
+                                     f69dae2bbe7d4be0
+                                     750e258a86414d90
+                                     a17cda9e2e775337'
           }
         ]
       ]
