@@ -1,6 +1,0 @@
-psa-swcomp-id = {
-  &(signer-id: 0) => psa.hash-type
-  &(measurement-id: 1) => psa.hash-type
-}
-
-psa.hash-type = bytes .size 32 / bytes .size 48 / bytes .size 64

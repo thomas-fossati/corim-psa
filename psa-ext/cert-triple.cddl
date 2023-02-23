@@ -1,18 +1,5 @@
-comid.psa-cert-triples = 4
-
-$$triples-map-extension //= (
-  comid.psa-cert-triples => [ + psa-cert-triple-record ]
+$$measurement-values-map-extension //= (
+  &(psa-cert-num: 100) => psa-cert-num-type
 )
-
-psa-rot-descriptor = {
-  &(immutable-prot: 1) => psa-implementation-id-type
-  &(mutable-prot: 2) => [ * psa-swcomp-id ]
-
-}
-
-psa-cert-triple-record = [
-  psa-rot-descriptor
-  psa-cert-num-type
-]
 
 psa-cert-num-type = text .regexp "[0-9]{13} - [0-9]{5}"
