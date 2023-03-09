@@ -67,7 +67,7 @@ PSA Endorsements as a profile of the CoRIM data model.
 PSA Endorsements include reference values, endorsed values, cryptographic key
 material and certification status information that a Verifier needs in order to
 appraise attestation Evidence produced by a PSA device {{PSA-TOKEN}}.  This
-memo defines such PSA Endorsements as a profile of the CoRIM data model
+memo defines PSA Endorsements as a profile of the CoRIM data model
 {{CoRIM}}.
 
 # Conventions and Definitions
