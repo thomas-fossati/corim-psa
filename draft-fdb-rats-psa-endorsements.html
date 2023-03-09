@@ -9,10 +9,10 @@
 <meta content="Yogesh Deshpande" name="author">
 <meta content="Henk Birkholz" name="author">
 <meta content="
-       PSA Endorsements include reference values, cryptographic key material and
-certification status information that a Verifier needs in order to appraise
-attestation Evidence produced by a PSA device.  This memo defines such PSA
-Endorsements as a profile of the CoRIM data model. 
+       PSA Endorsements include reference values, endorsed values, cryptographic key
+material and certification status information that a Verifier may need in order
+to appraise attestation Evidence produced by a PSA device.  This memo defines
+PSA Endorsements as a profile of the CoRIM data model. 
     " name="description">
 <meta content="xml2rfc 3.16.0" name="generator">
 <meta content="draft-fdb-rats-psa-endorsements-latest" name="ietf.draft">
@@ -1094,10 +1094,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">A CoRIM Profile for Arm's Platform Security Architecture (PSA)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">PSA Endorsements include reference values, cryptographic key material and
-certification status information that a Verifier needs in order to appraise
-attestation Evidence produced by a PSA device.  This memo defines such PSA
-Endorsements as a profile of the CoRIM data model.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">PSA Endorsements include reference values, endorsed values, cryptographic key
+material and certification status information that a Verifier may need in order
+to appraise attestation Evidence produced by a PSA device.  This memo defines
+PSA Endorsements as a profile of the CoRIM data model.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1175,11 +1175,6 @@ Endorsements as a profile of the CoRIM data model.<a href="#section-abstract-1" 
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-reference-values" class="internal xref">Reference Values</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.1">
-                    <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-software-upgrades-and-patch" class="internal xref">Software Upgrades and Patches</a></p>
-</li>
-                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
                 <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-attestation-verification-cl" class="internal xref">Attestation Verification Claims</a></p>
@@ -1188,7 +1183,7 @@ Endorsements as a profile of the CoRIM data model.<a href="#section-abstract-1" 
                 <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-certification-claims" class="internal xref">Certification Claims</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
-                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-endorsements-block-list" class="internal xref">Endorsements Block List</a></p>
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-software-upgrades-and-patch" class="internal xref">Software Upgrades and Patches</a></p>
 </li>
             </ul>
 </li>
@@ -1206,6 +1201,14 @@ Endorsements as a profile of the CoRIM data model.<a href="#section-abstract-1" 
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-comid-codepoints" class="internal xref">CoMID Codepoints</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.1">
+                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-comid-triples-map-extension" class="internal xref">CoMID Triples Map Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.2">
+                    <p id="section-toc.1-1.5.2.3.2.2.1"><a href="#section-5.3.2" class="auto internal xref">5.3.2</a>.  <a href="#name-comid-measurement-values-ma" class="internal xref">CoMID Measurement Values Map Extension</a></p>
+</li>
+                </ul>
 </li>
             </ul>
 </li>
@@ -1235,10 +1238,11 @@ Endorsements as a profile of the CoRIM data model.<a href="#section-abstract-1" 
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">PSA Endorsements include reference values, cryptographic key material and
-certification status information that a Verifier needs in order to appraise
-attestation Evidence produced by a PSA device <span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>.  This memo defines
-such PSA Endorsements as a profile of the CoRIM data model <span>[<a href="#CoRIM" class="cite xref">CoRIM</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">PSA Endorsements include reference values, endorsed values, cryptographic key
+material and certification status information that a Verifier needs in order to
+appraise attestation Evidence produced by a PSA device <span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>.  This
+memo defines such PSA Endorsements as a profile of the CoRIM data model
+<span>[<a href="#CoRIM" class="cite xref">CoRIM</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1251,8 +1255,8 @@ NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
 "MAY", and "OPTIONAL" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">The reader is assumed to be familiar with the terms defined in Section 2.1 of
-<span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span> and in Section 4 of <span>[<a href="#RATS-ARCH" class="cite xref">RATS-ARCH</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-2">An understanding of the <span>[<a href="#CoRIM" class="cite xref">CoRIM</a>]</span> data model is a prerequisite.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">The reader is also assumed to be familiar with the terms defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-2.1" class="relref">Section 2.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span> and in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-4" class="relref">Section 4</a> of [<a href="#RATS-ARCH" class="cite xref">RATS-ARCH</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-psa-endorsements">
@@ -1266,23 +1270,24 @@ the identification and expected state of the device as well as the
 cryptographic key material needed to verify Evidence signed by the device's PSA
 RoT. Additionally, PSA Endorsements can include information related to the
 certification status of the attesting device.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">There are five types of PSA Endorsements:<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-2">There are three basic types of PSA Endorsements:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-3.1">Reference Values (<a href="#sec-ref-values" class="auto internal xref">Section 3.3</a>), i.e., measurements of the PSA RoT
 firmware;<a href="#section-3-3.1" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-3-3.2">Attestation Verification Claims (<a href="#sec-keys" class="auto internal xref">Section 3.4</a>), i.e., cryptographic keys
-that can be used to verify signed Evidence produced by the PSA RoT, along
+that are used to verify signed Evidence produced by the PSA RoT, along
 with the identifiers that bind the keys to their device instances;<a href="#section-3-3.2" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-3-3.3">Certification Claims (<a href="#sec-certificates" class="auto internal xref">Section 3.5</a>), i.e., metadata that describe
 the certification status associated with a PSA device;<a href="#section-3-3.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-3-3.4">Software Relations (<a href="#sec-swrel" class="auto internal xref">Section 3.3.1</a>), used to model upgrade and patch
-relationships between software components;<a href="#section-3-3.4" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-3-3.5">Endorsements Block List (<a href="#sec-endorsements-block-list" class="auto internal xref">Section 3.6</a>), used to invalidate
-previously provisioned Endorsements.<a href="#section-3-3.5" class="pilcrow">¶</a>
+      </ul>
+<p id="section-3-4">There is a fourth PSA Endorsement type that aims at covering more advanced
+Verifier use cases (e.g., the one described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19#section-7" class="relref">Section 7</a> of [<a href="#TEEP" class="cite xref">TEEP</a>]</span>):<a href="#section-3-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-5.1">Software Relations (<a href="#sec-swrel" class="auto internal xref">Section 3.6</a>), used to model upgrade and patch
+relationships between software components.<a href="#section-3-5.1" class="pilcrow">¶</a>
 </li>
       </ul>
 <div id="psa-endorsement-profile">
@@ -1291,16 +1296,14 @@ previously provisioned Endorsements.<a href="#section-3-3.5" class="pilcrow">¶<
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-psa-endorsement-profile" class="section-name selfRef">PSA Endorsement Profile</a>
         </h3>
 <p id="section-3.1-1">PSA Endorsements are carried in one or more CoMIDs inside a CoRIM.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">The profile attribute in the CoRIM MUST be present and MUST have a single entry
-set to the uri <code>http://arm.com/psa/iot/1</code> as shown in <a href="#ex-psa-iot-profile" class="auto internal xref">Figure 1</a>.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">The profile attribute in the CoRIM MUST be present and MUST be set to the URI
+<code>http://arm.com/psa/iot/1</code> as shown in <a href="#ex-psa-iot-profile" class="auto internal xref">Figure 1</a>.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <span id="name-psa-iot-version-1-corim-pro"></span><div id="ex-psa-iot-profile">
 <figure id="figure-1">
           <div class="alignLeft art-text artwork" id="section-3.1-3.1">
 <pre>
 / corim-map / {
-  / corim.profile / 3: [
-    32("http://arm.com/psa/iot/1")
-  ]
+  / corim.profile / 3: 32("http://arm.com/psa/iot/1")
   / ... /
 }
 </pre>
@@ -1309,6 +1312,10 @@ set to the uri <code>http://arm.com/psa/iot/1</code> as shown in <a href="#ex-ps
 <a href="#name-psa-iot-version-1-corim-pro" class="selfRef">PSA IoT version 1, CoRIM profile</a>
           </figcaption></figure>
 </div>
+<p id="section-3.1-4">The list of all, and only, the CoMIDs that are currently "active" (i.e., CoMIDs
+that contain triples that can be used for appraisal) is provided in a CoBOM
+tag.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5"><span class="cref">TODO CoBOM example</span><a href="#section-3.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-psa-rot-id">
@@ -1317,9 +1324,9 @@ set to the uri <code>http://arm.com/psa/iot/1</code> as shown in <a href="#ex-ps
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-psa-endorsements-to-psa-rot" class="section-name selfRef">PSA Endorsements to PSA RoT Linkage</a>
         </h3>
 <p id="section-3.2-1">Each PSA Endorsement - be it a Reference Value, Attestation Verification Claim
-or Certification Claim - is associated with an immutable PSA RoT.  A PSA
-Endorsement is associated to its PSA RoT by means of the unique PSA RoT
-identifier known as Implementation ID (see Section 3.2.2 of <span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+or Certification Claim - is associated with an immutable PSA RoT.  The linkage
+between a PSA Endorsement and its PSA RoT is made by means of the unique PSA
+RoT identifier known as Implementation ID (see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-3.2.2" class="relref">Section 3.2.2</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">In order to support PSA Implementation IDs, the CoMID type
 <code>$class-id-type-choice</code> is extended as follows:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.2-3">
@@ -1333,9 +1340,9 @@ $class-id-type-choice /= tagged-implementation-id-type
 </pre><a href="#section-3.2-3" class="pilcrow">¶</a>
 </div>
 <p id="section-3.2-4">Besides, a PSA Endorsement can be associated with a specific instance of a
-certain PSA RoT - as in the case of Attestation Verification Claims.  A PSA
+certain PSA RoT - as is the case for Attestation Verification Claims.  A PSA
 Endorsement is associated with a PSA RoT instance by means of the Instance ID
-(see Section 3.2.1 of <span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) and its "parent" Implementation ID.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+(see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-3.2.1" class="relref">Section 3.2.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) and its "parent" Implementation ID.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.2-5">These identifiers are typically found in the subject of a CoMID triple, encoded
 in an <code>environment-map</code> as shown in <a href="#ex-psa-rot-id" class="auto internal xref">Figure 2</a>.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 <span id="name-example-psa-rot-identificat"></span><div id="ex-psa-rot-id">
@@ -1378,50 +1385,93 @@ It is RECOMMENDED to consistently provide a product identifier.<a href="#section
 <p id="section-3.3-1">Reference Values carry measurements and other metadata associated with the
 updatable firmware in a PSA RoT.  When appraising Evidence, the Verifier
 compares Reference Values against the values found in the Software Components
-of the PSA token (see Section 3.4.1 of <span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.3-2">Each measurement is encoded in a <code>measurement-map</code> of a CoMID
-<code>reference-triple-record</code>.  Since a <code>measurement-map</code> can encode one or more
-measurements, a single <code>reference-triple-record</code> can carry as many measurements
-as needed, provided they belong to the same PSA RoT identified in the subject of
-the "reference value" triple.  A single <code>reference-triple-record</code> MUST
-completely describe the updatable PSA RoT.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.3-3">The identifier of a measured software component is encoded in a <code>psa-swcomp-id</code>
-object as follows:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-4">
-<pre>
-psa-swcomp-id = {
-  &amp;(signer-id: 0) =&gt; psa.hash-type
-  &amp;(measurement-id: 1) =&gt; psa.hash-type
-}
-
-psa.hash-type = bytes .size 32 / bytes .size 48 / bytes .size 64
-</pre><a href="#section-3.3-4" class="pilcrow">¶</a>
+of the PSA token (see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-3.4.1" class="relref">Section 3.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">When there is more than one measurement associated to a certain PSA RoT, the
+measurements are spread across multiple <code>reference-triple-record</code>s and, in
+certain cases, across multiple CoMIDs.  A single CoBOM MUST completely describe
+the updatable PSA RoT.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">The elements of the <code>psa-software-component</code> map defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-4.4.1" class="relref">Section 4.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span> are matched against CoMID <code>measurement-map</code> entries as follows:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<span id="name-psa-software-component-mapp"></span><div id="tbl-psa-swcomp-mappings">
+<table class="center" id="table-1">
+          <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-psa-software-component-mapp" class="selfRef">PSA Software Component Mappings</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">PSA Evidence</th>
+              <th class="text-left" rowspan="1" colspan="1">PSA Endorsement</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>measurement-type</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>measurement-values-map.name</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-4.4.1.1" class="relref">Section 4.4.1.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>measurement-value</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>measurement-values-map.digests[*][1]</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-4.4.1.2" class="relref">Section 4.4.1.2</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>version</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>measurement-values-map.version.version</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-4.4.1.3" class="relref">Section 4.4.1.3</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>measurement-desc</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>measurement-values-map.digests[*][0]</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1"> </td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>signer-id</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <code>authorized-by[0]</code>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11#section-4.4.1.4" class="relref">Section 4.4.1.4</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>
+</td>
+            </tr>
+          </tbody>
+        </table>
 </div>
-<p id="section-3.3-5">The semantics of the codepoints in the <code>psa-swcomp-id</code> map are equivalent to
-those in the <code>psa-software-component</code> map defined in Section 3.4.1 of
-<span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>.  The <code>psa-swcomp-id</code> MUST uniquely identify a given software
-component within the PSA RoT / product.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
-<p id="section-3.3-6">In order to support PSA Reference Value identifiers, the CoMID type
-<code>$measured-element-type-choice</code> is extended as follows:<a href="#section-3.3-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-7">
-<pre>
-tagged-psa-swcomp-id = #6.601(psa-swcomp-id)
-
-$measured-element-type-choice /= tagged-psa-swcomp-id
-</pre><a href="#section-3.3-7" class="pilcrow">¶</a>
-</div>
-<p id="section-3.3-8">and automatically bound to the <code>comid.mkey</code> in the <code>measurement-map</code>.<a href="#section-3.3-8" class="pilcrow">¶</a></p>
-<p id="section-3.3-9">The raw measurement is encoded in a <code>digests-type</code> object in the
-<code>measurement-values-map</code>.  The <code>digests-type</code> array MUST contain at least one
-entry.  The <code>digests-type</code> array MAY contain more than one entry if multiple
-digests (obtained with different hash algorithms) of the same measured
-component exist.<a href="#section-3.3-9" class="pilcrow">¶</a></p>
-<p id="section-3.3-10">The example in <a href="#ex-reference-value" class="auto internal xref">Figure 3</a> shows a CoMID encoding a PSA Endorsement
+<p id="section-3.3-5">The <code>digests</code> array MUST contain at least one entry and MAY contain more than
+one entry if multiple digests (obtained with different hash algorithms) of the
+same measured component exist.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.3-6">The <code>authorized-by</code> in the <code>measurement-map</code> MUST have exactly one entry of
+type <code>tagged-thumbprint-type</code> (CBOR tag 557) containing the <code>signer-id</code>.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
+<p id="section-3.3-7">The example in <a href="#ex-reference-value" class="auto internal xref">Figure 3</a> shows a CoMID encoding a PSA Endorsement
 of type Reference Value for a firmware measurement associated with
-Implementation ID <code>acme-implementation-id-000000001</code>.<a href="#section-3.3-10" class="pilcrow">¶</a></p>
+Implementation ID <code>acme-implementation-id-000000001</code>.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
 <span id="name-example-reference-value"></span><div id="ex-reference-value">
 <figure id="figure-3">
-          <div class="alignLeft art-text artwork" id="section-3.3-11.1">
+          <div class="alignLeft art-text artwork" id="section-3.3-8.1">
 <pre>
 / concise-mid-tag / {
   / comid.tag-identity / 1 : {
@@ -1437,37 +1487,36 @@ Implementation ID <code>acme-implementation-id-000000001</code>.<a href="#sectio
                 h'61636d652d696d706c656d656e746174
                   696f6e2d69642d303030303030303031'
               ),
-              / comid.vendor / 1 : "ACME Ltd.",
-              / comid.model /  2 : "Roadrunner 1.0"
+            / comid.vendor / 1 : "ACME Ltd.",
+            / comid.model /  2 : "Roadrunner 1.0"
           }
         },
         [
           / measurement-map / {
-            / comid.mkey / 0 : 601({
-              / psa-swcomp-id / {
-                / signer-id /      0 : h'acbb11c7e4da2172
-                                         05523ce4ce1a245a
-                                         e1a239ae3c6bfd9e
-                                         7871f7e5d8bae86b',
-                / measurement-id / 1 : h'44aa336af4cb14a8
-                                         79432e53dd6571c7
-                                         fa9bccafb75f4882
-                                         59262d6ea3a4d91b'
-              }
-            }),
             / comid.mval / 1 : {
               / comid.version / 0 : {
                 / version / 0: "1.3.5"
               },
               / comid.digests / 2 : [
-                / hash-alg-id / 1, / sha256 /
-                / hash-value /  h'44aa336af4cb14a8
-                                  79432e53dd6571c7
-                                  fa9bccafb75f4882
-                                  59262d6ea3a4d91b'
+                [
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'44aa336af4cb14a8
+                                    79432e53dd6571c7
+                                    fa9bccafb75f4882
+                                    59262d6ea3a4d91b'
+                ]
               ],
               / comid.name / 11 : "PRoT"
-            }
+            },
+            / authorized-by / 2 : [
+              557([
+                / hash-alg-id / "sha-256",
+                / hash-value /  h'acbb11c7e4da2172
+                                  05523ce4ce1a245a
+                                  e1a239ae3c6bfd9e
+                                  7871f7e5d8bae86b'
+              ])
+            ]
           }
         ]
       ]
@@ -1480,116 +1529,6 @@ Implementation ID <code>acme-implementation-id-000000001</code>.<a href="#sectio
 <a href="#name-example-reference-value" class="selfRef">Example Reference Value</a>
           </figcaption></figure>
 </div>
-<div id="sec-swrel">
-<section id="section-3.3.1">
-          <h4 id="name-software-upgrades-and-patch">
-<a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-software-upgrades-and-patch" class="section-name selfRef">Software Upgrades and Patches</a>
-          </h4>
-<p id="section-3.3.1-1">In order to model software lifecycle events such as updates and patches, this
-profile defines a new triple that conveys the following semantics:<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.3.1-2.1">SUBJECT: a software component<a href="#section-3.3.1-2.1" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-3.3.1-2.2">PREDICATE: (non-critically / critically) (updates / patches)<a href="#section-3.3.1-2.2" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-3.3.1-2.3">OBJECT: another software component<a href="#section-3.3.1-2.3" class="pilcrow">¶</a>
-</li>
-          </ul>
-<p id="section-3.3.1-3">The triple is reified and used as the object of another triple,
-<code>psa-swrel-triple-record</code>, whose subject is the embedding environment.<a href="#section-3.3.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3.1-4">
-<pre>
-comid.psa-swrel-triples = 5
-
-$$triples-map-extension //= (
-  comid.psa-swrel-triples =&gt; [ + psa-swrel-triple-record ]
-)
-
-psa.updates = 1
-psa.patches = 2
-
-psa-swrel-rel = [
-  type: psa.updates / psa.patches
-  security-critical: bool ; true means it's a fix for a security bug
-]
-
-sw-rel = [
-  new: psa-swcomp-id ; identifier of the "new" firmware
-  rel: psa-swrel-rel ; patches, updates and the security flag
-  old: psa-swcomp-id ; identifier of the "old" firmware
-]
-
-psa-swrel-triple-record = [
-  environment-map
-  sw-rel
-]
-</pre><a href="#section-3.3.1-4" class="pilcrow">¶</a>
-</div>
-<p id="section-3.3.1-5">An example of a security critical update involving versions "1.3.5" and "1.4.0"
-of software component "PRoT" within the target environment associated with
-Implementation ID <code>acme-implementation-id-000000001</code> is shown in
-<a href="#ex-psa-swrel-update-crit" class="auto internal xref">Figure 4</a>.<a href="#section-3.3.1-5" class="pilcrow">¶</a></p>
-<span id="name-example-critical-software-u"></span><div id="ex-psa-swrel-update-crit">
-<figure id="figure-4">
-            <div class="alignLeft art-text artwork" id="section-3.3.1-6.1">
-<pre>
-/ concise-mid-tag / {
-  / comid.tag-identity / 1 : {
-    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
-  },
-  / comid.triples / 4 : {
-    / comid.psa-swrel-triples / 5 : [
-      [
-        / environment-map / {
-          / comid.class-id / 0 :
-          / tagged-impl-id-type / 600(
-            h'61636d652d696d706c656d656e746174
-              696f6e2d69642d303030303030303031'
-          ),
-          / comid.vendor / 1 : "ACME Ltd.",
-          / comid.model /  2 : "Roadrunner 1.0"
-        },
-
-        / sw-rel / [
-          / new / {
-            / signer-id /      0 : h'acbb11c7e4da2172
-                                     05523ce4ce1a245a
-                                     e1a239ae3c6bfd9e
-                                     7871f7e5d8bae86b',
-            / measurement-id / 1 : h'f690f7e924614995
-                                     dd26bf38cda79a25
-                                     d308eef0a6f4b5cf
-                                     b57bfbbd55efad57'
-          },
-
-          / rel / [
-            / type / 1, / psa.updates /
-            / security-critical / true
-          ],
-
-          / old / {
-            / signer-id /      0 : h'acbb11c7e4da2172
-                                     05523ce4ce1a245a
-                                     e1a239ae3c6bfd9e
-                                     7871f7e5d8bae86b',
-            / measurement-id / 1 : h'98b06c3f4bfeb294
-                                     f69dae2bbe7d4be0
-                                     750e258a86414d90
-                                     a17cda9e2e775337'
-          }
-        ]
-      ]
-    ]
-  }
-}
-</pre>
-</div>
-<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
-<a href="#name-example-critical-software-u" class="selfRef">Example Critical Software Upgrade</a>
-            </figcaption></figure>
-</div>
-</section>
-</div>
 </section>
 </div>
 <div id="sec-keys">
@@ -1599,8 +1538,8 @@ Implementation ID <code>acme-implementation-id-000000001</code> is shown in
         </h3>
 <p id="section-3.4-1">An Attestation Verification Claim carries the verification key associated with
 the Initial Attestation Key (IAK) of a PSA device.  When appraising Evidence,
-the Verifier uses the Implementation ID and Instance ID claims (see
-<a href="#sec-psa-rot-id" class="auto internal xref">Section 3.2</a>) to retrieve the verification key that it SHALL use to check
+the Verifier can use the Implementation ID and Instance ID claims (see
+<a href="#sec-psa-rot-id" class="auto internal xref">Section 3.2</a>) to look up the verification key that it SHALL use to check
 the signature on the Evidence.  This allows the Verifier to prove (or disprove)
 the Attester's claimed identity.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">Each verification key is provided alongside the corresponding device Instance
@@ -1620,11 +1559,11 @@ uses the profile described in this document, and MUST be ignored by a CoMID
 consumer that is parsing according to this profile.<a href="#section-3.4-3.3" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.4-4">The example in <a href="#ex-attestation-verification-claim" class="auto internal xref">Figure 5</a> shows the PSA Endorsement
+<p id="section-3.4-4">The example in <a href="#ex-attestation-verification-claim" class="auto internal xref">Figure 4</a> shows the PSA Endorsement
 of type Attestation Verification Claim carrying a secp256r1 EC public IAK
 associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
 <span id="name-example-attestation-verific"></span><div id="ex-attestation-verification-claim">
-<figure id="figure-5">
+<figure id="figure-4">
           <div class="alignLeft art-text artwork" id="section-3.4-5.1">
 <pre>
 / concise-mid-tag / {
@@ -1655,9 +1594,9 @@ associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.4-4" cl
           / verification-key-map / {
             / comid.key / 0 :
               "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA
-              ETl4iCZ47zrRbRG0TVf0dw7VFlHtv18HInY
-              hnmMNybo+A1wuECyVqrDSmLt4QQzZPBECV8
-              ANHS5HgGCCSr7E/Lg=="
+ETl4iCZ47zrRbRG0TVf0dw7VFlHtv18HInY
+hnmMNybo+A1wuECyVqrDSmLt4QQzZPBECV8
+ANHS5HgGCCSr7E/Lg=="
           }
         ]
       ]
@@ -1666,7 +1605,7 @@ associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.4-4" cl
 }
 </pre>
 </div>
-<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-example-attestation-verific" class="selfRef">Example Attestation Verification Claim</a>
           </figcaption></figure>
 </div>
@@ -1692,76 +1631,231 @@ component identifiers with the SAC unique Certificate Number.  When appraising
 Evidence, the Verifier can use the Certification Claims associated with the
 identified Attester as ancillary input to the Appraisal Policy, or to enrich
 the produced Attestation Result.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
-<p id="section-3.5-3">A Certification Claim is encoded in an <code>psa-cert-triple-record</code>, which extends
-the <code>$$triples-map-extension</code> socket, as follows:<a href="#section-3.5-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.5-4">
+<p id="section-3.5-3">A Certification Claim is encoded as a <code>conditional-endorsement-triple-record</code>.<a href="#section-3.5-3" class="pilcrow">¶</a></p>
+<p id="section-3.5-4">The SAC is encoded in a <code>psa-cert-num</code> that extends the
+<code>measurement-values-map</code>:<a href="#section-3.5-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.5-5">
 <pre>
-comid.psa-cert-triples = 4
-
-$$triples-map-extension //= (
-  comid.psa-cert-triples =&gt; [ + psa-cert-triple-record ]
+$$measurement-values-map-extension //= (
+  &amp;(psa-cert-num: 100) =&gt; psa-cert-num-type
 )
 
-psa-rot-descriptor = {
-  &amp;(immutable-prot: 1) =&gt; psa-implementation-id-type
-  &amp;(mutable-prot: 2) =&gt; [ * psa-swcomp-id ]
-
-}
-
-psa-cert-triple-record = [
-  psa-rot-descriptor
-  psa-cert-num-type
-]
-
 psa-cert-num-type = text .regexp "[0-9]{13} - [0-9]{5}"
-</pre><a href="#section-3.5-4" class="pilcrow">¶</a>
+</pre><a href="#section-3.5-5" class="pilcrow">¶</a>
 </div>
+<p id="section-3.5-6">The <code>conditional-endorsement-triple-record</code> is constructed as follows:<a href="#section-3.5-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.5-5.1">The Implementation ID of the immutable PSA RoT to which the SAC applies is
-encoded as a <code>tagged-impl-id-type</code> in the <code>psa.immutable-rot</code> of the
-<code>psa-rot-descriptor</code>;<a href="#section-3.5-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.5-7.1">The Implementation ID of the immutable PSA RoT to which the SAC applies is
+encoded as a <code>tagged-impl-id-type</code> in the <code>environment-map</code> of the
+<code>stateful-environment-record</code>;<a href="#section-3.5-7.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.5-5.2">Any software component that is part of the certified PSA RoT is encoded as a
-<code>psa-swcomp-id</code> (see <a href="#sec-ref-values" class="auto internal xref">Section 3.3</a>) in the <code>psa.mutable-rot</code> of the
-<code>psa-rot-descriptor</code>;<a href="#section-3.5-5.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.5-7.2">Any software component that is part of the certified PSA RoT is encoded as a
+reference value (see <a href="#sec-ref-values" class="auto internal xref">Section 3.3</a>) in the <code>measurement-map</code> of the
+<code>stateful-environment-record</code>;<a href="#section-3.5-7.2" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.5-5.3">The unique SAC Certificate Number is encoded in the <code>psa-cert-num-type</code>.<a href="#section-3.5-5.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.5-7.3">The unique SAC Certificate Number is encoded as <code>psa-cert-num</code> in the
+<code>measurement-values-map</code>.<a href="#section-3.5-7.3" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.5-6">A single CoMID can carry one or more Certification Claims.<a href="#section-3.5-6" class="pilcrow">¶</a></p>
-<p id="section-3.5-7">The example in <a href="#ex-certification-claim" class="auto internal xref">Figure 6</a> shows a Certification Claim that
+<p id="section-3.5-8">The example in <a href="#ex-certification-claim" class="auto internal xref">Figure 5</a> shows a Certification Claim that
 associates Certificate Number <code>1234567890123 - 12345</code> to Implementation ID
 <code>acme-implementation-id-000000001</code> and a single "PRoT" software component with
-version "1.3.5".<a href="#section-3.5-7" class="pilcrow">¶</a></p>
+version "1.3.5".<a href="#section-3.5-8" class="pilcrow">¶</a></p>
 <span id="name-example-certification-claim"></span><div id="ex-certification-claim">
+<figure id="figure-5">
+          <div class="alignLeft art-text artwork" id="section-3.5-9.1">
+<pre>
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'dbb0508ac658421c99c904124bab59ca'
+  },
+  / comid.triples / 4 : {
+    / comid.conditional-endorsement-triple / 9 : [
+      [
+        / stateful-environment-record / [
+          / environment-map / {
+            / comid.class / 0 : {
+              / comid.class-id / 0 :
+                / tagged-impl-id-type / 600(
+                  h'61636d652d696d706c656d656e746174
+                    696f6e2d69642d303030303030303031'
+                ),
+              / comid.vendor / 1 : "ACME Ltd.",
+              / comid.model /  2 : "Roadrunner 1.0"
+            }
+          },
+          / measurement-map / {
+            / comid.mval / 1 : {
+              / comid.version / 0 : {
+                / version / 0: "1.3.0"
+              },
+              / comid.digests / 2 : [
+                [
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'44aa336af4cb14a8
+                                    79432e53dd6571c7
+                                    fa9bccafb75f4882
+                                    59262d6ea3a4d91b'
+                ]
+              ],
+              / comid.name / 11 : "PRoT"
+            },
+            / authorized-by / 2 : [
+              557([
+                / hash-alg-id / "sha-256",
+                / hash-value /  h'acbb11c7e4da2172
+                                  05523ce4ce1a245a
+                                  e1a239ae3c6bfd9e
+                                  7871f7e5d8bae86b'
+              ])
+            ]
+          }
+        ],
+        / measurement-values-map / {
+           / psa.cert-num / 100 : "1234567890123 - 12345"
+        }
+      ]
+    ]
+  }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-example-certification-claim" class="selfRef">Example Certification Claim</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="sec-swrel">
+<section id="section-3.6">
+        <h3 id="name-software-upgrades-and-patch">
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-software-upgrades-and-patch" class="section-name selfRef">Software Upgrades and Patches</a>
+        </h3>
+<p id="section-3.6-1">In order to model software lifecycle events such as updates and patches, this
+profile defines a new triple that conveys the following semantics:<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.6-2.1">SUBJECT: a software component<a href="#section-3.6-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.6-2.2">PREDICATE: (non-critically / critically) (updates / patches)<a href="#section-3.6-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.6-2.3">OBJECT: another software component<a href="#section-3.6-2.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-3.6-3">The triple is reified and used as the object of another triple,
+<code>psa-swrel-triple-record</code>, whose subject is the embedding environment.<a href="#section-3.6-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.6-4">
+<pre>
+comid.psa-swrel-triples = TBD2
+
+$$triples-map-extension //= (
+  comid.psa-swrel-triples =&gt; [ + psa-swrel-triple-record ]
+)
+
+psa.updates = 1
+psa.patches = 2
+
+psa-swrel-rel = [
+  type: psa.updates / psa.patches
+  security-critical: bool ; true means it's a fix for a security bug
+]
+
+sw-rel = [
+  new: comid.measurement-map ; the "new" firmware
+  rel: psa-swrel-rel         ; patches/updates and the security flag
+  old: comid.measurement-map ; the "old" firmware
+]
+
+psa-swrel-triple-record = [
+  environment-map
+  sw-rel
+]
+</pre><a href="#section-3.6-4" class="pilcrow">¶</a>
+</div>
+<p id="section-3.6-5">An example of a security critical update involving versions "1.2.5" and "1.3.0"
+of software component "PRoT" within the target environment associated with
+Implementation ID <code>acme-implementation-id-000000001</code> is shown in
+<a href="#ex-psa-swrel-update-crit" class="auto internal xref">Figure 6</a>.<a href="#section-3.6-5" class="pilcrow">¶</a></p>
+<span id="name-example-critical-software-u"></span><div id="ex-psa-swrel-update-crit">
 <figure id="figure-6">
-          <div class="alignLeft art-text artwork" id="section-3.5-8.1">
+          <div class="alignLeft art-text artwork" id="section-3.6-6.1">
 <pre>
 / concise-mid-tag / {
   / comid.tag-identity / 1 : {
     / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
   },
   / comid.triples / 4 : {
-    / comid.psa-cert-triples / 4 : [
+    / comid.psa-swrel-triples / 5 : [
       [
-        / psa-rot-descriptor / {
-          / psa.immutable-rot / 1 :
+        / environment-map / {
+          / comid.class-id / 0 :
+          / tagged-impl-id-type / 600(
             h'61636d652d696d706c656d656e746174
-              696f6e2d69642d303030303030303031',
-          / psa.mutable-rot / 2 : [
-            / psa-swcomp-id / {
-              / signer-id /      0 : h'acbb11c7e4da2172
-                                       05523ce4ce1a245a
-                                       e1a239ae3c6bfd9e
-                                       7871f7e5d8bae86b',
-              / measurement-id / 1 : h'f690f7e924614995
-                                       dd26bf38cda79a25
-                                       d308eef0a6f4b5cf
-                                       b57bfbbd55efad57'
-            }
-          ]
+              696f6e2d69642d303030303030303031'
+          ),
+          / comid.vendor / 1 : "ACME Ltd.",
+          / comid.model /  2 : "Roadrunner 1.0"
         },
-        / psa-cert-num-type / "1234567890123 - 12345"
+
+        / sw-rel / [
+          / new / {
+            / comid.mval / 1 : {
+              / comid.version / 0 : {
+                / version / 0: "1.3.0"
+              },
+              / comid.digests / 2 : [
+                [
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'44aa336af4cb14a8
+                                    79432e53dd6571c7
+                                    fa9bccafb75f4882
+                                    59262d6ea3a4d91b'
+                ]
+              ],
+              / comid.name / 11 : "PRoT"
+            },
+            / authorized-by / 2 : [
+              557([
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'acbb11c7e4da2172
+                                    05523ce4ce1a245a
+                                    e1a239ae3c6bfd9e
+                                    7871f7e5d8bae86b'
+              ])
+            ]
+          },
+
+          / rel / [
+            / type / 1, / psa.updates /
+            / security-critical / true
+          ],
+
+          / old / {
+            / comid.mval / 1 : {
+              / comid.version / 0 : {
+                / version / 0: "1.2.5"
+              },
+              / comid.digests / 2 : [
+                [
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'98b06c3f4bfeb294
+                                    f69dae2bbe7d4be0
+                                    750e258a86414d90
+                                    a17cda9e2e775337'
+                ]
+              ],
+              / comid.name / 11 : "PRoT"
+            },
+            / authorized-by / 2 : [
+              557([
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'acbb11c7e4da2172
+                                    05523ce4ce1a245a
+                                    e1a239ae3c6bfd9e
+                                    7871f7e5d8bae86b'
+              ])
+            ]
+          }
+        ]
       ]
     ]
   }
@@ -1769,32 +1863,9 @@ version "1.3.5".<a href="#section-3.5-7" class="pilcrow">¶</a></p>
 </pre>
 </div>
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
-<a href="#name-example-certification-claim" class="selfRef">Example Certification Claim with `supplement` Link-Relation</a>
+<a href="#name-example-critical-software-u" class="selfRef">Example Critical Software Upgrade</a>
           </figcaption></figure>
 </div>
-</section>
-</div>
-<div id="sec-endorsements-block-list">
-<section id="section-3.6">
-        <h3 id="name-endorsements-block-list">
-<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-endorsements-block-list" class="section-name selfRef">Endorsements Block List</a>
-        </h3>
-<p id="section-3.6-1"><span class="cref">This is work in progress.  It may change or be removed in the future.</span><a href="#section-3.6-1" class="pilcrow">¶</a></p>
-<p id="section-3.6-2">The following three "blocklist" claims:<a href="#section-3.6-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.6-3.1">
-            <code>reference-blocklist-triple</code><a href="#section-3.6-3.1" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.6-3.2">
-            <code>attest-key-blocklist-triple</code><a href="#section-3.6-3.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.6-3.3">
-            <code>cert-blocklist-triple</code><a href="#section-3.6-3.3" class="pilcrow">¶</a>
-</li>
-        </ul>
-<p id="section-3.6-4">are defined with the same syntax but opposite semantics with regards to their
-"positive" counterparts to allow invalidating previously provisioned endorsements
-from the acceptable set.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1820,9 +1891,9 @@ from the acceptable set.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
 <p id="section-5.1-1">IANA is requested to allocate the following tag in the "CBOR Tags" registry
 <span>[<a href="#IANA.cbor-tags" class="cite xref">IANA.cbor-tags</a>]</span>, preferably with the specified value:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <span id="name-corim-cbor-tags"></span><div id="tbl-psa-cbor-tag">
-<table class="center" id="table-1">
+<table class="center" id="table-2">
           <caption>
-<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#table-2" class="selfRef">Table 2</a>:
 <a href="#name-corim-cbor-tags" class="selfRef">CoRIM CBOR Tags</a>
           </caption>
 <thead>
@@ -1836,12 +1907,7 @@ from the acceptable set.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">600</td>
               <td class="text-left" rowspan="1" colspan="1">tagged bytes</td>
-              <td class="text-left" rowspan="1" colspan="1">PSA Implementation ID (<a href="#sec-psa-rot-id" class="auto internal xref">Section 3.2</a> of RFCTHIS)</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">601</td>
-              <td class="text-left" rowspan="1" colspan="1">tagged map</td>
-              <td class="text-left" rowspan="1" colspan="1">PSA Software Component Identifier (<a href="#sec-ref-values" class="auto internal xref">Section 3.3</a> of RFCTHIS)</td>
+              <td class="text-left" rowspan="1" colspan="1">PSA Implementation ID (<a href="#sec-psa-rot-id" class="auto internal xref">Section 3.2</a> of RFCthis)</td>
             </tr>
           </tbody>
         </table>
@@ -1856,9 +1922,9 @@ from the acceptable set.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
 <p id="section-5.2-1">IANA is requested to register the following profile value in the
 <span class="cref">TODO</span> CoRIM registry.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <span id="name-psa-profile-for-corim"></span><div id="tbl-psa-corim-profile">
-<table class="center" id="table-2">
+<table class="left" id="table-3">
           <caption>
-<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#table-3" class="selfRef">Table 3</a>:
 <a href="#name-psa-profile-for-corim" class="selfRef">PSA profile for CoRIM</a>
           </caption>
 <thead>
@@ -1886,34 +1952,70 @@ from the acceptable set.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
         <h3 id="name-comid-codepoints">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-comid-codepoints" class="section-name selfRef">CoMID Codepoints</a>
         </h3>
-<p id="section-5.3-1">IANA is requested to register the following codepoints to the "CoMID Triples
-Map" registry.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<div id="comid-triples-map-extension">
+<section id="section-5.3.1">
+          <h4 id="name-comid-triples-map-extension">
+<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-comid-triples-map-extension" class="section-name selfRef">CoMID Triples Map Extension</a>
+          </h4>
+<p id="section-5.3.1-1">IANA is requested to register the following codepoints to the "CoMID Triples
+Map" registry.<a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
 <span id="name-psa-comid-triples"></span><div id="tbl-psa-comid-triples">
-<table class="center" id="table-3">
-          <caption>
-<a href="#table-3" class="selfRef">Table 3</a>:
+<table class="left" id="table-4">
+            <caption>
+<a href="#table-4" class="selfRef">Table 4</a>:
 <a href="#name-psa-comid-triples" class="selfRef">PSA CoMID Triples</a>
-          </caption>
+            </caption>
 <thead>
-            <tr>
-              <th class="text-left" rowspan="1" colspan="1">Index</th>
-              <th class="text-left" rowspan="1" colspan="1">Item Name</th>
-              <th class="text-left" rowspan="1" colspan="1">Specification</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">4</td>
-              <td class="text-left" rowspan="1" colspan="1">comid.psa-cert-triples</td>
-              <td class="text-left" rowspan="1" colspan="1">RFCTHIS</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">5</td>
-              <td class="text-left" rowspan="1" colspan="1">comid.psa-swrel-triples</td>
-              <td class="text-left" rowspan="1" colspan="1">RFCTHIS</td>
-            </tr>
-          </tbody>
-        </table>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Index</th>
+                <th class="text-left" rowspan="1" colspan="1">Item Name</th>
+                <th class="text-left" rowspan="1" colspan="1">Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">50</td>
+                <td class="text-left" rowspan="1" colspan="1">comid.psa-swrel-triples</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+</section>
+</div>
+<div id="comid-measurement-values-map-extension">
+<section id="section-5.3.2">
+          <h4 id="name-comid-measurement-values-ma">
+<a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-comid-measurement-values-ma" class="section-name selfRef">CoMID Measurement Values Map Extension</a>
+          </h4>
+<span id="name-measurement-values-map-exte"></span><div id="tbl-psa-comid-measurement-values-map">
+<table class="left" id="table-5">
+            <caption>
+<a href="#table-5" class="selfRef">Table 5</a>:
+<a href="#name-measurement-values-map-exte" class="selfRef">Measurement Values Map Extensions</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Key</th>
+                <th class="text-left" rowspan="1" colspan="1">Item Name</th>
+                <th class="text-left" rowspan="1" colspan="1">Item Type</th>
+                <th class="text-left" rowspan="1" colspan="1">Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">100</td>
+                <td class="text-left" rowspan="1" colspan="1">comid.psa-cert-num</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <code>psa-cert-num</code>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <a href="#sec-certificates" class="auto internal xref">Section 3.5</a> of RFCthis</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+</section>
 </div>
 </section>
 </div>
@@ -1972,8 +2074,12 @@ Map" registry.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <span class="refTitle">"PSA Certified"</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://www.psacertified.org">https://www.psacertified.org</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RATS-ARCH">[RATS-ARCH]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="seriesInfo">RFC 9334</span>, <span class="seriesInfo">DOI 10.17487/RFC9334</span>, <time datetime="2023-01" class="refDate">January 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9334">https://www.rfc-editor.org/rfc/rfc9334</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TEEP">[TEEP]</dt>
+      <dd>
+<span class="refAuthor">Pei, M.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">D. M. Wheeler</span>, <span class="refTitle">"Trusted Execution Environment Provisioning (TEEP) Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-teep-architecture-19</span>, <time datetime="2022-10-24" class="refDate">24 October 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19">https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
