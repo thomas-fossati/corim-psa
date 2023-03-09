@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Arm's Platform Security Architecture (PSA) Attestation Verifier Endorsements</title>
+<title>A CoRIM Profile for Arm's Platform Security Architecture (PSA)</title>
 <meta content="Thomas Fossati" name="author">
 <meta content="Yogesh Deshpande" name="author">
 <meta content="Henk Birkholz" name="author">
@@ -30,7 +30,7 @@ Endorsements as a profile of the CoRIM data model.
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.28.2
-    setuptools 67.3.2
+    setuptools 67.5.1
     six 1.16.0
     wcwidth 0.2.6
 -->
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">PSA Endorsements</td>
-<td class="right">February 2023</td>
+<td class="center">CoRIM PSA Profile</td>
+<td class="right">March 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Fossati, et al.</td>
-<td class="center">Expires 24 August 2023</td>
+<td class="center">Expires 10 September 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1063,17 +1063,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">RATS</dd>
+<dd class="workgroup">Remote ATtestation ProcedureS</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-fdb-rats-psa-endorsements-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-02-20" class="published">20 February 2023</time>
+<time datetime="2023-03-09" class="published">9 March 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-08-24">24 August 2023</time></dd>
+<dd class="expires"><time datetime="2023-09-10">10 September 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1091,7 +1091,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Arm's Platform Security Architecture (PSA) Attestation Verifier Endorsements</h1>
+<h1 id="title">A CoRIM Profile for Arm's Platform Security Architecture (PSA)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">PSA Endorsements include reference values, cryptographic key material and
@@ -1129,7 +1129,7 @@ Endorsements as a profile of the CoRIM data model.<a href="#section-abstract-1" 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1276,7 +1276,7 @@ that can be used to verify signed Evidence produced by the PSA RoT, along
 with the identifiers that bind the keys to their device instances;<a href="#section-3-3.2" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-3-3.3">Certification Claims (<a href="#sec-certificates" class="auto internal xref">Section 3.5</a>), i.e., metadata that describe
-the certification status associated with a PSA device.<a href="#section-3-3.3" class="pilcrow">¶</a>
+the certification status associated with a PSA device;<a href="#section-3-3.3" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-3-3.4">Software Relations (<a href="#sec-swrel" class="auto internal xref">Section 3.3.1</a>), used to model upgrade and patch
 relationships between software components;<a href="#section-3-3.4" class="pilcrow">¶</a>
@@ -1367,7 +1367,7 @@ in an <code>environment-map</code> as shown in <a href="#ex-psa-rot-id" class="a
 </div>
 <p id="section-3.2-7">Optional <code>vendor</code> and <code>model</code> can be specified as well.  Together, they are
 interpreted as a unique identifier of the product that embeds the PSA RoT.
-Consistently providing a product identifier is RECOMMENDED.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+It is RECOMMENDED to consistently provide a product identifier.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-ref-values">
@@ -1383,23 +1383,18 @@ of the PSA token (see Section 3.4.1 of <span>[<a href="#PSA-TOKEN" class="cite x
 <code>reference-triple-record</code>.  Since a <code>measurement-map</code> can encode one or more
 measurements, a single <code>reference-triple-record</code> can carry as many measurements
 as needed, provided they belong to the same PSA RoT identified in the subject of
-the "reference value" triple.  A single <code>reference-triple-record</code> SHALL
+the "reference value" triple.  A single <code>reference-triple-record</code> MUST
 completely describe the updatable PSA RoT.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">The identifier of a measured software component is encoded in a <code>psa-swcomp-id</code>
 object as follows:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.3-4">
 <pre>
 psa-swcomp-id = {
-  psa.measurement-type =&gt; text
-  psa.version =&gt; text
-  psa.signer-id =&gt; psa.hash-type
+  &amp;(signer-id: 0) =&gt; psa.hash-type
+  &amp;(measurement-id: 1) =&gt; psa.hash-type
 }
 
 psa.hash-type = bytes .size 32 / bytes .size 48 / bytes .size 64
-
-psa.measurement-type = 1
-psa.version = 4
-psa.signer-id = 5
 </pre><a href="#section-3.3-4" class="pilcrow">¶</a>
 </div>
 <p id="section-3.3-5">The semantics of the codepoints in the <code>psa-swcomp-id</code> map are equivalent to
@@ -1421,9 +1416,9 @@ $measured-element-type-choice /= tagged-psa-swcomp-id
 entry.  The <code>digests-type</code> array MAY contain more than one entry if multiple
 digests (obtained with different hash algorithms) of the same measured
 component exist.<a href="#section-3.3-9" class="pilcrow">¶</a></p>
-<p id="section-3.3-10">The example in <a href="#ex-reference-value" class="auto internal xref">Figure 3</a> shows a CoMID a PSA Endorsement of type
-Reference Value for a firmware measurement associated with Implementation ID
-<code>acme-implementation-id-000000001</code>.<a href="#section-3.3-10" class="pilcrow">¶</a></p>
+<p id="section-3.3-10">The example in <a href="#ex-reference-value" class="auto internal xref">Figure 3</a> shows a CoMID encoding a PSA Endorsement
+of type Reference Value for a firmware measurement associated with
+Implementation ID <code>acme-implementation-id-000000001</code>.<a href="#section-3.3-10" class="pilcrow">¶</a></p>
 <span id="name-example-reference-value"></span><div id="ex-reference-value">
 <figure id="figure-3">
           <div class="alignLeft art-text artwork" id="section-3.3-11.1">
@@ -1449,21 +1444,29 @@ Reference Value for a firmware measurement associated with Implementation ID
         [
           / measurement-map / {
             / comid.mkey / 0 : 601({
-              / psa.measurement-type / 1 : "PRoT",
-              / psa.version /          4 : "1.3.5",
-              / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                            05523ce4ce1a245a
-                                            e1a239ae3c6bfd9e
-                                            7871f7e5d8bae86b'
+              / psa-swcomp-id / {
+                / signer-id /      0 : h'acbb11c7e4da2172
+                                         05523ce4ce1a245a
+                                         e1a239ae3c6bfd9e
+                                         7871f7e5d8bae86b',
+                / measurement-id / 1 : h'44aa336af4cb14a8
+                                         79432e53dd6571c7
+                                         fa9bccafb75f4882
+                                         59262d6ea3a4d91b'
+              }
             }),
             / comid.mval / 1 : {
+              / comid.version / 0 : {
+                / version / 0: "1.3.5"
+              },
               / comid.digests / 2 : [
                 / hash-alg-id / 1, / sha256 /
                 / hash-value /  h'44aa336af4cb14a8
                                   79432e53dd6571c7
                                   fa9bccafb75f4882
                                   59262d6ea3a4d91b'
-              ]
+              ],
+              / comid.name / 11 : "PRoT"
             }
           }
         ]
@@ -1549,12 +1552,14 @@ Implementation ID <code>acme-implementation-id-000000001</code> is shown in
 
         / sw-rel / [
           / new / {
-            / psa.measurement-type / 1 : "PRoT",
-            / psa.version /          4 : "1.4.0",
-            / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                           05523ce4ce1a245a
-                                           e1a239ae3c6bfd9e
-                                           7871f7e5d8bae86b'
+            / signer-id /      0 : h'acbb11c7e4da2172
+                                     05523ce4ce1a245a
+                                     e1a239ae3c6bfd9e
+                                     7871f7e5d8bae86b',
+            / measurement-id / 1 : h'f690f7e924614995
+                                     dd26bf38cda79a25
+                                     d308eef0a6f4b5cf
+                                     b57bfbbd55efad57'
           },
 
           / rel / [
@@ -1563,12 +1568,14 @@ Implementation ID <code>acme-implementation-id-000000001</code> is shown in
           ],
 
           / old / {
-            / psa.measurement-type / 1 : "PRoT",
-            / psa.version /          4 : "1.3.5",
-            / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                           05523ce4ce1a245a
-                                           e1a239ae3c6bfd9e
-                                           7871f7e5d8bae86b'
+            / signer-id /      0 : h'acbb11c7e4da2172
+                                     05523ce4ce1a245a
+                                     e1a239ae3c6bfd9e
+                                     7871f7e5d8bae86b',
+            / measurement-id / 1 : h'98b06c3f4bfeb294
+                                     f69dae2bbe7d4be0
+                                     750e258a86414d90
+                                     a17cda9e2e775337'
           }
         ]
       ]
@@ -1695,12 +1702,10 @@ $$triples-map-extension //= (
   comid.psa-cert-triples =&gt; [ + psa-cert-triple-record ]
 )
 
-psa.immutable-rot = 1
-psa.mutable-rot = 2
-
 psa-rot-descriptor = {
-  psa.immutable-rot =&gt; psa-implementation-id-type
-  psa.mutable-rot =&gt; [ * psa-swcomp-id ]
+  &amp;(immutable-prot: 1) =&gt; psa-implementation-id-type
+  &amp;(mutable-prot: 2) =&gt; [ * psa-swcomp-id ]
+
 }
 
 psa-cert-triple-record = [
@@ -1745,12 +1750,14 @@ version "1.3.5".<a href="#section-3.5-7" class="pilcrow">¶</a></p>
               696f6e2d69642d303030303030303031',
           / psa.mutable-rot / 2 : [
             / psa-swcomp-id / {
-              / psa.measurement-type / 1 : "PRoT",
-              / psa.version /          4 : "1.3.5",
-              / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                             05523ce4ce1a245a
-                                             e1a239ae3c6bfd9e
-                                             7871f7e5d8bae86b'
+              / signer-id /      0 : h'acbb11c7e4da2172
+                                       05523ce4ce1a245a
+                                       e1a239ae3c6bfd9e
+                                       7871f7e5d8bae86b',
+              / measurement-id / 1 : h'f690f7e924614995
+                                       dd26bf38cda79a25
+                                       d308eef0a6f4b5cf
+                                       b57bfbbd55efad57'
             }
           ]
         },
@@ -1939,7 +1946,7 @@ Map" registry.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="PSA-TOKEN">[PSA-TOKEN]</dt>
         <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Brossard, M.</span>, <span class="refAuthor">Shaw, A. L.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Arm's Platform Security Architecture (PSA) Attestation Token"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-tschofenig-rats-psa-token-10</span>, <time datetime="2022-09-06" class="refDate">6 September 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-10">https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-10</a>&gt;</span>. </dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Brossard, M.</span>, <span class="refAuthor">Shaw, A. L.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Arm's Platform Security Architecture (PSA) Attestation Token"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-tschofenig-rats-psa-token-11</span>, <time datetime="2023-02-28" class="refDate">28 February 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11">https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-11</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>

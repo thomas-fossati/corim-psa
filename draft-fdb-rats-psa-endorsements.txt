@@ -2,16 +2,15 @@
 
 
 
-RATS                                                          T. Fossati
+Remote ATtestation ProcedureS                                 T. Fossati
 Internet-Draft                                              Y. Deshpande
 Intended status: Informational                                   Arm Ltd
-Expires: 24 August 2023                                      H. Birkholz
+Expires: 10 September 2023                                   H. Birkholz
                                                           Fraunhofer SIT
-                                                        20 February 2023
+                                                            9 March 2023
 
 
-    Arm's Platform Security Architecture (PSA) Attestation Verifier
-                              Endorsements
+     A CoRIM Profile for Arm's Platform Security Architecture (PSA)
                  draft-fdb-rats-psa-endorsements-latest
 
 Abstract
@@ -47,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 August 2023.
+   This Internet-Draft will expire on 10 September 2023.
 
 Copyright Notice
 
@@ -126,7 +125,7 @@ Table of Contents
       device instances;
 
    *  Certification Claims (Section 3.5), i.e., metadata that describe
-      the certification status associated with a PSA device.
+      the certification status associated with a PSA device;
 
    *  Software Relations (Section 3.3.1), used to model upgrade and
       patch relationships between software components;
@@ -200,7 +199,8 @@ Table of Contents
 
    Optional vendor and model can be specified as well.  Together, they
    are interpreted as a unique identifier of the product that embeds the
-   PSA RoT.  Consistently providing a product identifier is RECOMMENDED.
+   PSA RoT.  It is RECOMMENDED to consistently provide a product
+   identifier.
 
 3.3.  Reference Values
 
@@ -215,23 +215,18 @@ Table of Contents
    more measurements, a single reference-triple-record can carry as many
    measurements as needed, provided they belong to the same PSA RoT
    identified in the subject of the "reference value" triple.  A single
-   reference-triple-record SHALL completely describe the updatable PSA
+   reference-triple-record MUST completely describe the updatable PSA
    RoT.
 
    The identifier of a measured software component is encoded in a psa-
    swcomp-id object as follows:
 
    psa-swcomp-id = {
-     psa.measurement-type => text
-     psa.version => text
-     psa.signer-id => psa.hash-type
+     &(signer-id: 0) => psa.hash-type
+     &(measurement-id: 1) => psa.hash-type
    }
 
    psa.hash-type = bytes .size 32 / bytes .size 48 / bytes .size 64
-
-   psa.measurement-type = 1
-   psa.version = 4
-   psa.signer-id = 5
 
    The semantics of the codepoints in the psa-swcomp-id map are
    equivalent to those in the psa-software-component map defined in
@@ -253,8 +248,8 @@ Table of Contents
    multiple digests (obtained with different hash algorithms) of the
    same measured component exist.
 
-   The example in Figure 3 shows a CoMID a PSA Endorsement of type
-   Reference Value for a firmware measurement associated with
+   The example in Figure 3 shows a CoMID encoding a PSA Endorsement of
+   type Reference Value for a firmware measurement associated with
    Implementation ID acme-implementation-id-000000001.
 
    / concise-mid-tag / {
@@ -278,21 +273,29 @@ Table of Contents
            [
              / measurement-map / {
                / comid.mkey / 0 : 601({
-                 / psa.measurement-type / 1 : "PRoT",
-                 / psa.version /          4 : "1.3.5",
-                 / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                               05523ce4ce1a245a
-                                               e1a239ae3c6bfd9e
-                                               7871f7e5d8bae86b'
+                 / psa-swcomp-id / {
+                   / signer-id /      0 : h'acbb11c7e4da2172
+                                            05523ce4ce1a245a
+                                            e1a239ae3c6bfd9e
+                                            7871f7e5d8bae86b',
+                   / measurement-id / 1 : h'44aa336af4cb14a8
+                                            79432e53dd6571c7
+                                            fa9bccafb75f4882
+                                            59262d6ea3a4d91b'
+                 }
                }),
                / comid.mval / 1 : {
+                 / comid.version / 0 : {
+                   / version / 0: "1.3.5"
+                 },
                  / comid.digests / 2 : [
                    / hash-alg-id / 1, / sha256 /
                    / hash-value /  h'44aa336af4cb14a8
                                      79432e53dd6571c7
                                      fa9bccafb75f4882
                                      59262d6ea3a4d91b'
-                 ]
+                 ],
+                 / comid.name / 11 : "PRoT"
                }
              }
            ]
@@ -367,12 +370,14 @@ Table of Contents
 
            / sw-rel / [
              / new / {
-               / psa.measurement-type / 1 : "PRoT",
-               / psa.version /          4 : "1.4.0",
-               / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                              05523ce4ce1a245a
-                                              e1a239ae3c6bfd9e
-                                              7871f7e5d8bae86b'
+               / signer-id /      0 : h'acbb11c7e4da2172
+                                        05523ce4ce1a245a
+                                        e1a239ae3c6bfd9e
+                                        7871f7e5d8bae86b',
+               / measurement-id / 1 : h'f690f7e924614995
+                                        dd26bf38cda79a25
+                                        d308eef0a6f4b5cf
+                                        b57bfbbd55efad57'
              },
 
              / rel / [
@@ -381,12 +386,14 @@ Table of Contents
              ],
 
              / old / {
-               / psa.measurement-type / 1 : "PRoT",
-               / psa.version /          4 : "1.3.5",
-               / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                              05523ce4ce1a245a
-                                              e1a239ae3c6bfd9e
-                                              7871f7e5d8bae86b'
+               / signer-id /      0 : h'acbb11c7e4da2172
+                                        05523ce4ce1a245a
+                                        e1a239ae3c6bfd9e
+                                        7871f7e5d8bae86b',
+               / measurement-id / 1 : h'98b06c3f4bfeb294
+                                        f69dae2bbe7d4be0
+                                        750e258a86414d90
+                                        a17cda9e2e775337'
              }
            ]
          ]
@@ -497,12 +504,10 @@ Table of Contents
      comid.psa-cert-triples => [ + psa-cert-triple-record ]
    )
 
-   psa.immutable-rot = 1
-   psa.mutable-rot = 2
-
    psa-rot-descriptor = {
-     psa.immutable-rot => psa-implementation-id-type
-     psa.mutable-rot => [ * psa-swcomp-id ]
+     &(immutable-prot: 1) => psa-implementation-id-type
+     &(mutable-prot: 2) => [ * psa-swcomp-id ]
+
    }
 
    psa-cert-triple-record = [
@@ -543,12 +548,14 @@ Table of Contents
                  696f6e2d69642d303030303030303031',
              / psa.mutable-rot / 2 : [
                / psa-swcomp-id / {
-                 / psa.measurement-type / 1 : "PRoT",
-                 / psa.version /          4 : "1.3.5",
-                 / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                                05523ce4ce1a245a
-                                                e1a239ae3c6bfd9e
-                                                7871f7e5d8bae86b'
+                 / signer-id /      0 : h'acbb11c7e4da2172
+                                          05523ce4ce1a245a
+                                          e1a239ae3c6bfd9e
+                                          7871f7e5d8bae86b',
+                 / measurement-id / 1 : h'f690f7e924614995
+                                          dd26bf38cda79a25
+                                          d308eef0a6f4b5cf
+                                          b57bfbbd55efad57'
                }
              ]
            },
@@ -654,9 +661,9 @@ Normative References
               Tschofenig, H., Frost, S., Brossard, M., Shaw, A. L., and
               T. Fossati, "Arm's Platform Security Architecture (PSA)
               Attestation Token", Work in Progress, Internet-Draft,
-              draft-tschofenig-rats-psa-token-10, 6 September 2022,
+              draft-tschofenig-rats-psa-token-11, 28 February 2023,
               <https://datatracker.ietf.org/doc/html/draft-tschofenig-
-              rats-psa-token-10>.
+              rats-psa-token-11>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
