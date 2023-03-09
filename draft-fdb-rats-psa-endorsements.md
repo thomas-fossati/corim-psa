@@ -56,8 +56,8 @@ entity:
 --- abstract
 
 PSA Endorsements include reference values, endorsed values, cryptographic key
-material and certification status information that a Verifier needs in order to
-appraise attestation Evidence produced by a PSA device.  This memo defines such
+material and certification status information that a Verifier may need in order
+to appraise attestation Evidence produced by a PSA device.  This memo defines
 PSA Endorsements as a profile of the CoRIM data model.
 
 --- middle
@@ -171,13 +171,13 @@ the updatable PSA RoT.
 The elements of the `psa-software-component` map defined in {{Section 4.4.1 of
 PSA-TOKEN}} are matched against CoMID `measurement-map` entries as follows:
 
-PSA Evidence | PSA Endorsement
+PSA Evidence | PSA Endorsement | Description
 ---|---
-`measurement-type` | `measurement-values-map.name`
-`measurement-value` | `measurement-values-map.digests[*][1]`
-`version` | `measurement-values-map.version.version`
+`measurement-type` | `measurement-values-map.name` | {{Section 4.4.1.1 of PSA-TOKEN}}
+`measurement-value` | `measurement-values-map.digests[*][1]` | {{Section 4.4.1.2 of PSA-TOKEN}}
+`version` | `measurement-values-map.version.version` | {{Section 4.4.1.3 of PSA-TOKEN}}
 `measurement-desc` | `measurement-values-map.digests[*][0]`
-`signer-id` | `authorized-by[0]`
+`signer-id` | `authorized-by[0]` | {{Section 4.4.1.4 of PSA-TOKEN}}
 {: #tbl-psa-swcomp-mappings title="PSA Software Component Mappings" }
 
 The `digests` array MUST contain at least one entry and MAY contain more than
@@ -305,21 +305,6 @@ Implementation ID `acme-implementation-id-000000001` is shown in
 {::include examples/swrel-update-crit.diag}
 ~~~
 {: #ex-psa-swrel-update-crit title="Example Critical Software Upgrade" }
-
-## Endorsements Block List
-{: #sec-endorsements-block-list}
-
-<cref>This is work in progress.  It may change or be removed in the future.</cref>
-
-The following three "blocklist" claims:
-
-* `reference-blocklist-triple`
-* `attest-key-blocklist-triple`
-* `cert-blocklist-triple`
-
-are defined with the same syntax but opposite semantics with regards to their
-"positive" counterparts to allow invalidating previously provisioned endorsements
-from the acceptable set.
 
 # Security Considerations
 
