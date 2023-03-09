@@ -7,10 +7,10 @@ category: info
 ipr: trust200902
 area: "Security"
 workgroup: "Remote ATtestation ProcedureS"
+submissionType: IETF
 
 stand_alone: yes
 pi:
-
   rfcedstyle: yes
   toc: yes
   tocindent: yes
@@ -40,39 +40,44 @@ author:
 
 normative:
   PSA-TOKEN: I-D.tschofenig-rats-psa-token
-
   CoRIM: I-D.ietf-rats-corim
 
 informative:
   RATS-ARCH: RFC9334
-
+  TEEP: I-D.ietf-teep-architecture
   PSA-CERTIFIED:
    target: https://www.psacertified.org
    title: PSA Certified
    date: 2021
 
+entity:
+  SELF: "RFCthis"
+
 --- abstract
 
-PSA Endorsements include reference values, cryptographic key material and
-certification status information that a Verifier needs in order to appraise
-attestation Evidence produced by a PSA device.  This memo defines such PSA
-Endorsements as a profile of the CoRIM data model.
+PSA Endorsements include reference values, endorsed values, cryptographic key
+material and certification status information that a Verifier may need in order
+to appraise attestation Evidence produced by a PSA device.  This memo defines
+PSA Endorsements as a profile of the CoRIM data model.
 
 --- middle
 
 # Introduction
 
-PSA Endorsements include reference values, cryptographic key material and
-certification status information that a Verifier needs in order to appraise
-attestation Evidence produced by a PSA device {{PSA-TOKEN}}.  This memo defines
-such PSA Endorsements as a profile of the CoRIM data model {{CoRIM}}.
+PSA Endorsements include reference values, endorsed values, cryptographic key
+material and certification status information that a Verifier needs in order to
+appraise attestation Evidence produced by a PSA device {{PSA-TOKEN}}.  This
+memo defines such PSA Endorsements as a profile of the CoRIM data model
+{{CoRIM}}.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14}
 
-The reader is assumed to be familiar with the terms defined in Section 2.1 of
-{{PSA-TOKEN}} and in Section 4 of {{RATS-ARCH}}.
+An understanding of the {{CoRIM}} data model is a prerequisite.
+
+The reader is also assumed to be familiar with the terms defined in {{Section
+2.1 of PSA-TOKEN}} and in {{Section 4 of RATS-ARCH}}.
 
 # PSA Endorsements
 {: #sec-psa-endorsements }
@@ -84,39 +89,47 @@ cryptographic key material needed to verify Evidence signed by the device's PSA
 RoT. Additionally, PSA Endorsements can include information related to the
 certification status of the attesting device.
 
-There are five types of PSA Endorsements:
+There are three basic types of PSA Endorsements:
 
 * Reference Values ({{sec-ref-values}}), i.e., measurements of the PSA RoT
   firmware;
 * Attestation Verification Claims ({{sec-keys}}), i.e., cryptographic keys
-  that can be used to verify signed Evidence produced by the PSA RoT, along
+  that are used to verify signed Evidence produced by the PSA RoT, along
   with the identifiers that bind the keys to their device instances;
 * Certification Claims ({{sec-certificates}}), i.e., metadata that describe
   the certification status associated with a PSA device;
+
+There is a fourth PSA Endorsement type that aims at covering more advanced
+Verifier use cases (e.g., the one described in {{Section 7 of TEEP}}):
+
 * Software Relations ({{sec-swrel}}), used to model upgrade and patch
-  relationships between software components;
-* Endorsements Block List ({{sec-endorsements-block-list}}), used to invalidate
-  previously provisioned Endorsements.
+  relationships between software components.
 
 ## PSA Endorsement Profile
 
 PSA Endorsements are carried in one or more CoMIDs inside a CoRIM.
 
-The profile attribute in the CoRIM MUST be present and MUST have a single entry
-set to the uri `http://arm.com/psa/iot/1` as shown in {{ex-psa-iot-profile}}.
+The profile attribute in the CoRIM MUST be present and MUST be set to the URI
+`http://arm.com/psa/iot/1` as shown in {{ex-psa-iot-profile}}.
 
 ~~~
 {::include examples/profile.diag}
 ~~~
 {: #ex-psa-iot-profile title="PSA IoT version 1, CoRIM profile" }
 
+The list of all, and only, the CoMIDs that are currently "active" (i.e., CoMIDs
+that contain triples that can be used for appraisal) is provided in a CoBOM
+tag.
+
+<cref>TODO CoBOM example</cref>
+
 ## PSA Endorsements to PSA RoT Linkage
 {: #sec-psa-rot-id}
 
 Each PSA Endorsement - be it a Reference Value, Attestation Verification Claim
-or Certification Claim - is associated with an immutable PSA RoT.  A PSA
-Endorsement is associated to its PSA RoT by means of the unique PSA RoT
-identifier known as Implementation ID (see Section 3.2.2 of {{PSA-TOKEN}}).
+or Certification Claim - is associated with an immutable PSA RoT.  The linkage
+between a PSA Endorsement and its PSA RoT is made by means of the unique PSA
+RoT identifier known as Implementation ID (see {{Section 3.2.2 of PSA-TOKEN}}).
 
 In order to support PSA Implementation IDs, the CoMID type
 `$class-id-type-choice` is extended as follows:
@@ -126,9 +139,9 @@ In order to support PSA Implementation IDs, the CoMID type
 ~~~
 
 Besides, a PSA Endorsement can be associated with a specific instance of a
-certain PSA RoT - as in the case of Attestation Verification Claims.  A PSA
+certain PSA RoT - as is the case for Attestation Verification Claims.  A PSA
 Endorsement is associated with a PSA RoT instance by means of the Instance ID
-(see Section 3.2.1 of {{PSA-TOKEN}}) and its "parent" Implementation ID.
+(see {{Section 3.2.1 of PSA-TOKEN}}) and its "parent" Implementation ID.
 
 These identifiers are typically found in the subject of a CoMID triple, encoded
 in an `environment-map` as shown in {{ex-psa-rot-id}}.
@@ -148,41 +161,31 @@ It is RECOMMENDED to consistently provide a product identifier.
 Reference Values carry measurements and other metadata associated with the
 updatable firmware in a PSA RoT.  When appraising Evidence, the Verifier
 compares Reference Values against the values found in the Software Components
-of the PSA token (see Section 3.4.1 of {{PSA-TOKEN}}).
+of the PSA token (see {{Section 3.4.1 of PSA-TOKEN}}).
 
-Each measurement is encoded in a `measurement-map` of a CoMID
-`reference-triple-record`.  Since a `measurement-map` can encode one or more
-measurements, a single `reference-triple-record` can carry as many measurements
-as needed, provided they belong to the same PSA RoT identified in the subject of
-the "reference value" triple.  A single `reference-triple-record` MUST
-completely describe the updatable PSA RoT.
+When there is more than one measurement associated to a certain PSA RoT, the
+measurements are spread across multiple `reference-triple-record`s and, in
+certain cases, across multiple CoMIDs.  A single CoBOM MUST completely describe
+the updatable PSA RoT.
 
-The identifier of a measured software component is encoded in a `psa-swcomp-id`
-object as follows:
+The elements of the `psa-software-component` map defined in {{Section 4.4.1 of
+PSA-TOKEN}} are matched against CoMID `measurement-map` entries as follows:
 
-~~~
-{::include psa-ext/swcomp-id.cddl}
-~~~
+PSA Evidence | PSA Endorsement | Description
+---|---
+`measurement-type` | `measurement-values-map.name` | {{Section 4.4.1.1 of PSA-TOKEN}}
+`measurement-value` | `measurement-values-map.digests[*][1]` | {{Section 4.4.1.2 of PSA-TOKEN}}
+`version` | `measurement-values-map.version.version` | {{Section 4.4.1.3 of PSA-TOKEN}}
+`measurement-desc` | `measurement-values-map.digests[*][0]`
+`signer-id` | `authorized-by[0]` | {{Section 4.4.1.4 of PSA-TOKEN}}
+{: #tbl-psa-swcomp-mappings title="PSA Software Component Mappings" }
 
-The semantics of the codepoints in the `psa-swcomp-id` map are equivalent to
-those in the `psa-software-component` map defined in Section 3.4.1 of
-{{PSA-TOKEN}}.  The `psa-swcomp-id` MUST uniquely identify a given software
-component within the PSA RoT / product.
+The `digests` array MUST contain at least one entry and MAY contain more than
+one entry if multiple digests (obtained with different hash algorithms) of the
+same measured component exist.
 
-In order to support PSA Reference Value identifiers, the CoMID type
-`$measured-element-type-choice` is extended as follows:
-
-~~~
-{::include psa-ext/swcomp-id-ext.cddl}
-~~~
-
-and automatically bound to the `comid.mkey` in the `measurement-map`.
-
-The raw measurement is encoded in a `digests-type` object in the
-`measurement-values-map`.  The `digests-type` array MUST contain at least one
-entry.  The `digests-type` array MAY contain more than one entry if multiple
-digests (obtained with different hash algorithms) of the same measured
-component exist.
+The `authorized-by` in the `measurement-map` MUST have exactly one entry of
+type `tagged-thumbprint-type` (CBOR tag 557) containing the `signer-id`.
 
 The example in {{ex-reference-value}} shows a CoMID encoding a PSA Endorsement
 of type Reference Value for a firmware measurement associated with
@@ -193,41 +196,13 @@ Implementation ID `acme-implementation-id-000000001`.
 ~~~
 {: #ex-reference-value title="Example Reference Value"}
 
-### Software Upgrades and Patches
-{: #sec-swrel}
-
-In order to model software lifecycle events such as updates and patches, this
-profile defines a new triple that conveys the following semantics:
-
-* SUBJECT: a software component
-* PREDICATE: (non-critically / critically) (updates / patches)
-* OBJECT: another software component
-
-The triple is reified and used as the object of another triple,
-`psa-swrel-triple-record`, whose subject is the embedding environment.
-
-~~~
-{::include psa-ext/swrel.cddl}
-~~~
-
-An example of a security critical update involving versions "1.3.5" and "1.4.0"
-of software component "PRoT" within the target environment associated with
-Implementation ID `acme-implementation-id-000000001` is shown in
-{{ex-psa-swrel-update-crit}}.
-
-~~~
-{::include examples/swrel-update-crit.diag}
-~~~
-{: #ex-psa-swrel-update-crit title="Example Critical Software Upgrade" }
-
-
 ## Attestation Verification Claims
 {: #sec-keys}
 
 An Attestation Verification Claim carries the verification key associated with
 the Initial Attestation Key (IAK) of a PSA device.  When appraising Evidence,
-the Verifier uses the Implementation ID and Instance ID claims (see
-{{sec-psa-rot-id}}) to retrieve the verification key that it SHALL use to check
+the Verifier can use the Implementation ID and Instance ID claims (see
+{{sec-psa-rot-id}}) to look up the verification key that it SHALL use to check
 the signature on the Evidence.  This allows the Verifier to prove (or disprove)
 the Attester's claimed identity.
 
@@ -274,22 +249,25 @@ Evidence, the Verifier can use the Certification Claims associated with the
 identified Attester as ancillary input to the Appraisal Policy, or to enrich
 the produced Attestation Result.
 
-A Certification Claim is encoded in an `psa-cert-triple-record`, which extends
-the `$$triples-map-extension` socket, as follows:
+A Certification Claim is encoded as a `conditional-endorsement-triple-record`.
+
+The SAC is encoded in a `psa-cert-num` that extends the
+`measurement-values-map`:
 
 ~~~
 {::include psa-ext/cert-triple.cddl}
 ~~~
 
-* The Implementation ID of the immutable PSA RoT to which the SAC applies is
-  encoded as a `tagged-impl-id-type` in the `psa.immutable-rot` of the
-  `psa-rot-descriptor`;
-* Any software component that is part of the certified PSA RoT is encoded as a
-  `psa-swcomp-id` (see {{sec-ref-values}}) in the `psa.mutable-rot` of the
-  `psa-rot-descriptor`;
-* The unique SAC Certificate Number is encoded in the `psa-cert-num-type`.
+The `conditional-endorsement-triple-record` is constructed as follows:
 
-A single CoMID can carry one or more Certification Claims.
+* The Implementation ID of the immutable PSA RoT to which the SAC applies is
+  encoded as a `tagged-impl-id-type` in the `environment-map` of the
+  `stateful-environment-record`;
+* Any software component that is part of the certified PSA RoT is encoded as a
+  reference value (see {{sec-ref-values}}) in the `measurement-map` of the
+  `stateful-environment-record`;
+* The unique SAC Certificate Number is encoded as `psa-cert-num` in the
+  `measurement-values-map`.
 
 The example in {{ex-certification-claim}} shows a Certification Claim that
 associates Certificate Number `1234567890123 - 12345` to Implementation ID
@@ -299,22 +277,34 @@ version "1.3.5".
 ~~~
 {::include examples/cert-val.diag}
 ~~~
-{: #ex-certification-claim title="Example Certification Claim with `supplement` Link-Relation"}
+{: #ex-certification-claim title="Example Certification Claim"}
 
-## Endorsements Block List
-{: #sec-endorsements-block-list}
+## Software Upgrades and Patches
+{: #sec-swrel}
 
-<cref>This is work in progress.  It may change or be removed in the future.</cref>
+In order to model software lifecycle events such as updates and patches, this
+profile defines a new triple that conveys the following semantics:
 
-The following three "blocklist" claims:
+* SUBJECT: a software component
+* PREDICATE: (non-critically / critically) (updates / patches)
+* OBJECT: another software component
 
-* `reference-blocklist-triple`
-* `attest-key-blocklist-triple`
-* `cert-blocklist-triple`
+The triple is reified and used as the object of another triple,
+`psa-swrel-triple-record`, whose subject is the embedding environment.
 
-are defined with the same syntax but opposite semantics with regards to their
-"positive" counterparts to allow invalidating previously provisioned endorsements
-from the acceptable set.
+~~~
+{::include psa-ext/swrel.cddl}
+~~~
+
+An example of a security critical update involving versions "1.2.5" and "1.3.0"
+of software component "PRoT" within the target environment associated with
+Implementation ID `acme-implementation-id-000000001` is shown in
+{{ex-psa-swrel-update-crit}}.
+
+~~~
+{::include examples/swrel-update-crit.diag}
+~~~
+{: #ex-psa-swrel-update-crit title="Example Critical Software Upgrade" }
 
 # Security Considerations
 
@@ -329,8 +319,7 @@ IANA is requested to allocate the following tag in the "CBOR Tags" registry
 
 | Tag | Data Item | Semantics |
 |---
-| 600 | tagged bytes | PSA Implementation ID ({{sec-psa-rot-id}} of RFCTHIS) |
-| 601 | tagged map | PSA Software Component Identifier ({{sec-ref-values}} of RFCTHIS) |
+| 600 | tagged bytes | PSA Implementation ID ({{sec-psa-rot-id}} of {{&SELF}}) |
 {: #tbl-psa-cbor-tag title="CoRIM CBOR Tags"}
 
 ## CoRIM Profile Registration
@@ -341,18 +330,32 @@ IANA is requested to register the following profile value in the
 | Profile Value | Type | Semantics |
 |---
 | `http://arm.com/psa/iot/1` | uri | The CoRIM profile specified by this document |
-{: #tbl-psa-corim-profile title="PSA profile for CoRIM"}
+{: #tbl-psa-corim-profile
+   align="left"
+   title="PSA profile for CoRIM"}
 
 ## CoMID Codepoints
+
+### CoMID Triples Map Extension
 
 IANA is requested to register the following codepoints to the "CoMID Triples
 Map" registry.
 
 | Index | Item Name | Specification
 |---
-| 4 | comid.psa-cert-triples | RFCTHIS
-| 5 | comid.psa-swrel-triples | RFCTHIS
-{: #tbl-psa-comid-triples title="PSA CoMID Triples"}
+| 50 | comid.psa-swrel-triples | {{&SELF}}
+{: #tbl-psa-comid-triples
+   align="left"
+   title="PSA CoMID Triples"}
+
+### CoMID Measurement Values Map Extension
+
+| Key | Item Name | Item Type | Specification
+|---
+| 100 | comid.psa-cert-num | `psa-cert-num` | {{sec-certificates}} of {{&SELF}}
+{: #tbl-psa-comid-measurement-values-map
+   align="left"
+   title="Measurement Values Map Extensions"}
 
 # Acknowledgements
 {: numbered="no"}

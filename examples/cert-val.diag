@@ -1,26 +1,52 @@
 / concise-mid-tag / {
   / comid.tag-identity / 1 : {
-    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
-  }, 
+    / comid.tag-id / 0 : h'dbb0508ac658421c99c904124bab59ca'
+  },
   / comid.triples / 4 : {
-    / comid.psa-cert-triples / 4 : [
+    / comid.conditional-endorsement-triple / 9 : [
       [
-        / psa-rot-descriptor / {
-          / psa.immutable-rot / 1 :
-            h'61636d652d696d706c656d656e746174
-              696f6e2d69642d303030303030303031',
-          / psa.mutable-rot / 2 : [
-            / psa-swcomp-id / {
-              / psa.measurement-type / 1 : "PRoT",
-              / psa.version /          4 : "1.3.5",
-              / psa.signer-id /        5 : h'acbb11c7e4da2172
-                                             05523ce4ce1a245a
-                                             e1a239ae3c6bfd9e
-                                             7871f7e5d8bae86b'
+        / stateful-environment-record / [
+          / environment-map / {
+            / comid.class / 0 : {
+              / comid.class-id / 0 :
+                / tagged-impl-id-type / 600(
+                  h'61636d652d696d706c656d656e746174
+                    696f6e2d69642d303030303030303031'
+                ),
+              / comid.vendor / 1 : "ACME Ltd.",
+              / comid.model /  2 : "Roadrunner 1.0"
             }
-          ]
-        },
-        / psa-cert-num-type / "1234567890123 - 12345"
+          },
+          / measurement-map / {
+            / comid.mval / 1 : {
+              / comid.version / 0 : {
+                / version / 0: "1.3.0"
+              },
+              / comid.digests / 2 : [
+                [
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'44aa336af4cb14a8
+                                    79432e53dd6571c7
+                                    fa9bccafb75f4882
+                                    59262d6ea3a4d91b'
+                ]
+              ],
+              / comid.name / 11 : "PRoT"
+            },
+            / authorized-by / 2 : [
+              557([
+                / hash-alg-id / "sha-256",
+                / hash-value /  h'acbb11c7e4da2172
+                                  05523ce4ce1a245a
+                                  e1a239ae3c6bfd9e
+                                  7871f7e5d8bae86b'
+              ])
+            ]
+          }
+        ],
+        / measurement-values-map / {
+           / psa.cert-num / 100 : "1234567890123 - 12345"
+        }
       ]
     ]
   }

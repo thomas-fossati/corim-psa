@@ -1,4 +1,4 @@
-comid.psa-swrel-triples = 5
+comid.psa-swrel-triples = TBD2
 
 $$triples-map-extension //= (
   comid.psa-swrel-triples => [ + psa-swrel-triple-record ]
@@ -13,9 +13,9 @@ psa-swrel-rel = [
 ]
 
 sw-rel = [
-  new: psa-swcomp-id ; identifier of the "new" firmware
-  rel: psa-swrel-rel ; patches, updates and the security flag
-  old: psa-swcomp-id ; identifier of the "old" firmware
+  new: comid.measurement-map ; the "new" firmware
+  rel: psa-swrel-rel         ; patches/updates and the security flag
+  old: comid.measurement-map ; the "old" firmware
 ]
 
 psa-swrel-triple-record = [
