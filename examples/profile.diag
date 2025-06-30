@@ -1,4 +1,4 @@
 / corim-map / {
-  / corim.profile / 3: 32("http://arm.com/psa/iot/1")
+  / corim.profile / 3: 32("tag:arm.com,2025:psa#1.0.0")
   / ... /
 }

@@ -1,6 +1,4 @@
 ; from draft-tschofenig-rats-psa-token
 psa-implementation-id-type = bytes .size 32
 
-tagged-implementation-id-type = #6.600(implementation-id-type)
-
-$class-id-type-choice /= tagged-implementation-id-type
+tagged-implementation-id-type = #6.560(psa-implementation-id-type)
