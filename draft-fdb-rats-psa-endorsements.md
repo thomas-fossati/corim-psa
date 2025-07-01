@@ -236,7 +236,7 @@ psa-swcomp-measurement-map = {
 The complete example of a Reference Value CoMID Triple that encodes multiple `psa-sw-component` is given {{ex-reference-value}}.
 
 ~~~ cbor.diag
-{:: include examples/ref-value.diag }
+{::include examples/ref-value.diag}
 ~~~
 {: #ex-reference-value title="Example Reference Value"}
 
