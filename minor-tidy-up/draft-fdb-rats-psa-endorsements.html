@@ -1191,16 +1191,13 @@ PSA Endorsements as a profile of the CoRIM data model.<a href="#section-abstract
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-cbor-tag-registrations" class="internal xref">CBOR Tag Registrations</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-comid-codepoints" class="internal xref">CoMID Codepoints</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-comid-codepoints" class="internal xref">CoMID Codepoints</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-comid-triples-map-extension" class="internal xref">CoMID Triples Map Extension</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
+                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-comid-triples-map-extension" class="internal xref">CoMID Triples Map Extension</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
-                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-comid-measurement-values-ma" class="internal xref">CoMID Measurement Values Map Extension</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.2">
+                    <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-comid-measurement-values-ma" class="internal xref">CoMID Measurement Values Map Extension</a></p>
 </li>
                 </ul>
 </li>
@@ -1250,7 +1247,7 @@ NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">An understanding of the <span>[<a href="#CoRIM" class="cite xref">CoRIM</a>]</span> data model is a prerequisite.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">The reader is also assumed to be familiar with the terms defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-2.1" class="relref">Section 2.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span> and in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-4" class="relref">Section 4</a> of [<a href="#RATS-ARCH" class="cite xref">RATS-ARCH</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-3">The reader is also assumed to be familiar with the terms defined in <span><a href="https://rfc-editor.org/rfc/rfc9783#section-2.1" class="relref">Section 2.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span> and in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-4" class="relref">Section 4</a> of [<a href="#RATS-ARCH" class="cite xref">RATS-ARCH</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-psa-endorsements">
@@ -1281,7 +1278,7 @@ the certification status associated with a PSA device;<a href="#section-3-3.3.1"
 </li>
       </ul>
 <p id="section-3-4">There is a fourth PSA Endorsement type that aims at covering more advanced
-Verifier use cases (e.g., the one described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19#section-7" class="relref">Section 7</a> of [<a href="#TEEP" class="cite xref">TEEP</a>]</span>):<a href="#section-3-4" class="pilcrow">¶</a></p>
+Verifier use cases (e.g., the one described in <span><a href="https://rfc-editor.org/rfc/rfc9397#section-7" class="relref">Section 7</a> of [<a href="#TEEP" class="cite xref">TEEP</a>]</span>):<a href="#section-3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-5.1">
           <p id="section-3-5.1.1">Software Relations (<a href="#sec-swrel" class="auto internal xref">Section 3.6</a>), used to model upgrade and patch
@@ -1320,7 +1317,7 @@ relationships between software components.<a href="#section-3-5.1.1" class="pilc
 <p id="section-3.2-1">Each PSA Endorsement - be it a Reference Value, Attestation Verification Key
 or Certification Claim - is associated with an immutable PSA RoT.  The linkage
 between a PSA Endorsement and its PSA RoT is made by means of the unique PSA
-RoT identifier known as Implementation ID (see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-3.2.2" class="relref">Section 3.2.2</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+RoT identifier known as Implementation ID (see <span><a href="https://rfc-editor.org/rfc/rfc9783#section-3.2.2" class="relref">Section 3.2.2</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">To encode an Implementation ID, the <code>tagged-bytes</code> variant of the <code>$class-id-type-choice</code> is used, as described in <a href="#cddl-impl-id" class="auto internal xref">Figure 2</a>.
 The length of the byte string MUST be exactly 32.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <span id="name-psa-platform-implementation"></span><div id="cddl-impl-id">
@@ -1339,7 +1336,7 @@ tagged-implementation-id-type = #6.560(psa-implementation-id-type)
 </div>
 <p id="section-3.2-4">Besides, a PSA Endorsement can be associated with a specific instance of a
 certain PSA RoT - as is the case for Attestation Verification Keys.
-The Instance ID (see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-3.2.1" class="relref">Section 3.2.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) provides a unique identifier for a given PSA RoT.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+The Instance ID (see <span><a href="https://rfc-editor.org/rfc/rfc9783#section-3.2.1" class="relref">Section 3.2.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) provides a unique identifier for a given PSA RoT.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.2-5">To encode an Instance ID, the <code>tagged-ueid-type</code> variant of the <code>$instance-id-type-choice</code> is used, as described in <a href="#cddl-inst-id" class="auto internal xref">Figure 3</a>.
 The first byte MUST be 0x01 (RAND) followed by the 32-byte unique instance identifier.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 <span id="name-psa-rot-instance-id-encodin"></span><div id="cddl-inst-id">
@@ -1400,13 +1397,13 @@ These identifiers are typically found in the subject of a CoMID triple, encoded 
 <p id="section-3.3-1">Reference Values carry measurements and other metadata associated with the
 updatable firmware in a PSA RoT.  When appraising Evidence, the Verifier
 compares Reference Values against the values found in the Software Components
-of the PSA token (see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-3.4.1" class="relref">Section 3.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+of the PSA token (see <span><a href="https://rfc-editor.org/rfc/rfc9783#section-3.4.1" class="relref">Section 3.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">Each measurement is encoded in a <code>measurement-map</code> of a CoMID <code>reference-triple-record</code>.
 Since a <code>measurement-map</code> can encode one or more measurements, a single <code>reference-triple-record</code>
 can carry as many measurements as needed, provided they belong to the same PSA RoT identified
 in the subject of the triple.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">A single <code>reference-triple-record</code> can completely describe the PSA RoT measurements.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.3-4">Each PSA Software Component (i.e., the <code>psa-software-component</code> defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-4.4.1" class="relref">Section 4.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) is encoded in a <code>measurement-values-map</code> as defined in <a href="#cddl-swcomp-mvm" class="auto internal xref">Figure 5</a>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">Each PSA Software Component (i.e., the <code>psa-software-component</code> defined in <span><a href="https://rfc-editor.org/rfc/rfc9783#section-4.4.1" class="relref">Section 4.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) is encoded in a <code>measurement-values-map</code> as defined in <a href="#cddl-swcomp-mvm" class="auto internal xref">Figure 5</a>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
 <span id="name-psa-software-component-enco"></span><div id="cddl-swcomp-mvm">
 <figure id="figure-5">
           <div class="lang-cddl sourcecode" id="section-3.3-5.1">
@@ -1868,26 +1865,18 @@ Implementation ID <code>acme-implementation-id-000000001</code> is shown in
       <h2 id="name-iana-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<div id="cbor-tag-registrations">
-<section id="section-5.1">
-        <h3 id="name-cbor-tag-registrations">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-cbor-tag-registrations" class="section-name selfRef">CBOR Tag Registrations</a>
-        </h3>
-<p id="section-5.1-1">This document makes no requests to IANA.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="comid-codepoints">
-<section id="section-5.2">
+<section id="section-5.1">
         <h3 id="name-comid-codepoints">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-comid-codepoints" class="section-name selfRef">CoMID Codepoints</a>
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-comid-codepoints" class="section-name selfRef">CoMID Codepoints</a>
         </h3>
 <div id="comid-triples-map-extension">
-<section id="section-5.2.1">
+<section id="section-5.1.1">
           <h4 id="name-comid-triples-map-extension">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-comid-triples-map-extension" class="section-name selfRef">CoMID Triples Map Extension</a>
+<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-comid-triples-map-extension" class="section-name selfRef">CoMID Triples Map Extension</a>
           </h4>
-<p id="section-5.2.1-1">IANA is requested to register the following codepoints to the "CoMID Triples
-Map" registry.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-1">IANA is requested to register the following codepoints to the "CoMID Triples
+Map" registry.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 <span id="name-psa-comid-triples"></span><div id="tbl-psa-comid-triples">
 <table class="left" id="table-1">
             <caption>
@@ -1913,9 +1902,9 @@ Map" registry.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="comid-measurement-values-map-extension">
-<section id="section-5.2.2">
+<section id="section-5.1.2">
           <h4 id="name-comid-measurement-values-ma">
-<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-comid-measurement-values-ma" class="section-name selfRef">CoMID Measurement Values Map Extension</a>
+<a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-comid-measurement-values-ma" class="section-name selfRef">CoMID Measurement Values Map Extension</a>
           </h4>
 <span id="name-measurement-values-map-exte"></span><div id="tbl-psa-comid-measurement-values-map">
 <table class="left" id="table-2">
@@ -1975,7 +1964,7 @@ Map" registry.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="PSA-TOKEN">[PSA-TOKEN]</dt>
         <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Brossard, M.</span>, <span class="refAuthor">Shaw, A. L.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Arm's Platform Security Architecture (PSA) Attestation Token"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-tschofenig-rats-psa-token-24</span>, <time datetime="2024-09-23" class="refDate">23 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24">https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24</a>&gt;</span>. </dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Brossard, M.</span>, <span class="refAuthor">Shaw, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Arm's Platform Security Architecture (PSA) Attestation Token"</span>, <span class="seriesInfo">RFC 9783</span>, <span class="seriesInfo">DOI 10.17487/RFC9783</span>, <time datetime="2025-06" class="refDate">June 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9783">https://www.rfc-editor.org/rfc/rfc9783</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2008,7 +1997,7 @@ Map" registry.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="TEEP">[TEEP]</dt>
       <dd>
-<span class="refAuthor">Pei, M.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">D. M. Wheeler</span>, <span class="refTitle">"Trusted Execution Environment Provisioning (TEEP) Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-teep-architecture-19</span>, <time datetime="2022-10-24" class="refDate">24 October 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19">https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19</a>&gt;</span>. </dd>
+<span class="refAuthor">Pei, M.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">D. Wheeler</span>, <span class="refTitle">"Trusted Execution Environment Provisioning (TEEP) Architecture"</span>, <span class="seriesInfo">RFC 9397</span>, <span class="seriesInfo">DOI 10.17487/RFC9397</span>, <time datetime="2023-07" class="refDate">July 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9397">https://www.rfc-editor.org/rfc/rfc9397</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

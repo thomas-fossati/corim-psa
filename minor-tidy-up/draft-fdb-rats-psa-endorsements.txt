@@ -77,10 +77,9 @@ Table of Contents
      3.6.  Software Upgrades and Patches
    4.  Security Considerations
    5.  IANA Considerations
-     5.1.  CBOR Tag Registrations
-     5.2.  CoMID Codepoints
-       5.2.1.  CoMID Triples Map Extension
-       5.2.2.  CoMID Measurement Values Map Extension
+     5.1.  CoMID Codepoints
+       5.1.1.  CoMID Triples Map Extension
+       5.1.2.  CoMID Measurement Values Map Extension
    Acknowledgements
    References
      Normative References
@@ -629,13 +628,9 @@ Table of Contents
 
 5.  IANA Considerations
 
-5.1.  CBOR Tag Registrations
+5.1.  CoMID Codepoints
 
-   This document makes no requests to IANA.
-
-5.2.  CoMID Codepoints
-
-5.2.1.  CoMID Triples Map Extension
+5.1.1.  CoMID Triples Map Extension
 
    IANA is requested to register the following codepoints to the "CoMID
    Triples Map" registry.
@@ -648,7 +643,7 @@ Table of Contents
 
                 Table 1: PSA CoMID Triples
 
-5.2.2.  CoMID Measurement Values Map Extension
+5.1.2.  CoMID Measurement Values Map Extension
 
    +=====+====================+==============+========================+
    | Key | Item Name          | Item Type    | Specification          |
@@ -674,12 +669,10 @@ Normative References
               ietf-rats-corim-07>.
 
    [PSA-TOKEN]
-              Tschofenig, H., Frost, S., Brossard, M., Shaw, A. L., and
-              T. Fossati, "Arm's Platform Security Architecture (PSA)
-              Attestation Token", Work in Progress, Internet-Draft,
-              draft-tschofenig-rats-psa-token-24, 23 September 2024,
-              <https://datatracker.ietf.org/doc/html/draft-tschofenig-
-              rats-psa-token-24>.
+              Tschofenig, H., Frost, S., Brossard, M., Shaw, A., and T.
+              Fossati, "Arm's Platform Security Architecture (PSA)
+              Attestation Token", RFC 9783, DOI 10.17487/RFC9783, June
+              2025, <https://www.rfc-editor.org/rfc/rfc9783>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -707,12 +700,10 @@ Informative References
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
 
-   [TEEP]     Pei, M., Tschofenig, H., Thaler, D., and D. M. Wheeler,
+   [TEEP]     Pei, M., Tschofenig, H., Thaler, D., and D. Wheeler,
               "Trusted Execution Environment Provisioning (TEEP)
-              Architecture", Work in Progress, Internet-Draft, draft-
-              ietf-teep-architecture-19, 24 October 2022,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-teep-
-              architecture-19>.
+              Architecture", RFC 9397, DOI 10.17487/RFC9397, July 2023,
+              <https://www.rfc-editor.org/rfc/rfc9397>.
 
 Authors' Addresses
 
