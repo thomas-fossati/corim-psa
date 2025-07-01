@@ -168,7 +168,7 @@ Since a `measurement-map` can encode one or more measurements, a single `referen
 can carry as many measurements as needed, provided they belong to the same PSA RoT identified
 in the subject of the triple.
 
-A single `reference-triple-record` MUST completely describe the PSA RoT measurements.
+A single `reference-triple-record` can completely describe the PSA RoT measurements.
 
 Each PSA Software Component (called `psa-software-component` map defined in {{Section 4.4.1 of
 PSA-TOKEN}}) is encoded in a `measurement-values-map` as defined in {{cddl-swcomp-mvm}}.
