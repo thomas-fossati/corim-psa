@@ -5,21 +5,22 @@
 Remote ATtestation ProcedureS                                 T. Fossati
 Internet-Draft                                              Y. Deshpande
 Intended status: Informational                                   Arm Ltd
-Expires: 10 September 2023                                   H. Birkholz
+Expires: 2 January 2026                                      H. Birkholz
                                                           Fraunhofer SIT
-                                                            9 March 2023
+                                                             1 July 2025
 
 
      A CoRIM Profile for Arm's Platform Security Architecture (PSA)
+                              Endorsements
                  draft-fdb-rats-psa-endorsements-latest
 
 Abstract
 
-   PSA Endorsements include reference values, endorsed values,
+   PSA Endorsements comprise reference values, endorsed values,
    cryptographic key material and certification status information that
-   a Verifier may need in order to appraise attestation Evidence
-   produced by a PSA device.  This memo defines PSA Endorsements as a
-   profile of the CoRIM data model.
+   a Verifier needs in order to appraise Attestation Evidence produced
+   by a PSA device.  This memo defines PSA Endorsements as a profile of
+   the CoRIM data model.
 
 Discussion Venues
 
@@ -47,11 +48,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 September 2023.
+   This Internet-Draft will expire on 2 January 2026.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -71,16 +72,15 @@ Table of Contents
      3.1.  PSA Endorsement Profile
      3.2.  PSA Endorsements to PSA RoT Linkage
      3.3.  Reference Values
-     3.4.  Attestation Verification Claims
+     3.4.  Attestation Verification Keys
      3.5.  Certification Claims
      3.6.  Software Upgrades and Patches
    4.  Security Considerations
    5.  IANA Considerations
      5.1.  CBOR Tag Registrations
-     5.2.  CoRIM Profile Registration
-     5.3.  CoMID Codepoints
-       5.3.1.  CoMID Triples Map Extension
-       5.3.2.  CoMID Measurement Values Map Extension
+     5.2.  CoMID Codepoints
+       5.2.1.  CoMID Triples Map Extension
+       5.2.2.  CoMID Measurement Values Map Extension
    Acknowledgements
    References
      Normative References
@@ -92,8 +92,8 @@ Table of Contents
    PSA Endorsements include reference values, endorsed values,
    cryptographic key material and certification status information that
    a Verifier needs in order to appraise attestation Evidence produced
-   by a PSA device [PSA-TOKEN].  This memo defines such PSA Endorsements
-   as a profile of the CoRIM data model [CoRIM].
+   by a PSA device [PSA-TOKEN].  This memo defines PSA Endorsements as a
+   profile of the CoRIM data model [CoRIM].
 
 2.  Conventions and Definitions
 
@@ -123,7 +123,7 @@ Table of Contents
    *  Reference Values (Section 3.3), i.e., measurements of the PSA RoT
       firmware;
 
-   *  Attestation Verification Claims (Section 3.4), i.e., cryptographic
+   *  Attestation Verification Keys (Section 3.4), i.e., cryptographic
       keys that are used to verify signed Evidence produced by the PSA
       RoT, along with the identifiers that bind the keys to their device
       instances;
@@ -142,59 +142,72 @@ Table of Contents
 
    PSA Endorsements are carried in one or more CoMIDs inside a CoRIM.
 
-   The profile attribute in the CoRIM MUST be present and MUST be set to
-   the URI http://arm.com/psa/iot/1 as shown in Figure 1.
+   The profile attribute in the CoRIM MUST be present and MUST be the
+   URI tag:arm.com,2025:psa#1.0.0 as shown in Figure 1.
 
    / corim-map / {
-     / corim.profile / 3: 32("http://arm.com/psa/iot/1")
+     / corim.profile / 3: 32("tag:arm.com,2025:psa#1.0.0")
      / ... /
    }
 
-                 Figure 1: PSA IoT version 1, CoRIM profile
-
-   The list of all, and only, the CoMIDs that are currently "active"
-   (i.e., CoMIDs that contain triples that can be used for appraisal) is
-   provided in a CoBOM tag.
-
-
-   // TODO CoBOM example
+         Figure 1: CoRIM profile for PSA Endorsements version 1.0.0
 
 3.2.  PSA Endorsements to PSA RoT Linkage
 
    Each PSA Endorsement - be it a Reference Value, Attestation
-   Verification Claim or Certification Claim - is associated with an
+   Verification Key or Certification Claim - is associated with an
    immutable PSA RoT.  The linkage between a PSA Endorsement and its PSA
    RoT is made by means of the unique PSA RoT identifier known as
    Implementation ID (see Section 3.2.2 of [PSA-TOKEN]).
 
-   In order to support PSA Implementation IDs, the CoMID type $class-id-
-   type-choice is extended as follows:
+   To encode an Implementation ID, the tagged-bytes variant of the
+   $class-id-type-choice is used, as described in Figure 2.  The length
+   of the byte string MUST be exactly 32.
 
    ; from draft-tschofenig-rats-psa-token
    psa-implementation-id-type = bytes .size 32
 
-   tagged-implementation-id-type = #6.600(implementation-id-type)
+   tagged-implementation-id-type = #6.560(psa-implementation-id-type)
 
-   $class-id-type-choice /= tagged-implementation-id-type
+             Figure 2: PSA Platform Implementation ID encoding
 
    Besides, a PSA Endorsement can be associated with a specific instance
    of a certain PSA RoT - as is the case for Attestation Verification
-   Claims.  A PSA Endorsement is associated with a PSA RoT instance by
-   means of the Instance ID (see Section 3.2.1 of [PSA-TOKEN]) and its
-   "parent" Implementation ID.
+   Keys.  The Instance ID (see Section 3.2.1 of [PSA-TOKEN]) provides a
+   unique identifier for a given PSA RoT.
 
-   These identifiers are typically found in the subject of a CoMID
-   triple, encoded in an environment-map as shown in Figure 2.
+   To encode an Instance ID, the tagged-ueid-type variant of the
+   $instance-id-type-choice is used, as described in Figure 3.  The
+   first byte MUST be 0x01 (RAND) followed by the 32-byte unique
+   instance identifier.
+
+   inst-id-tagged-ueid = #6.550(eat-ueid-rand-type)
+
+   eat-ueid-rand-type = bytes .join eat-ueid-rand-fmt
+
+   eat-ueid-rand-fmt = [
+     ; the type byte is 0x01
+     ueid-rand-typ
+     bytes .size 32
+   ]
+
+   ueid-rand-typ = h'01'
+
+                   Figure 3: PSA RoT Instance ID encoding
+
+   PSA Attestation Verification Keys are associated with a PSA RoT
+   instance by means of the Instance ID and the corresponding
+   Implementation ID.  These identifiers are typically found in the
+   subject of a CoMID triple, encoded in an environment-map as shown in
+   Figure 4.
 
    / environment-map / {
      / comid.class / 0 : {
        / comid.class-id / 0 :
-         / tagged-impl-id-type / 600(
+         / tagged-bytes / 560(
            h'61636d652d696d706c656d656e746174
              696f6e2d69642d303030303030303031'
-         ),
-         / comid.vendor / 1 : "ACME Ltd.",
-         / comid.model /  2 : "Roadrunner 1.0"
+         )
      },
      / comid.instance / 1 :
        / tagged-ueid-type / 550(
@@ -204,12 +217,7 @@ Table of Contents
        )
    }
 
-                  Figure 2: Example PSA RoT Identification
-
-   Optional vendor and model can be specified as well.  Together, they
-   are interpreted as a unique identifier of the product that embeds the
-   PSA RoT.  It is RECOMMENDED to consistently provide a product
-   identifier.
+                  Figure 4: Example PSA RoT Identification
 
 3.3.  Reference Values
 
@@ -219,104 +227,91 @@ Table of Contents
    the Software Components of the PSA token (see Section 3.4.1 of
    [PSA-TOKEN]).
 
-   When there is more than one measurement associated to a certain PSA
-   RoT, the measurements are spread across multiple reference-triple-
-   records and, in certain cases, across multiple CoMIDs.  A single
-   CoBOM MUST completely describe the updatable PSA RoT.
+   Each measurement is encoded in a measurement-map of a CoMID
+   reference-triple-record.  Since a measurement-map can encode one or
+   more measurements, a single reference-triple-record can carry as many
+   measurements as needed, provided they belong to the same PSA RoT
+   identified in the subject of the triple.
 
-   The elements of the psa-software-component map defined in
-   Section 4.4.1 of [PSA-TOKEN] are matched against CoMID measurement-
-   map entries as follows:
+   A single reference-triple-record can completely describe the PSA RoT
+   measurements.
 
-   +==================+=============================+=================+
-   | PSA Evidence     | PSA Endorsement             | Description     |
-   +==================+=============================+=================+
-   | measurement-type | measurement-values-map.name | Section 4.4.1.1 |
-   |                  |                             | of [PSA-TOKEN]  |
-   +------------------+-----------------------------+-----------------+
-   | measurement-     | measurement-values-         | Section 4.4.1.2 |
-   | value            | map.digests[*][1]           | of [PSA-TOKEN]  |
-   +------------------+-----------------------------+-----------------+
-   | version          | measurement-values-         | Section 4.4.1.3 |
-   |                  | map.version.version         | of [PSA-TOKEN]  |
-   +------------------+-----------------------------+-----------------+
-   | measurement-desc | measurement-values-         |                 |
-   |                  | map.digests[*][0]           |                 |
-   +------------------+-----------------------------+-----------------+
-   | signer-id        | authorized-by[0]            | Section 4.4.1.4 |
-   |                  |                             | of [PSA-TOKEN]  |
-   +------------------+-----------------------------+-----------------+
+   Each PSA Software Component (i.e., the psa-software-component defined
+   in Section 4.4.1 of [PSA-TOKEN]) is encoded in a measurement-values-
+   map as defined in Figure 5.
 
-                 Table 1: PSA Software Component Mappings
-
-   The digests array MUST contain at least one entry and MAY contain
-   more than one entry if multiple digests (obtained with different hash
-   algorithms) of the same measured component exist.
-
-   The authorized-by in the measurement-map MUST have exactly one entry
-   of type tagged-thumbprint-type (CBOR tag 557) containing the signer-
-   id.
-
-   The example in Figure 3 shows a CoMID encoding a PSA Endorsement of
-   type Reference Value for a firmware measurement associated with
-   Implementation ID acme-implementation-id-000000001.
-
-   / concise-mid-tag / {
-     / comid.tag-identity / 1 : {
-       / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
-     },
-     / comid.triples / 4 : {
-       / comid.reference-triples / 0 : [
-         [
-           / environment-map / {
-             / comid.class / 0 : {
-               / comid.class-id / 0 :
-                 / tagged-impl-id-type / 600(
-                   h'61636d652d696d706c656d656e746174
-                     696f6e2d69642d303030303030303031'
-                 ),
-               / comid.vendor / 1 : "ACME Ltd.",
-               / comid.model /  2 : "Roadrunner 1.0"
-             }
-           },
-           [
-             / measurement-map / {
-               / comid.mval / 1 : {
-                 / comid.version / 0 : {
-                   / version / 0: "1.3.5"
-                 },
-                 / comid.digests / 2 : [
-                   [
-                     / hash-alg-id / "sha-256",
-                     / hash-value /  h'44aa336af4cb14a8
-                                       79432e53dd6571c7
-                                       fa9bccafb75f4882
-                                       59262d6ea3a4d91b'
-                   ]
-                 ],
-                 / comid.name / 11 : "PRoT"
-               },
-               / authorized-by / 2 : [
-                 557([
-                   / hash-alg-id / "sha-256",
-                   / hash-value /  h'acbb11c7e4da2172
-                                     05523ce4ce1a245a
-                                     e1a239ae3c6bfd9e
-                                     7871f7e5d8bae86b'
-                 ])
-               ]
-             }
-           ]
-         ]
-       ]
-     }
+   psa-swcomp-measurement-values-map = {
+     ? &(version: 0) => psa-swcomp-version-map
+     &(digests: 2) => psa-swcomp-digests-type
+     ? &(name: 11) => psa-swcomp-name
+     &(cryptokeys: 13) => [ psa-swcomp-signer-id ]
    }
 
-                     Figure 3: Example Reference Value
+   psa-swcomp-version-map = {
+     &(version: 0) => text
+   }
 
-3.4.  Attestation Verification Claims
+   psa-swcomp-digests-type = [ + psa-digest ]
 
-   An Attestation Verification Claim carries the verification key
+   psa-digest = [
+     alg: text
+     val: psa-hash-type
+   ]
+
+   psa-hash-type = bytes .size 32 / bytes .size 48 / bytes .size 64
+
+   psa-swcomp-name = text
+
+   psa-swcomp-signer-id = #6.560(psa-hash-type)
+
+                 Figure 5: PSA Software Component encoding
+
+   version (key 0):  A version-map with its version field containing the
+      version (key 4) of the psa-software-component.  The version-scheme
+      field of the version-map MUST NOT be present.  The version field
+      is optional.
+
+   digests (key 2):  Each array element encodes the "measurement value"
+      (key 2) and "measurement-desc" (key 6) of the psa-sw-component in
+      the val and alg entries, respectively.  The alg entry MUST use the
+      text encoding.  The digests array MUST contain at least one entry
+      and MAY contain more than one entry if multiple digests (obtained
+      with different hash algorithms) of the same measured component
+      exist.  If multiple entries exist, they MUST have different alg
+      values.  The digests field is mandatory.
+
+   name (key 11):  A text value containing the "measurement-type" (key
+      1) of the psa-sw-component.  The name field is optional.
+
+   cryptokeys (key 13):  An array with _only one_ entry using the
+      tagged-bytes variant of the $crypto-key-type-choice.  The entry
+      contains the "signer-id" (key 5) of the psa-sw-component.  The
+      cryptokeys field is mandatory.
+
+   Each measurement-values-map for a PSA RoT software component is
+   wrapped in a measurement-map with an mkey using the text variant of
+   the $measured-element-type-choice.  The value of the mkey MUST be
+   "psa.software-component".  The authorized-by field of the
+   measurement-map MUST NOT be present.  See Figure 6 for the related
+   CDDL definitions.
+
+   psa-swcomp-measurement-map = {
+     &(mkey: 0) => "psa.software-component"
+     &(mval: 1) => psa-swcomp-measurement-values-map
+   }
+
+            Figure 6: PSA RoT Software Component measurement-map
+
+   The complete example of a Reference Value CoMID Triple that encodes
+   multiple psa-sw-component is given Figure 7.
+
+   {:: include examples/ref-value.diag }
+
+                     Figure 7: Example Reference Value
+
+3.4.  Attestation Verification Keys
+
+   An Attestation Verification Key carries the verification key
    associated with the Initial Attestation Key (IAK) of a PSA device.
    When appraising Evidence, the Verifier can use the Implementation ID
    and Instance ID claims (see Section 3.2) to look up the verification
@@ -329,20 +324,15 @@ Table of Contents
    in an attest-key-triple-record.  Specifically:
 
    *  The Instance and Implementation IDs are encoded in the
-      environment-map as shown in Figure 2;
+      environment-map as shown in Figure 4;
 
-   *  The IAK public key is carried in the comid.key entry in the
-      verification-key-map.  The IAK public key is a PEM-encoded
-      SubjectPublicKeyInfo [RFC5280].  There MUST be only one
-      verification-key-map in an attest-key-triple-record;
+   *  The IAK public key uses the tagged-pkix-base64-key-type variant of
+      the $crypto-key-type-choice.  The IAK public key is a PEM-encoded
+      SubjectPublicKeyInfo [RFC5280].  There MUST be only one key in an
+      attest-key-triple-record.
 
-   *  The optional comid.keychain entry MUST NOT be set by a CoMID
-      producer that uses the profile described in this document, and
-      MUST be ignored by a CoMID consumer that is parsing according to
-      this profile.
-
-   The example in Figure 4 shows the PSA Endorsement of type Attestation
-   Verification Claim carrying a secp256r1 EC public IAK associated with
+   The example in Figure 8 shows the PSA Endorsement of type Attestation
+   Verification Key carrying a secp256r1 EC public IAK associated with
    Instance ID 4ca3...d296.
 
    / concise-mid-tag / {
@@ -354,36 +344,33 @@ Table of Contents
          [
            / environment-map / {
              / comid.class / 0 : {
-               / comid.class-id / 0 :
-                 / tagged-impl-id-type / 600(
+               / comid.class-id (implementation id) / 0 :
+                 / tagged-bytes / 560(
                    h'61636d652d696d706c656d656e746174
                      696f6e2d69642d303030303030303031'
-                 ),
-                 / comid.vendor / 1 : "ACME Ltd.",
-                 / comid.model /  2 : "Roadrunner 1.0"
+                 )
              },
              / comid.instance / 1 :
-               / tagged-ueid-type / 550(
+               / tagged-ueid-type (instance id) / 550(
                  h'01
                    4ca3e4f50bf248c39787020d68ffd05c
                    88767751bf2645ca923f57a98becd296'
                )
            },
            [
-             / verification-key-map / {
-               / comid.key / 0 :
-                 "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA
-   ETl4iCZ47zrRbRG0TVf0dw7VFlHtv18HInY
-   hnmMNybo+A1wuECyVqrDSmLt4QQzZPBECV8
-   ANHS5HgGCCSr7E/Lg=="
-             }
+             / tagged-pkix-base64-key-type / 554(
+                "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA
+                 ETl4iCZ47zrRbRG0TVf0dw7VFlHtv18HInY
+                 hnmMNybo+A1wuECyVqrDSmLt4QQzZPBECV8
+                 ANHS5HgGCCSr7E/Lg=="
+             )
            ]
          ]
        ]
      }
    }
 
-              Figure 4: Example Attestation Verification Claim
+               Figure 8: Example Attestation Verification Key
 
 3.5.  Certification Claims
 
@@ -410,7 +397,7 @@ Table of Contents
    record.
 
    The SAC is encoded in a psa-cert-num that extends the measurement-
-   values-map:
+   values-map.  See Figure 9.
 
    $$measurement-values-map-extension //= (
      &(psa-cert-num: 100) => psa-cert-num-type
@@ -418,20 +405,22 @@ Table of Contents
 
    psa-cert-num-type = text .regexp "[0-9]{13} - [0-9]{5}"
 
+                   Figure 9: Example Certification Triple
+
    The conditional-endorsement-triple-record is constructed as follows:
 
    *  The Implementation ID of the immutable PSA RoT to which the SAC
-      applies is encoded as a tagged-impl-id-type in the environment-map
-      of the stateful-environment-record;
+      applies is encoded as a tagged-bytes in the environment-map of the
+      stateful-environment-record; as shown in Figure 2
 
    *  Any software component that is part of the certified PSA RoT is
       encoded as a reference value (see Section 3.3) in the measurement-
       map of the stateful-environment-record;
 
-   *  The unique SAC Certificate Number is encoded as psa-cert-num in
-      the measurement-values-map.
+   *  The unique SAC Certificate Number is encoded as psa-cert-num (key
+      100) in the measurement-values-map.
 
-   The example in Figure 5 shows a Certification Claim that associates
+   The example in Figure 10 shows a Certification Claim that associates
    Certificate Number 1234567890123 - 12345 to Implementation ID acme-
    implementation-id-000000001 and a single "PRoT" software component
    with version "1.3.5".
@@ -447,39 +436,25 @@ Table of Contents
              / environment-map / {
                / comid.class / 0 : {
                  / comid.class-id / 0 :
-                   / tagged-impl-id-type / 600(
+                   / tagged-bytes / 560(
                      h'61636d652d696d706c656d656e746174
                        696f6e2d69642d303030303030303031'
-                   ),
-                 / comid.vendor / 1 : "ACME Ltd.",
-                 / comid.model /  2 : "Roadrunner 1.0"
+                   )
                }
              },
              / measurement-map / {
+               / comid.mkey / 0 : "psa.software-component",
                / comid.mval / 1 : {
-                 / comid.version / 0 : {
-                   / version / 0: "1.3.0"
-                 },
                  / comid.digests / 2 : [
-                   [
-                     / hash-alg-id / "sha-256",
-                     / hash-value /  h'44aa336af4cb14a8
-                                       79432e53dd6571c7
-                                       fa9bccafb75f4882
-                                       59262d6ea3a4d91b'
-                   ]
-                 ],
-                 / comid.name / 11 : "PRoT"
-               },
-               / authorized-by / 2 : [
-                 557([
                    / hash-alg-id / "sha-256",
-                   / hash-value /  h'acbb11c7e4da2172
-                                     05523ce4ce1a245a
-                                     e1a239ae3c6bfd9e
-                                     7871f7e5d8bae86b'
-                 ])
-               ]
+                   / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                                     fad053beb8ebfd8977b010655bfdd3c3'
+                 ],
+                 / name / 11 : "PRoT",
+                 / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                           e2dc5641419c3d3060cfe32238
+                                           c0fa973f7aa4')
+               }
              }
            ],
            / measurement-values-map / {
@@ -490,7 +465,7 @@ Table of Contents
      }
    }
 
-                   Figure 5: Example Certification Claim
+                   Figure 10: Example Certification Claim
 
 3.6.  Software Upgrades and Patches
 
@@ -535,7 +510,7 @@ Table of Contents
    An example of a security critical update involving versions "1.2.5"
    and "1.3.0" of software component "PRoT" within the target
    environment associated with Implementation ID acme-implementation-
-   id-000000001 is shown in Figure 6.
+   id-000000001 is shown in Figure 11.
 
    / concise-mid-tag / {
      / comid.tag-identity / 1 : {
@@ -549,39 +524,26 @@ Table of Contents
              / tagged-impl-id-type / 600(
                h'61636d652d696d706c656d656e746174
                  696f6e2d69642d303030303030303031'
-             ),
-             / comid.vendor / 1 : "ACME Ltd.",
-             / comid.model /  2 : "Roadrunner 1.0"
+             )
            },
 
            / sw-rel / [
              / new / {
                / comid.mval / 1 : {
-                 / comid.version / 0 : {
-                   / version / 0: "1.3.0"
-                 },
-                 / comid.digests / 2 : [
-                   [
-                     / hash-alg-id / "sha-256",
-                     / hash-value /  h'44aa336af4cb14a8
-                                       79432e53dd6571c7
-                                       fa9bccafb75f4882
-                                       59262d6ea3a4d91b'
-                   ]
-                 ],
-                 / comid.name / 11 : "PRoT"
+               / comid.ver / 0 : {
+                 / comid.version / 0 : "1.0.0",
                },
-               / authorized-by / 2 : [
-                 557([
-                     / hash-alg-id / "sha-256",
-                     / hash-value /  h'acbb11c7e4da2172
-                                       05523ce4ce1a245a
-                                       e1a239ae3c6bfd9e
-                                       7871f7e5d8bae86b'
-                 ])
-               ]
+                 / comid.digests / 2 : [
+                   / hash-alg-id / "sha-256",
+                   / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                                     fad053beb8ebfd8977b010655bfdd3c3'
+                 ],
+                 / name / 11 : "PRoT",
+                 / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                           e2dc5641419c3d3060cfe32238
+                                           c0fa973f7aa4')
+               }
              },
-
              / rel / [
                / type / 1, / psa.updates /
                / security-critical / true
@@ -589,29 +551,19 @@ Table of Contents
 
              / old / {
                / comid.mval / 1 : {
-                 / comid.version / 0 : {
-                   / version / 0: "1.2.5"
-                 },
+                     / comid.ver / 0 : {
+                     / comid.version / 0 : "1.0.0",
+                   },
                  / comid.digests / 2 : [
-                   [
-                     / hash-alg-id / "sha-256",
-                     / hash-value /  h'98b06c3f4bfeb294
-                                       f69dae2bbe7d4be0
-                                       750e258a86414d90
-                                       a17cda9e2e775337'
-                   ]
+                   / hash-alg-id / "sha-256",
+                   / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                                     fad053beb8ebfd8978b010655bfdd3c3'
                  ],
-                 / comid.name / 11 : "PRoT"
-               },
-               / authorized-by / 2 : [
-                 557([
-                     / hash-alg-id / "sha-256",
-                     / hash-value /  h'acbb11c7e4da2172
-                                       05523ce4ce1a245a
-                                       e1a239ae3c6bfd9e
-                                       7871f7e5d8bae86b'
-                 ])
-               ]
+                 / name / 11 : "PRoT",
+                 / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                           e2dc5641419c3d3060cfe32238
+                                           c0fa973f7ad4')
+               }
              }
            ]
          ]
@@ -619,7 +571,7 @@ Table of Contents
      }
    }
 
-                Figure 6: Example Critical Software Upgrade
+                Figure 11: Example Critical Software Upgrade
 
 4.  Security Considerations
 
@@ -630,35 +582,11 @@ Table of Contents
 
 5.1.  CBOR Tag Registrations
 
-   IANA is requested to allocate the following tag in the "CBOR Tags"
-   registry [IANA.cbor-tags], preferably with the specified value:
+   This document makes no requests to IANA.
 
-             +=====+==============+==========================+
-             | Tag | Data Item    | Semantics                |
-             +=====+==============+==========================+
-             | 600 | tagged bytes | PSA Implementation ID    |
-             |     |              | (Section 3.2 of RFCthis) |
-             +-----+--------------+--------------------------+
+5.2.  CoMID Codepoints
 
-                          Table 2: CoRIM CBOR Tags
-
-5.2.  CoRIM Profile Registration
-
-   IANA is requested to register the following profile value in the
-   // TODO CoRIM registry.
-
-   +==========================+======+============================+
-   | Profile Value            | Type | Semantics                  |
-   +==========================+======+============================+
-   | http://arm.com/psa/iot/1 | uri  | The CoRIM profile          |
-   |                          |      | specified by this document |
-   +--------------------------+------+----------------------------+
-
-                    Table 3: PSA profile for CoRIM
-
-5.3.  CoMID Codepoints
-
-5.3.1.  CoMID Triples Map Extension
+5.2.1.  CoMID Triples Map Extension
 
    IANA is requested to register the following codepoints to the "CoMID
    Triples Map" registry.
@@ -669,9 +597,9 @@ Table of Contents
    | 50    | comid.psa-swrel-triples | RFCthis       |
    +-------+-------------------------+---------------+
 
-                Table 4: PSA CoMID Triples
+                Table 1: PSA CoMID Triples
 
-5.3.2.  CoMID Measurement Values Map Extension
+5.2.2.  CoMID Measurement Values Map Extension
 
    +=====+====================+==============+========================+
    | Key | Item Name          | Item Type    | Specification          |
@@ -679,7 +607,7 @@ Table of Contents
    | 100 | comid.psa-cert-num | psa-cert-num | Section 3.5 of RFCthis |
    +-----+--------------------+--------------+------------------------+
 
-                Table 5: Measurement Values Map Extensions
+                Table 2: Measurement Values Map Extensions
 
 Acknowledgements
 
@@ -692,21 +620,17 @@ Normative References
 
    [CoRIM]    Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-00, 6
-              September 2022, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-corim-00>.
-
-   [IANA.cbor-tags]
-              IANA, "Concise Binary Object Representation (CBOR) Tags",
-              <https://www.iana.org/assignments/cbor-tags>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-07, 3
+              March 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-corim-07>.
 
    [PSA-TOKEN]
               Tschofenig, H., Frost, S., Brossard, M., Shaw, A. L., and
               T. Fossati, "Arm's Platform Security Architecture (PSA)
               Attestation Token", Work in Progress, Internet-Draft,
-              draft-tschofenig-rats-psa-token-11, 28 February 2023,
+              draft-tschofenig-rats-psa-token-24, 23 September 2024,
               <https://datatracker.ietf.org/doc/html/draft-tschofenig-
-              rats-psa-token-11>.
+              rats-psa-token-24>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
