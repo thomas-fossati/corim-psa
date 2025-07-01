@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>A CoRIM Profile for Arm's Platform Security Architecture (PSA) Endorsements</title>
+<meta content="Thomas Fossati" name="author">
+<meta content="Yogesh Deshpande" name="author">
+<meta content="Henk Birkholz" name="author">
+<meta content="
+       PSA Endorsements comprise reference values, endorsed values, cryptographic key
+material and certification status information that a Verifier needs in order
+to appraise Attestation Evidence produced by a PSA device.  This memo defines
+PSA Endorsements as a profile of the CoRIM data model. 
+    " name="description">
+<meta content="xml2rfc 3.29.0" name="generator">
+<meta content="draft-fdb-rats-psa-endorsements-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.29.0
+    Python 3.12.11
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.1
+    intervaltree 3.1.0
+    Jinja2 3.1.6
+    lxml 5.3.1
+    platformdirs 4.3.8
+    pycountry 24.6.1
+    PyYAML 6.0.2
+    requests 2.32.4
+    setuptools 80.9.0
+    wcwidth 0.2.13
+-->
+<link href="draft-fdb-rats-psa-endorsements.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 680;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1#title {
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+}
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+  & li {
+    margin-top: 0.5em;
+  }
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
+}
+dl:not(.dlNewline) > dt {
+  float: left;
+  margin-right: 2ch;
+  min-width: 8ch;
+}
+dl > dd {
+  margin-bottom: .8em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
+}
+:is(dd, span).break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+  caption-side: bottom;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
+    display: inline-block;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: auto;
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
+}
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+.role {
+  font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
+}
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
+}
+
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
+}
+
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+/* Comments */
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 1px 0 0 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:is(:link, :focus, :hover),
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin: 2px 0.5em 0;
+  }
+}
+
+/* TOC layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre, .vcard {
+    page-break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  :is(h2, h3, h4, h5, h6)+*, dd {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([fill="white"], [fill^="#fff"]) {
+  fill: var(--background-color);
+}
+</style>
+
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">CoRIM PSA Profile</td>
+<td class="right">July 2025</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Fossati, et al.</td>
+<td class="center">Expires 2 January 2026</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Remote ATtestation ProcedureS</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-fdb-rats-psa-endorsements-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2025-07-01" class="published">1 July 2025</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2026-01-02">2 January 2026</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">T. Fossati</div>
+<div class="org">Arm Ltd</div>
+</div>
+<div class="author">
+      <div class="author-name">Y. Deshpande</div>
+<div class="org">Arm Ltd</div>
+</div>
+<div class="author">
+      <div class="author-name">H. Birkholz</div>
+<div class="org">Fraunhofer SIT</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">A CoRIM Profile for Arm's Platform Security Architecture (PSA) Endorsements</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">PSA Endorsements comprise reference values, endorsed values, cryptographic key
+material and certification status information that a Verifier needs in order
+to appraise Attestation Evidence produced by a PSA device.  This memo defines
+PSA Endorsements as a profile of the CoRIM data model.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-discussion-venues">
+<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Discussion of this document takes place on the
+    Remote ATtestation ProcedureS Working Group mailing list (rats@ietf.org),
+    which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/rats/">https://mailarchive.ietf.org/arch/browse/rats/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
+    <span><a href="https://github.com/thomas-fossati/corim-psa">https://github.com/thomas-fossati/corim-psa</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 2 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2025 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-psa-endorsements" class="internal xref">PSA Endorsements</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-psa-endorsement-profile" class="internal xref">PSA Endorsement Profile</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-psa-endorsements-to-psa-rot" class="internal xref">PSA Endorsements to PSA RoT Linkage</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-reference-values" class="internal xref">Reference Values</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-attestation-verification-ke" class="internal xref">Attestation Verification Keys</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-certification-claims" class="internal xref">Certification Claims</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-software-upgrades-and-patch" class="internal xref">Software Upgrades and Patches</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-cbor-tag-registrations" class="internal xref">CBOR Tag Registrations</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-comid-codepoints" class="internal xref">CoMID Codepoints</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-comid-triples-map-extension" class="internal xref">CoMID Triples Map Extension</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
+                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-comid-measurement-values-ma" class="internal xref">CoMID Measurement Values Map Extension</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref"></a><a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref"></a><a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref"></a><a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref"></a><a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">PSA Endorsements include reference values, endorsed values, cryptographic key
+material and certification status information that a Verifier needs in order to
+appraise attestation Evidence produced by a PSA device <span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>.  This
+memo defines PSA Endorsements as a profile of the CoRIM data model
+<span>[<a href="#CoRIM" class="cite xref">CoRIM</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-2">
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      </h2>
+<p id="section-2-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+"MAY", and "OPTIONAL" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">An understanding of the <span>[<a href="#CoRIM" class="cite xref">CoRIM</a>]</span> data model is a prerequisite.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">The reader is also assumed to be familiar with the terms defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-2.1" class="relref">Section 2.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span> and in <span><a href="https://rfc-editor.org/rfc/rfc9334#section-4" class="relref">Section 4</a> of [<a href="#RATS-ARCH" class="cite xref">RATS-ARCH</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-psa-endorsements">
+<section id="section-3">
+      <h2 id="name-psa-endorsements">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-psa-endorsements" class="section-name selfRef">PSA Endorsements</a>
+      </h2>
+<p id="section-3-1">PSA Endorsements describe an attesting device in terms of the hardware and
+firmware components that make up its PSA Root of Trust (RoT). This includes
+the identification and expected state of the device as well as the
+cryptographic key material needed to verify Evidence signed by the device's PSA
+RoT. Additionally, PSA Endorsements can include information related to the
+certification status of the attesting device.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">There are three basic types of PSA Endorsements:<a href="#section-3-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-3.1">
+          <p id="section-3-3.1.1">Reference Values (<a href="#sec-ref-values" class="auto internal xref">Section 3.3</a>), i.e., measurements of the PSA RoT
+firmware;<a href="#section-3-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-3.2">
+          <p id="section-3-3.2.1">Attestation Verification Keys (<a href="#sec-keys" class="auto internal xref">Section 3.4</a>), i.e., cryptographic keys
+that are used to verify signed Evidence produced by the PSA RoT, along
+with the identifiers that bind the keys to their device instances;<a href="#section-3-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-3.3">
+          <p id="section-3-3.3.1">Certification Claims (<a href="#sec-certificates" class="auto internal xref">Section 3.5</a>), i.e., metadata that describe
+the certification status associated with a PSA device;<a href="#section-3-3.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-3-4">There is a fourth PSA Endorsement type that aims at covering more advanced
+Verifier use cases (e.g., the one described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19#section-7" class="relref">Section 7</a> of [<a href="#TEEP" class="cite xref">TEEP</a>]</span>):<a href="#section-3-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-5.1">
+          <p id="section-3-5.1.1">Software Relations (<a href="#sec-swrel" class="auto internal xref">Section 3.6</a>), used to model upgrade and patch
+relationships between software components.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<div id="psa-endorsement-profile">
+<section id="section-3.1">
+        <h3 id="name-psa-endorsement-profile">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-psa-endorsement-profile" class="section-name selfRef">PSA Endorsement Profile</a>
+        </h3>
+<p id="section-3.1-1">PSA Endorsements are carried in one or more CoMIDs inside a CoRIM.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">The profile attribute in the CoRIM MUST be present and MUST be the URI
+<code>tag:arm.com,2025:psa#1.0.0</code> as shown in <a href="#ex-arm-psa-profile" class="auto internal xref">Figure 1</a>.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<span id="name-corim-profile-for-psa-endor"></span><div id="ex-arm-psa-profile">
+<figure id="figure-1">
+          <div class="alignLeft art-text artwork" id="section-3.1-3.1">
+<pre>
+/ corim-map / {
+  / corim.profile / 3: 32("tag:arm.com,2025:psa#1.0.0")
+  / ... /
+}
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-corim-profile-for-psa-endor" class="selfRef">CoRIM profile for PSA Endorsements version 1.0.0</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="sec-psa-rot-id">
+<section id="section-3.2">
+        <h3 id="name-psa-endorsements-to-psa-rot">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-psa-endorsements-to-psa-rot" class="section-name selfRef">PSA Endorsements to PSA RoT Linkage</a>
+        </h3>
+<p id="section-3.2-1">Each PSA Endorsement - be it a Reference Value, Attestation Verification Key
+or Certification Claim - is associated with an immutable PSA RoT.  The linkage
+between a PSA Endorsement and its PSA RoT is made by means of the unique PSA
+RoT identifier known as Implementation ID (see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-3.2.2" class="relref">Section 3.2.2</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">To encode an Implementation ID, the <code>tagged-bytes</code> variant of the <code>$class-id-type-choice</code> is used, as described in <a href="#cddl-impl-id" class="auto internal xref">Figure 2</a>.
+The length of the byte string MUST be exactly 32.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<span id="name-psa-platform-implementation"></span><div id="cddl-impl-id">
+<figure id="figure-2">
+          <div class="alignLeft art-text artwork" id="section-3.2-3.1">
+<pre>
+; from draft-tschofenig-rats-psa-token
+psa-implementation-id-type = bytes .size 32
+
+tagged-implementation-id-type = #6.560(psa-implementation-id-type)
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-psa-platform-implementation" class="selfRef">PSA Platform Implementation ID encoding</a>
+          </figcaption></figure>
+</div>
+<p id="section-3.2-4">Besides, a PSA Endorsement can be associated with a specific instance of a
+certain PSA RoT - as is the case for Attestation Verification Keys.
+The Instance ID (see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-3.2.1" class="relref">Section 3.2.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) provides a unique identifier for a given PSA RoT.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">To encode an Instance ID, the <code>tagged-ueid-type</code> variant of the <code>$instance-id-type-choice</code> is used, as described in <a href="#cddl-inst-id" class="auto internal xref">Figure 3</a>.
+The first byte MUST be 0x01 (RAND) followed by the 32-byte unique instance identifier.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<span id="name-psa-rot-instance-id-encodin"></span><div id="cddl-inst-id">
+<figure id="figure-3">
+          <div class="alignLeft art-text artwork" id="section-3.2-6.1">
+<pre>
+inst-id-tagged-ueid = #6.550(eat-ueid-rand-type)
+
+eat-ueid-rand-type = bytes .join eat-ueid-rand-fmt
+
+eat-ueid-rand-fmt = [
+  ; the type byte is 0x01
+  ueid-rand-typ
+  bytes .size 32
+]
+
+ueid-rand-typ = h'01'
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-psa-rot-instance-id-encodin" class="selfRef">PSA RoT Instance ID encoding</a>
+          </figcaption></figure>
+</div>
+<p id="section-3.2-7">PSA Attestation Verification Keys are associated with a PSA RoT instance by means of the Instance ID and the corresponding Implementation ID.
+These identifiers are typically found in the subject of a CoMID triple, encoded in an <code>environment-map</code> as shown in <a href="#ex-psa-rot-id" class="auto internal xref">Figure 4</a>.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+<span id="name-example-psa-rot-identificat"></span><div id="ex-psa-rot-id">
+<figure id="figure-4">
+          <div class="alignLeft art-text artwork" id="section-3.2-8.1">
+<pre>
+/ environment-map / {
+  / comid.class / 0 : {
+    / comid.class-id / 0 :
+      / tagged-bytes / 560(
+        h'61636d652d696d706c656d656e746174
+          696f6e2d69642d303030303030303031'
+      )
+  },
+  / comid.instance / 1 :
+    / tagged-ueid-type / 550(
+      h'01
+        4ca3e4f50bf248c39787020d68ffd05c
+        88767751bf2645ca923f57a98becd296'
+    )
+}
+</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-example-psa-rot-identificat" class="selfRef">Example PSA RoT Identification</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="sec-ref-values">
+<section id="section-3.3">
+        <h3 id="name-reference-values">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-reference-values" class="section-name selfRef">Reference Values</a>
+        </h3>
+<p id="section-3.3-1">Reference Values carry measurements and other metadata associated with the
+updatable firmware in a PSA RoT.  When appraising Evidence, the Verifier
+compares Reference Values against the values found in the Software Components
+of the PSA token (see <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-3.4.1" class="relref">Section 3.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>).<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">Each measurement is encoded in a <code>measurement-map</code> of a CoMID <code>reference-triple-record</code>.
+Since a <code>measurement-map</code> can encode one or more measurements, a single <code>reference-triple-record</code>
+can carry as many measurements as needed, provided they belong to the same PSA RoT identified
+in the subject of the triple.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">A single <code>reference-triple-record</code> can completely describe the PSA RoT measurements.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">Each PSA Software Component (i.e., the <code>psa-software-component</code> defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-4.4.1" class="relref">Section 4.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) is encoded in a <code>measurement-values-map</code> as defined in <a href="#cddl-swcomp-mvm" class="auto internal xref">Figure 5</a>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<span id="name-psa-software-component-enco"></span><div id="cddl-swcomp-mvm">
+<figure id="figure-5">
+          <div class="lang-cddl sourcecode" id="section-3.3-5.1">
+<pre>
+psa-swcomp-measurement-values-map = {
+  ? &amp;(version: 0) =&gt; psa-swcomp-version-map
+  &amp;(digests: 2) =&gt; psa-swcomp-digests-type
+  ? &amp;(name: 11) =&gt; psa-swcomp-name
+  &amp;(cryptokeys: 13) =&gt; [ psa-swcomp-signer-id ]
+}
+
+psa-swcomp-version-map = {
+  &amp;(version: 0) =&gt; text
+}
+
+psa-swcomp-digests-type = [ + psa-digest ]
+
+psa-digest = [
+  alg: text
+  val: psa-hash-type
+]
+
+psa-hash-type = bytes .size 32 / bytes .size 48 / bytes .size 64
+
+psa-swcomp-name = text
+
+psa-swcomp-signer-id = #6.560(psa-hash-type)
+</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-psa-software-component-enco" class="selfRef">PSA Software Component encoding</a>
+          </figcaption></figure>
+</div>
+<span class="break"></span><dl class="dlParallel" id="section-3.3-6">
+          <dt id="section-3.3-6.1">version (key 0):</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-6.2">
+            <p id="section-3.3-6.2.1">A <code>version-map</code> with its <code>version</code> field containing the version (key 4) of the <code>psa-software-component</code>.
+The <code>version-scheme</code> field of the <code>version-map</code> MUST NOT be present.
+The <code>version</code> field is optional.<a href="#section-3.3-6.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.3-6.3">digests (key 2):</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-6.4">
+            <p id="section-3.3-6.4.1">Each array element encodes the "measurement value" (key 2) and "measurement-desc" (key 6) of the <code>psa-sw-component</code> in the <code>val</code> and <code>alg</code> entries, respectively.
+The <code>alg</code> entry MUST use the text encoding.
+The digests array MUST contain at least one entry and MAY contain more than one entry if multiple digests (obtained with different hash algorithms) of the same measured component exist.
+If multiple entries exist, they MUST have different <code>alg</code> values.
+The <code>digests</code> field is mandatory.<a href="#section-3.3-6.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.3-6.5">name (key 11):</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-6.6">
+            <p id="section-3.3-6.6.1">A text value containing the "measurement-type" (key 1) of the <code>psa-sw-component</code>.
+The <code>name</code> field is optional.<a href="#section-3.3-6.6.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.3-6.7">cryptokeys (key 13):</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-6.8">
+            <p id="section-3.3-6.8.1">An array with <em>only one</em> entry using the <code>tagged-bytes</code> variant of the <code>$crypto-key-type-choice</code>.
+The entry contains the "signer-id" (key 5) of the <code>psa-sw-component</code>.
+The <code>cryptokeys</code> field is mandatory.<a href="#section-3.3-6.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+<p id="section-3.3-7">Each <code>measurement-values-map</code> for a PSA RoT software component is wrapped in a <code>measurement-map</code> with an <code>mkey</code> using the text variant of the <code>$measured-element-type-choice</code>.
+The value of the <code>mkey</code> MUST be "psa.software-component".
+The <code>authorized-by</code> field of the <code>measurement-map</code> MUST NOT be present.
+See <a href="#cddl-swcomp-mm" class="auto internal xref">Figure 6</a> for the related CDDL definitions.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
+<span id="name-psa-rot-software-component-"></span><div id="cddl-swcomp-mm">
+<figure id="figure-6">
+          <div class="lang-cddl sourcecode" id="section-3.3-8.1">
+<pre>
+psa-swcomp-measurement-map = {
+  &amp;(mkey: 0) =&gt; "psa.software-component"
+  &amp;(mval: 1) =&gt; psa-swcomp-measurement-values-map
+}
+</pre>
+</div>
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<a href="#name-psa-rot-software-component-" class="selfRef">PSA RoT Software Component measurement-map</a>
+          </figcaption></figure>
+</div>
+<p id="section-3.3-9">The complete example of a Reference Value CoMID Triple that encodes multiple <code>psa-sw-component</code> is given <a href="#ex-reference-value" class="auto internal xref">Figure 7</a>.<a href="#section-3.3-9" class="pilcrow">¶</a></p>
+<span id="name-example-reference-value"></span><div id="ex-reference-value">
+<figure id="figure-7">
+          <div class="breakable lang-cbor.diag sourcecode" id="section-3.3-10.1">
+<pre>
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+  },
+  / comid.triples / 4 : {
+    / comid.reference-triples / 0 : [
+      [
+        / environment-map / {
+          / comid.class / 0 : {
+            / comid.class-id / 0 :
+              / tagged-impl-id-type / 560(
+                h'61636d652d696d706c656d656e746174
+                  696f6e2d69642d303030303030303031'
+              )
+          }
+        },
+        [
+          / measurement-map / {
+            / comid.mkey / 0 : "psa.software-component",
+            / comid.mval / 1 : {
+              / comid.digests / 2 : [
+                / hash-alg-id / "sha-256",
+                / hash-value /  h'9a271f2a916b0b6ee6cecb2426f0b320
+                                  6ef074578be55d9bc94f6f3fe3ab86aa'
+              ],
+              / name / 11 : "BL",
+              / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                        e2dc5641419c3d3060cfe32238
+                                        c0fa973f7aa3')
+            }
+          },
+          / measurement-map / {
+            / comid.mkey / 0 : "psa.software-component",
+            / comid.mval / 1 : {
+              / comid.digests / 2 : [
+                / hash-alg-id / "sha-256",
+                / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                                  fad053beb8ebfd8977b010655bfdd3c3'
+              ],
+              / name / 11 : "PRoT",
+              / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                        e2dc5641419c3d3060cfe32238
+                                        c0fa973f7aa4')
+            }
+          }
+        ]
+      ]
+    ]
+  }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
+<a href="#name-example-reference-value" class="selfRef">Example Reference Value</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="sec-keys">
+<section id="section-3.4">
+        <h3 id="name-attestation-verification-ke">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-attestation-verification-ke" class="section-name selfRef">Attestation Verification Keys</a>
+        </h3>
+<p id="section-3.4-1">An Attestation Verification Key carries the verification key associated with
+the Initial Attestation Key (IAK) of a PSA device.  When appraising Evidence,
+the Verifier can use the Implementation ID and Instance ID claims (see
+<a href="#sec-psa-rot-id" class="auto internal xref">Section 3.2</a>) to look up the verification key that it SHALL use to check
+the signature on the Evidence.  This allows the Verifier to prove (or disprove)
+the Attester's claimed identity.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">Each verification key is provided alongside the corresponding device Instance
+and Implementation IDs (and, possibly, a product identifier) in an
+<code>attest-key-triple-record</code>. Specifically:<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4-3.1">
+            <p id="section-3.4-3.1.1">The Instance and Implementation IDs are encoded in the environment-map as shown in <a href="#ex-psa-rot-id" class="auto internal xref">Figure 4</a>;<a href="#section-3.4-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.4-3.2">
+            <p id="section-3.4-3.2.1">The IAK public key uses the <code>tagged-pkix-base64-key-type</code> variant of the <code>$crypto-key-type-choice</code>.
+The IAK public key is a PEM-encoded SubjectPublicKeyInfo <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
+There MUST be only one key in an <code>attest-key-triple-record</code>.<a href="#section-3.4-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.4-4">The example in <a href="#ex-attestation-verification-claim" class="auto internal xref">Figure 8</a> shows the PSA Endorsement
+of type Attestation Verification Key carrying a secp256r1 EC public IAK
+associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+<span id="name-example-attestation-verific"></span><div id="ex-attestation-verification-claim">
+<figure id="figure-8">
+          <div class="lang-cbor-diag sourcecode" id="section-3.4-5.1">
+<pre>
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+  },
+  / comid.triples / 4 : {
+    / comid.attest-key-triples / 3 : [
+      [
+        / environment-map / {
+          / comid.class / 0 : {
+            / comid.class-id (implementation id) / 0 :
+              / tagged-bytes / 560(
+                h'61636d652d696d706c656d656e746174
+                  696f6e2d69642d303030303030303031'
+              )
+          },
+          / comid.instance / 1 :
+            / tagged-ueid-type (instance id) / 550(
+              h'01
+                4ca3e4f50bf248c39787020d68ffd05c
+                88767751bf2645ca923f57a98becd296'
+            )
+        },
+        [
+          / tagged-pkix-base64-key-type / 554(
+             "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA
+              ETl4iCZ47zrRbRG0TVf0dw7VFlHtv18HInY
+              hnmMNybo+A1wuECyVqrDSmLt4QQzZPBECV8
+              ANHS5HgGCCSr7E/Lg=="
+          )
+        ]
+      ]
+    ]
+  }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
+<a href="#name-example-attestation-verific" class="selfRef">Example Attestation Verification Key</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="sec-certificates">
+<section id="section-3.5">
+        <h3 id="name-certification-claims">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-certification-claims" class="section-name selfRef">Certification Claims</a>
+        </h3>
+<p id="section-3.5-1">PSA Certified <span>[<a href="#PSA-CERTIFIED" class="cite xref">PSA-CERTIFIED</a>]</span> defines a certification scheme for the PSA
+ecosystem.  A product - either a hardware component, a software component, or
+an entire device - that is verified to meet the security criteria established
+by the PSA Certified scheme is warranted a PSA Certified Security Assurance
+Certificate (SAC). A SAC contains information about the certification of a
+certain product (e.g., the target system, the attained certification level, the
+test lab that conducted the evaluation, etc.), and has a unique Certificate
+Number.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-2">The linkage between a PSA RoT -- comprising the immutable part as well as zero
+or more of the mutable components -- and the associated SAC is provided by a
+Certification Claim, which binds the PSA RoT Implementation ID and the software
+component identifiers with the SAC unique Certificate Number.  When appraising
+Evidence, the Verifier can use the Certification Claims associated with the
+identified Attester as ancillary input to the Appraisal Policy, or to enrich
+the produced Attestation Result.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
+<p id="section-3.5-3">A Certification Claim is encoded as a <code>conditional-endorsement-triple-record</code>.<a href="#section-3.5-3" class="pilcrow">¶</a></p>
+<p id="section-3.5-4">The SAC is encoded in a <code>psa-cert-num</code> that extends the
+<code>measurement-values-map</code>.  See <a href="#ex-cert-triple" class="auto internal xref">Figure 9</a>.<a href="#section-3.5-4" class="pilcrow">¶</a></p>
+<span id="name-example-certification-tripl"></span><div id="ex-cert-triple">
+<figure id="figure-9">
+          <div class="alignLeft art-text artwork" id="section-3.5-5.1">
+<pre>
+$$measurement-values-map-extension //= (
+  &amp;(psa-cert-num: 100) =&gt; psa-cert-num-type
+)
+
+psa-cert-num-type = text .regexp "[0-9]{13} - [0-9]{5}"
+</pre>
+</div>
+<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
+<a href="#name-example-certification-tripl" class="selfRef">Example Certification Triple</a>
+          </figcaption></figure>
+</div>
+<p id="section-3.5-6">The <code>conditional-endorsement-triple-record</code> is constructed as follows:<a href="#section-3.5-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.5-7.1">
+            <p id="section-3.5-7.1.1">The Implementation ID of the immutable PSA RoT to which the SAC applies is encoded as a <code>tagged-bytes</code> in the <code>environment-map</code> of the
+<code>stateful-environment-record</code>; as shown in  <a href="#cddl-impl-id" class="auto internal xref">Figure 2</a><a href="#section-3.5-7.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.5-7.2">
+            <p id="section-3.5-7.2.1">Any software component that is part of the certified PSA RoT is encoded as a reference value (see <a href="#sec-ref-values" class="auto internal xref">Section 3.3</a>) in the <code>measurement-map</code> of the <code>stateful-environment-record</code>;<a href="#section-3.5-7.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.5-7.3">
+            <p id="section-3.5-7.3.1">The unique SAC Certificate Number is encoded as <code>psa-cert-num</code> (key 100) in the <code>measurement-values-map</code>.<a href="#section-3.5-7.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.5-8">The example in <a href="#ex-certification-claim" class="auto internal xref">Figure 10</a> shows a Certification Claim that
+associates Certificate Number <code>1234567890123 - 12345</code> to Implementation ID
+<code>acme-implementation-id-000000001</code> and a single "PRoT" software component with
+version "1.3.5".<a href="#section-3.5-8" class="pilcrow">¶</a></p>
+<span id="name-example-certification-claim"></span><div id="ex-certification-claim">
+<figure id="figure-10">
+          <div class="alignLeft art-text artwork" id="section-3.5-9.1">
+<pre>
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'dbb0508ac658421c99c904124bab59ca'
+  },
+  / comid.triples / 4 : {
+    / comid.conditional-endorsement-triple / 9 : [
+      [
+        / stateful-environment-record / [
+          / environment-map / {
+            / comid.class / 0 : {
+              / comid.class-id / 0 :
+                / tagged-bytes / 560(
+                  h'61636d652d696d706c656d656e746174
+                    696f6e2d69642d303030303030303031'
+                )
+            }
+          },
+          / measurement-map / {
+            / comid.mkey / 0 : "psa.software-component",
+            / comid.mval / 1 : {
+              / comid.digests / 2 : [
+                / hash-alg-id / "sha-256",
+                / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                                  fad053beb8ebfd8977b010655bfdd3c3'
+              ],
+              / name / 11 : "PRoT",
+              / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                        e2dc5641419c3d3060cfe32238
+                                        c0fa973f7aa4')
+            }
+          }
+        ],
+        / measurement-values-map / {
+           / psa.cert-num / 100 : "1234567890123 - 12345"
+        }
+      ]
+    ]
+  }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
+<a href="#name-example-certification-claim" class="selfRef">Example Certification Claim</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="sec-swrel">
+<section id="section-3.6">
+        <h3 id="name-software-upgrades-and-patch">
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-software-upgrades-and-patch" class="section-name selfRef">Software Upgrades and Patches</a>
+        </h3>
+<p id="section-3.6-1">In order to model software lifecycle events such as updates and patches, this
+profile defines a new triple that conveys the following semantics:<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.6-2.1">
+            <p id="section-3.6-2.1.1">SUBJECT: a software component<a href="#section-3.6-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.2">
+            <p id="section-3.6-2.2.1">PREDICATE: (non-critically / critically) (updates / patches)<a href="#section-3.6-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.6-2.3">
+            <p id="section-3.6-2.3.1">OBJECT: another software component<a href="#section-3.6-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.6-3">The triple is reified and used as the object of another triple,
+<code>psa-swrel-triple-record</code>, whose subject is the embedding environment.<a href="#section-3.6-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.6-4">
+<pre>
+comid.psa-swrel-triples = TBD2
+
+$$triples-map-extension //= (
+  comid.psa-swrel-triples =&gt; [ + psa-swrel-triple-record ]
+)
+
+psa.updates = 1
+psa.patches = 2
+
+psa-swrel-rel = [
+  type: psa.updates / psa.patches
+  security-critical: bool ; true means it's a fix for a security bug
+]
+
+sw-rel = [
+  new: comid.measurement-map ; the "new" firmware
+  rel: psa-swrel-rel         ; patches/updates and the security flag
+  old: comid.measurement-map ; the "old" firmware
+]
+
+psa-swrel-triple-record = [
+  environment-map
+  sw-rel
+]
+</pre><a href="#section-3.6-4" class="pilcrow">¶</a>
+</div>
+<p id="section-3.6-5">An example of a security critical update involving versions "1.2.5" and "1.3.0"
+of software component "PRoT" within the target environment associated with
+Implementation ID <code>acme-implementation-id-000000001</code> is shown in
+<a href="#ex-psa-swrel-update-crit" class="auto internal xref">Figure 11</a>.<a href="#section-3.6-5" class="pilcrow">¶</a></p>
+<span id="name-example-critical-software-u"></span><div id="ex-psa-swrel-update-crit">
+<figure id="figure-11">
+          <div class="alignLeft art-text artwork" id="section-3.6-6.1">
+<pre>
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+  },
+  / comid.triples / 4 : {
+    / comid.psa-swrel-triples / 5 : [
+      [
+        / environment-map / {
+          / comid.class-id / 0 :
+          / tagged-impl-id-type / 600(
+            h'61636d652d696d706c656d656e746174
+              696f6e2d69642d303030303030303031'
+          )
+        },
+
+        / sw-rel / [
+          / new / {
+            / comid.mval / 1 : {
+            / comid.ver / 0 : {
+              / comid.version / 0 : "1.2.5",
+            },
+              / comid.digests / 2 : [
+                / hash-alg-id / "sha-256",
+                / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                                  fad053beb8ebfd8977b010655bfdd3c3'
+              ],
+              / name / 11 : "PRoT",
+              / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                        e2dc5641419c3d3060cfe32238
+                                        c0fa973f7aa4')
+            }
+          },
+          / rel / [
+            / type / 1, / psa.updates /
+            / security-critical / true
+          ],
+
+          / old / {
+            / comid.mval / 1 : {
+                  / comid.ver / 0 : {
+                  / comid.version / 0 : "1.3.0",
+                },
+              / comid.digests / 2 : [
+                / hash-alg-id / "sha-256",
+                / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                                  fad053beb8ebfd8978b010655bfdd3c3'
+              ],
+              / name / 11 : "PRoT",
+              / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                        e2dc5641419c3d3060cfe32238
+                                        c0fa973f7ad4')
+            }
+          }
+        ]
+      ]
+    ]
+  }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
+<a href="#name-example-critical-software-u" class="selfRef">Example Critical Software Upgrade</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-4">
+      <h2 id="name-security-considerations">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-4-1"><span class="cref">TODO</span><a href="#section-4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-5">
+      <h2 id="name-iana-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<div id="cbor-tag-registrations">
+<section id="section-5.1">
+        <h3 id="name-cbor-tag-registrations">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-cbor-tag-registrations" class="section-name selfRef">CBOR Tag Registrations</a>
+        </h3>
+<p id="section-5.1-1">This document makes no requests to IANA.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="comid-codepoints">
+<section id="section-5.2">
+        <h3 id="name-comid-codepoints">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-comid-codepoints" class="section-name selfRef">CoMID Codepoints</a>
+        </h3>
+<div id="comid-triples-map-extension">
+<section id="section-5.2.1">
+          <h4 id="name-comid-triples-map-extension">
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-comid-triples-map-extension" class="section-name selfRef">CoMID Triples Map Extension</a>
+          </h4>
+<p id="section-5.2.1-1">IANA is requested to register the following codepoints to the "CoMID Triples
+Map" registry.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<span id="name-psa-comid-triples"></span><div id="tbl-psa-comid-triples">
+<table class="left" id="table-1">
+            <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-psa-comid-triples" class="selfRef">PSA CoMID Triples</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Index</th>
+                <th class="text-left" rowspan="1" colspan="1">Item Name</th>
+                <th class="text-left" rowspan="1" colspan="1">Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">50</td>
+                <td class="text-left" rowspan="1" colspan="1">comid.psa-swrel-triples</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCthis</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+</section>
+</div>
+<div id="comid-measurement-values-map-extension">
+<section id="section-5.2.2">
+          <h4 id="name-comid-measurement-values-ma">
+<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-comid-measurement-values-ma" class="section-name selfRef">CoMID Measurement Values Map Extension</a>
+          </h4>
+<span id="name-measurement-values-map-exte"></span><div id="tbl-psa-comid-measurement-values-map">
+<table class="left" id="table-2">
+            <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-measurement-values-map-exte" class="selfRef">Measurement Values Map Extensions</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Key</th>
+                <th class="text-left" rowspan="1" colspan="1">Item Name</th>
+                <th class="text-left" rowspan="1" colspan="1">Item Type</th>
+                <th class="text-left" rowspan="1" colspan="1">Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">100</td>
+                <td class="text-left" rowspan="1" colspan="1">comid.psa-cert-num</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <code>psa-cert-num</code>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <a href="#sec-certificates" class="auto internal xref">Section 3.5</a> of RFCthis</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="acknowledgements">
+<section id="section-6">
+      <h2 id="name-acknowledgements">
+<a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
+      </h2>
+<p id="section-6-1"><span class="cref">TODO</span><a href="#section-6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-combined-references">
+<section id="section-7">
+      <h2 id="name-references">
+<a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-7.1">
+        <h3 id="name-normative-references">
+<a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="CoRIM">[CoRIM]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Fossati, T.</span>, <span class="refAuthor">Deshpande, Y.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Concise Reference Integrity Manifest"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-corim-07</span>, <time datetime="2025-03-03" class="refDate">3 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-07">https://datatracker.ietf.org/doc/html/draft-ietf-rats-corim-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="PSA-TOKEN">[PSA-TOKEN]</dt>
+        <dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Brossard, M.</span>, <span class="refAuthor">Shaw, A. L.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Arm's Platform Security Architecture (PSA) Attestation Token"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-tschofenig-rats-psa-token-24</span>, <time datetime="2024-09-23" class="refDate">23 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24">https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5280">[RFC5280]</dt>
+        <dd>
+<span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+      <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-7.2">
+        <h3 id="name-informative-references">
+<a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="PSA-CERTIFIED">[PSA-CERTIFIED]</dt>
+        <dd>
+<span class="refTitle">"PSA Certified"</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://www.psacertified.org">https://www.psacertified.org</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RATS-ARCH">[RATS-ARCH]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="seriesInfo">RFC 9334</span>, <span class="seriesInfo">DOI 10.17487/RFC9334</span>, <time datetime="2023-01" class="refDate">January 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9334">https://www.rfc-editor.org/rfc/rfc9334</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TEEP">[TEEP]</dt>
+      <dd>
+<span class="refAuthor">Pei, M.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">D. M. Wheeler</span>, <span class="refTitle">"Trusted Execution Environment Provisioning (TEEP) Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-teep-architecture-19</span>, <time datetime="2022-10-24" class="refDate">24 October 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19">https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-A">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Thomas Fossati</span></div>
+<div dir="auto" class="left"><span class="org">Arm Ltd</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:thomas.fossati@arm.com" class="email">thomas.fossati@arm.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Yogesh Deshpande</span></div>
+<div dir="auto" class="left"><span class="org">Arm Ltd</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:yogesh.deshpande@arm.com" class="email">yogesh.deshpande@arm.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Henk Birkholz</span></div>
+<div dir="auto" class="left"><span class="org">Fraunhofer SIT</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:henk.birkholz@sit.fraunhofer.de" class="email">henk.birkholz@sit.fraunhofer.de</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
