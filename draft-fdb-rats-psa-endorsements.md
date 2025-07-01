@@ -39,13 +39,13 @@ author:
   email: henk.birkholz@sit.fraunhofer.de
 
 normative:
-  PSA-TOKEN: I-D.tschofenig-rats-psa-token
+  PSA-TOKEN: RFC9783
   CoRIM: I-D.ietf-rats-corim
   RFC5280: pkix-x509
 
 informative:
   RATS-ARCH: RFC9334
-  TEEP: I-D.ietf-teep-architecture
+  TEEP: RFC9397
   PSA-CERTIFIED:
    target: https://www.psacertified.org
    title: PSA Certified
@@ -236,7 +236,7 @@ psa-swcomp-measurement-map = {
 The complete example of a Reference Value CoMID Triple that encodes multiple `psa-sw-component` is given {{ex-reference-value}}.
 
 ~~~ cbor.diag
-{:: include examples/ref-value.diag }
+{::include examples/ref-value.diag}
 ~~~
 {: #ex-reference-value title="Example Reference Value"}
 
@@ -348,11 +348,6 @@ Implementation ID `acme-implementation-id-000000001` is shown in
 <cref>TODO</cref>
 
 # IANA Considerations
-
-## CBOR Tag Registrations
-
-This document makes no requests to IANA.
-
 
 ## CoMID Codepoints
 

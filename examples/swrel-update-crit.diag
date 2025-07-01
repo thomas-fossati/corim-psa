@@ -17,7 +17,7 @@
           / new / {
             / comid.mval / 1 : {
             / comid.ver / 0 : {
-              / comid.version / 0 : "1.0.0",
+              / comid.version / 0 : "1.3.0",
             },
               / comid.digests / 2 : [
                 / hash-alg-id / "sha-256",
@@ -38,7 +38,7 @@
           / old / {
             / comid.mval / 1 : {
                   / comid.ver / 0 : {
-                  / comid.version / 0 : "1.0.0",
+                  / comid.version / 0 : "1.2.5",
                 },
               / comid.digests / 2 : [
                 / hash-alg-id / "sha-256",
