@@ -1234,7 +1234,7 @@ PSA Endorsements as a profile of the CoRIM data model.<a href="#section-abstract
       </h2>
 <p id="section-1-1">PSA Endorsements include reference values, endorsed values, cryptographic key
 material and certification status information that a Verifier needs in order to
-appraise Attestation Evidence produced by a PSA device <span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>.  This
+appraise attestation Evidence produced by a PSA device <span>[<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>.  This
 memo defines PSA Endorsements as a profile of the CoRIM data model
 <span>[<a href="#CoRIM" class="cite xref">CoRIM</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
 </section>
@@ -1284,7 +1284,7 @@ the certification status associated with a PSA device;<a href="#section-3-3.3.1"
 Verifier use cases (e.g., the one described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-teep-architecture-19#section-7" class="relref">Section 7</a> of [<a href="#TEEP" class="cite xref">TEEP</a>]</span>):<a href="#section-3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-5.1">
-          <p id="section-3-5.1.1">Software Relations (<a href="#sec-swrel" class="auto internal xref">Section 3.6</a>), used to model upgrade and patchAdd commentMore actions
+          <p id="section-3-5.1.1">Software Relations (<a href="#sec-swrel" class="auto internal xref">Section 3.6</a>), used to model upgrade and patch
 relationships between software components.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
@@ -1296,7 +1296,7 @@ relationships between software components.<a href="#section-3-5.1.1" class="pilc
 <p id="section-3.1-1">PSA Endorsements are carried in one or more CoMIDs inside a CoRIM.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The profile attribute in the CoRIM MUST be present and MUST be the URI
 <code>tag:arm.com,2025:psa#1.0.0</code> as shown in <a href="#ex-arm-psa-profile" class="auto internal xref">Figure 1</a>.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<span id="name-corim-profile-for-psaa-endo"></span><div id="ex-arm-psa-profile">
+<span id="name-corim-profile-for-psa-endor"></span><div id="ex-arm-psa-profile">
 <figure id="figure-1">
           <div class="alignLeft art-text artwork" id="section-3.1-3.1">
 <pre>
@@ -1307,7 +1307,7 @@ relationships between software components.<a href="#section-3-5.1.1" class="pilc
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-corim-profile-for-psaa-endo" class="selfRef">CoRIM profile for PSAA Endorsements version 1.0.0</a>
+<a href="#name-corim-profile-for-psa-endor" class="selfRef">CoRIM profile for PSA Endorsements version 1.0.0</a>
           </figcaption></figure>
 </div>
 </section>
@@ -1406,7 +1406,7 @@ Since a <code>measurement-map</code> can encode one or more measurements, a sing
 can carry as many measurements as needed, provided they belong to the same PSA RoT identified
 in the subject of the triple.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">A single <code>reference-triple-record</code> MUST completely describe the PSA RoT measurements.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.3-4">Each PSA Software Component (called <code>psa-software-component</code> map defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-4.4.1" class="relref">Section 4.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) is encoded in a <code>measurement-values-map</code> as defined in <a href="#cddl-swcomp-mvm" class="auto internal xref">Figure 5</a>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">Each PSA Software Component (i.e., the <code>psa-software-component</code> defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-24#section-4.4.1" class="relref">Section 4.4.1</a> of [<a href="#PSA-TOKEN" class="cite xref">PSA-TOKEN</a>]</span>) is encoded in a <code>measurement-values-map</code> as defined in <a href="#cddl-swcomp-mvm" class="auto internal xref">Figure 5</a>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
 <span id="name-psa-software-component-enco"></span><div id="cddl-swcomp-mvm">
 <figure id="figure-5">
           <div class="lang-cddl sourcecode" id="section-3.3-5.1">
@@ -1445,7 +1445,7 @@ psa-swcomp-signer-id = #6.560(psa-hash-type)
           <dd style="margin-left: 1.5em" id="section-3.3-6.2">
             <p id="section-3.3-6.2.1">A <code>version-map</code> with its <code>version</code> field containing the version (key 4) of the <code>psa-software-component</code>.
 The <code>version-scheme</code> field of the <code>version-map</code> MUST NOT be present.
-<code>version</code> field is optional.<a href="#section-3.3-6.2.1" class="pilcrow">¶</a></p>
+The <code>version</code> field is optional.<a href="#section-3.3-6.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.3-6.3">digests (key 2):</dt>
@@ -1454,27 +1454,27 @@ The <code>version-scheme</code> field of the <code>version-map</code> MUST NOT b
 The <code>alg</code> entry MUST use the text encoding.
 The digests array MUST contain at least one entry and MAY contain more than one entry if multiple digests (obtained with different hash algorithms) of the same measured component exist.
 If multiple entries exist, they MUST have different <code>alg</code> values.
-<code>digests</code> field is mandatory.<a href="#section-3.3-6.4.1" class="pilcrow">¶</a></p>
+The <code>digests</code> field is mandatory.<a href="#section-3.3-6.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.3-6.5">name (key 11):</dt>
           <dd style="margin-left: 1.5em" id="section-3.3-6.6">
             <p id="section-3.3-6.6.1">A text value containing the "measurement-type" (key 1) of the <code>psa-sw-component</code>.
-<code>name</code> field is optional.<a href="#section-3.3-6.6.1" class="pilcrow">¶</a></p>
+The <code>name</code> field is optional.<a href="#section-3.3-6.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.3-6.7">cryptokeys (key 13):</dt>
           <dd style="margin-left: 1.5em" id="section-3.3-6.8">
             <p id="section-3.3-6.8.1">An array with <em>only one</em> entry using the <code>tagged-bytes</code> variant of the <code>$crypto-key-type-choice</code>.
 The entry contains the "signer-id" (key 5) of the <code>psa-sw-component</code>.
-<code>cryptokeys</code> field is mandatory.<a href="#section-3.3-6.8.1" class="pilcrow">¶</a></p>
+The <code>cryptokeys</code> field is mandatory.<a href="#section-3.3-6.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
 <p id="section-3.3-7">Each <code>measurement-values-map</code> for a PSA RoT software component is wrapped in a <code>measurement-map</code> with an <code>mkey</code> using the text variant of the <code>$measured-element-type-choice</code>.
 The value of the <code>mkey</code> MUST be "psa.software-component".
 The <code>authorized-by</code> field of the <code>measurement-map</code> MUST NOT be present.
-Find the related CDDL definitions in <a href="#cddl-swcomp-mm" class="auto internal xref">Figure 6</a>.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
+See <a href="#cddl-swcomp-mm" class="auto internal xref">Figure 6</a> for the related CDDL definitions.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
 <span id="name-psa-rot-software-component-"></span><div id="cddl-swcomp-mm">
 <figure id="figure-6">
           <div class="lang-cddl sourcecode" id="section-3.3-8.1">
@@ -1598,7 +1598,7 @@ identified Attester as ancillary input to the Appraisal Policy, or to enrich
 the produced Attestation Result.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 <p id="section-3.5-3">A Certification Claim is encoded as a <code>conditional-endorsement-triple-record</code>.<a href="#section-3.5-3" class="pilcrow">¶</a></p>
 <p id="section-3.5-4">The SAC is encoded in a <code>psa-cert-num</code> that extends the
-<code>measurement-values-map</code>: See <a href="#ex-cert-triple" class="auto internal xref">Figure 9</a> below<a href="#section-3.5-4" class="pilcrow">¶</a></p>
+<code>measurement-values-map</code>.  See <a href="#ex-cert-triple" class="auto internal xref">Figure 9</a>.<a href="#section-3.5-4" class="pilcrow">¶</a></p>
 <span id="name-example-certification-tripl"></span><div id="ex-cert-triple">
 <figure id="figure-9">
           <div class="alignLeft art-text artwork" id="section-3.5-5.1">
@@ -1624,7 +1624,7 @@ psa-cert-num-type = text .regexp "[0-9]{13} - [0-9]{5}"
             <p id="section-3.5-7.2.1">Any software component that is part of the certified PSA RoT is encoded as a reference value (see <a href="#sec-ref-values" class="auto internal xref">Section 3.3</a>) in the <code>measurement-map</code> of the <code>stateful-environment-record</code>;<a href="#section-3.5-7.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.5-7.3">
-            <p id="section-3.5-7.3.1">The unique SAC Certificate Number is encoded as <code>psa-cert-num</code> in the <code>measurement-values-map</code>.<a href="#section-3.5-7.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.5-7.3.1">The unique SAC Certificate Number is encoded as <code>psa-cert-num</code> (key 100) in the <code>measurement-values-map</code>.<a href="#section-3.5-7.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.5-8">The example in <a href="#ex-certification-claim" class="auto internal xref">Figure 10</a> shows a Certification Claim that
@@ -1731,7 +1731,7 @@ psa-swrel-triple-record = [
 </pre><a href="#section-3.6-4" class="pilcrow">¶</a>
 </div>
 <p id="section-3.6-5">An example of a security critical update involving versions "1.2.5" and "1.3.0"
-of software component "PRoT" within the target environment associated withAdd commentMore actions
+of software component "PRoT" within the target environment associated with
 Implementation ID <code>acme-implementation-id-000000001</code> is shown in
 <a href="#ex-psa-swrel-update-crit" class="auto internal xref">Figure 11</a>.<a href="#section-3.6-5" class="pilcrow">¶</a></p>
 <span id="name-example-critical-software-u"></span><div id="ex-psa-swrel-update-crit">
