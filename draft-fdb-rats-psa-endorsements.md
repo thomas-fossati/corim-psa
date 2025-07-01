@@ -67,7 +67,7 @@ PSA Endorsements as a profile of the CoRIM data model.
 
 PSA Endorsements include reference values, endorsed values, cryptographic key
 material and certification status information that a Verifier needs in order to
-appraise Attestation Evidence produced by a PSA device {{PSA-TOKEN}}.  This
+appraise attestation Evidence produced by a PSA device {{PSA-TOKEN}}.  This
 memo defines PSA Endorsements as a profile of the CoRIM data model
 {{CoRIM}}.
 
@@ -103,7 +103,7 @@ There are three basic types of PSA Endorsements:
 There is a fourth PSA Endorsement type that aims at covering more advanced
 Verifier use cases (e.g., the one described in {{Section 7 of TEEP}}):
 
-* Software Relations ({{sec-swrel}}), used to model upgrade and patchAdd commentMore actions
+* Software Relations ({{sec-swrel}}), used to model upgrade and patch
 relationships between software components.
 
 ## PSA Endorsement Profile
@@ -116,7 +116,7 @@ The profile attribute in the CoRIM MUST be present and MUST be the URI
 ~~~
 {::include examples/profile.diag}
 ~~~
-{: #ex-arm-psa-profile title="CoRIM profile for PSAA Endorsements version 1.0.0" }
+{: #ex-arm-psa-profile title="CoRIM profile for PSA Endorsements version 1.0.0" }
 
 ## PSA Endorsements to PSA RoT Linkage
 {: #sec-psa-rot-id}
@@ -170,8 +170,7 @@ in the subject of the triple.
 
 A single `reference-triple-record` can completely describe the PSA RoT measurements.
 
-Each PSA Software Component (called `psa-software-component` map defined in {{Section 4.4.1 of
-PSA-TOKEN}}) is encoded in a `measurement-values-map` as defined in {{cddl-swcomp-mvm}}.
+Each PSA Software Component (i.e., the `psa-software-component` defined in {{Section 4.4.1 of PSA-TOKEN}}) is encoded in a `measurement-values-map` as defined in {{cddl-swcomp-mvm}}.
 
 ~~~ cddl
 psa-swcomp-measurement-values-map = {
@@ -203,28 +202,28 @@ psa-swcomp-signer-id = #6.560(psa-hash-type)
 version (key 0):
 : A `version-map` with its `version` field containing the version (key 4) of the `psa-software-component`.
 The `version-scheme` field of the `version-map` MUST NOT be present.
-`version` field is optional.
+The `version` field is optional.
 
 digests (key 2):
 : Each array element encodes the "measurement value" (key 2) and "measurement-desc" (key 6) of the `psa-sw-component` in the `val` and `alg` entries, respectively.
 The `alg` entry MUST use the text encoding.
 The digests array MUST contain at least one entry and MAY contain more than one entry if multiple digests (obtained with different hash algorithms) of the same measured component exist.
 If multiple entries exist, they MUST have different `alg` values.
-`digests` field is mandatory.
+The `digests` field is mandatory.
 
 name (key 11):
 : A text value containing the "measurement-type" (key 1) of the `psa-sw-component`.
-`name` field is optional.
+The `name` field is optional.
 
 cryptokeys (key 13):
 : An array with *only one* entry using the `tagged-bytes` variant of the `$crypto-key-type-choice`.
 The entry contains the "signer-id" (key 5) of the `psa-sw-component`.
-`cryptokeys` field is mandatory.
+The `cryptokeys` field is mandatory.
 
 Each `measurement-values-map` for a PSA RoT software component is wrapped in a `measurement-map` with an `mkey` using the text variant of the `$measured-element-type-choice`.
 The value of the `mkey` MUST be "psa.software-component".
 The `authorized-by` field of the `measurement-map` MUST NOT be present.
-Find the related CDDL definitions in {{cddl-swcomp-mm}}.
+See {{cddl-swcomp-mm}} for the related CDDL definitions.
 
 ~~~ cddl
 psa-swcomp-measurement-map = {
@@ -292,7 +291,7 @@ the produced Attestation Result.
 A Certification Claim is encoded as a `conditional-endorsement-triple-record`.
 
 The SAC is encoded in a `psa-cert-num` that extends the
-`measurement-values-map`: See {{ex-cert-triple}} below
+`measurement-values-map`.  See {{ex-cert-triple}}.
 
 ~~~
 {::include psa-ext/cert-triple.cddl}
@@ -304,7 +303,7 @@ The `conditional-endorsement-triple-record` is constructed as follows:
 * The Implementation ID of the immutable PSA RoT to which the SAC applies is encoded as a `tagged-bytes` in the `environment-map` of the
 `stateful-environment-record`; as shown in  {{cddl-impl-id}}
 * Any software component that is part of the certified PSA RoT is encoded as a reference value (see {{sec-ref-values}}) in the `measurement-map` of the `stateful-environment-record`;
-* The unique SAC Certificate Number is encoded as `psa-cert-num` in the `measurement-values-map`.
+* The unique SAC Certificate Number is encoded as `psa-cert-num` (key 100) in the `measurement-values-map`.
 
 The example in {{ex-certification-claim}} shows a Certification Claim that
 associates Certificate Number `1234567890123 - 12345` to Implementation ID
@@ -334,7 +333,7 @@ The triple is reified and used as the object of another triple,
 ~~~
 
 An example of a security critical update involving versions "1.2.5" and "1.3.0"
-of software component "PRoT" within the target environment associated withAdd commentMore actions
+of software component "PRoT" within the target environment associated with
 Implementation ID `acme-implementation-id-000000001` is shown in
 {{ex-psa-swrel-update-crit}}.
 
