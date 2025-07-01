@@ -77,10 +77,9 @@ Table of Contents
      3.6.  Software Upgrades and Patches
    4.  Security Considerations
    5.  IANA Considerations
-     5.1.  CBOR Tag Registrations
-     5.2.  CoMID Codepoints
-       5.2.1.  CoMID Triples Map Extension
-       5.2.2.  CoMID Measurement Values Map Extension
+     5.1.  CoMID Codepoints
+       5.1.1.  CoMID Triples Map Extension
+       5.1.2.  CoMID Measurement Values Map Extension
    Acknowledgements
    References
      Normative References
@@ -305,7 +304,56 @@ Table of Contents
    The complete example of a Reference Value CoMID Triple that encodes
    multiple psa-sw-component is given Figure 7.
 
-   {:: include examples/ref-value.diag }
+   / concise-mid-tag / {
+     / comid.tag-identity / 1 : {
+       / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+     },
+     / comid.triples / 4 : {
+       / comid.reference-triples / 0 : [
+         [
+           / environment-map / {
+             / comid.class / 0 : {
+               / comid.class-id / 0 :
+                 / tagged-impl-id-type / 560(
+                   h'61636d652d696d706c656d656e746174
+                     696f6e2d69642d303030303030303031'
+                 )
+             }
+           },
+           [
+             / measurement-map / {
+               / comid.mkey / 0 : "psa.software-component",
+               / comid.mval / 1 : {
+                 / comid.digests / 2 : [
+                   / hash-alg-id / "sha-256",
+                   / hash-value /  h'9a271f2a916b0b6ee6cecb2426f0b320
+                                     6ef074578be55d9bc94f6f3fe3ab86aa'
+                 ],
+                 / name / 11 : "BL",
+                 / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                           e2dc5641419c3d3060cfe32238
+                                           c0fa973f7aa3')
+               }
+             },
+             / measurement-map / {
+               / comid.mkey / 0 : "psa.software-component",
+               / comid.mval / 1 : {
+                 / comid.digests / 2 : [
+                   / hash-alg-id / "sha-256",
+                   / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                                     fad053beb8ebfd8977b010655bfdd3c3'
+                 ],
+                 / name / 11 : "PRoT",
+                 / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
+                                           e2dc5641419c3d3060cfe32238
+                                           c0fa973f7aa4')
+               }
+             }
+           ]
+         ]
+       ]
+     }
+   }
 
                      Figure 7: Example Reference Value
 
@@ -531,7 +579,7 @@ Table of Contents
              / new / {
                / comid.mval / 1 : {
                / comid.ver / 0 : {
-                 / comid.version / 0 : "1.0.0",
+                 / comid.version / 0 : "1.3.0",
                },
                  / comid.digests / 2 : [
                    / hash-alg-id / "sha-256",
@@ -552,7 +600,7 @@ Table of Contents
              / old / {
                / comid.mval / 1 : {
                      / comid.ver / 0 : {
-                     / comid.version / 0 : "1.0.0",
+                     / comid.version / 0 : "1.2.5",
                    },
                  / comid.digests / 2 : [
                    / hash-alg-id / "sha-256",
@@ -580,13 +628,9 @@ Table of Contents
 
 5.  IANA Considerations
 
-5.1.  CBOR Tag Registrations
+5.1.  CoMID Codepoints
 
-   This document makes no requests to IANA.
-
-5.2.  CoMID Codepoints
-
-5.2.1.  CoMID Triples Map Extension
+5.1.1.  CoMID Triples Map Extension
 
    IANA is requested to register the following codepoints to the "CoMID
    Triples Map" registry.
@@ -599,7 +643,7 @@ Table of Contents
 
                 Table 1: PSA CoMID Triples
 
-5.2.2.  CoMID Measurement Values Map Extension
+5.1.2.  CoMID Measurement Values Map Extension
 
    +=====+====================+==============+========================+
    | Key | Item Name          | Item Type    | Specification          |
@@ -625,12 +669,10 @@ Normative References
               ietf-rats-corim-07>.
 
    [PSA-TOKEN]
-              Tschofenig, H., Frost, S., Brossard, M., Shaw, A. L., and
-              T. Fossati, "Arm's Platform Security Architecture (PSA)
-              Attestation Token", Work in Progress, Internet-Draft,
-              draft-tschofenig-rats-psa-token-24, 23 September 2024,
-              <https://datatracker.ietf.org/doc/html/draft-tschofenig-
-              rats-psa-token-24>.
+              Tschofenig, H., Frost, S., Brossard, M., Shaw, A., and T.
+              Fossati, "Arm's Platform Security Architecture (PSA)
+              Attestation Token", RFC 9783, DOI 10.17487/RFC9783, June
+              2025, <https://www.rfc-editor.org/rfc/rfc9783>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -658,12 +700,10 @@ Informative References
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
 
-   [TEEP]     Pei, M., Tschofenig, H., Thaler, D., and D. M. Wheeler,
+   [TEEP]     Pei, M., Tschofenig, H., Thaler, D., and D. Wheeler,
               "Trusted Execution Environment Provisioning (TEEP)
-              Architecture", Work in Progress, Internet-Draft, draft-
-              ietf-teep-architecture-19, 24 October 2022,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-teep-
-              architecture-19>.
+              Architecture", RFC 9397, DOI 10.17487/RFC9397, July 2023,
+              <https://www.rfc-editor.org/rfc/rfc9397>.
 
 Authors' Addresses
 
