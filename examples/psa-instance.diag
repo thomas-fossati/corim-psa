@@ -1,0 +1,11 @@
+inst-id-tagged-ueid = #6.550(eat-ueid-rand-type)
+
+eat-ueid-rand-type = bytes .join eat-ueid-rand-fmt
+
+eat-ueid-rand-fmt = [
+  ; the type byte is 0x01
+  ueid-rand-typ
+  bytes .size 32
+]
+
+ueid-rand-typ = h'01'
