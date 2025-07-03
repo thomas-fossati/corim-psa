@@ -1,0 +1,668 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2025-07-03T00:49:53.329448+00:00",
+  "repo": "thomas-fossati/corim-psa",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOJAQ3_M5e9VY3",
+      "title": "Add an actors' model",
+      "url": "https://github.com/thomas-fossati/corim-psa/issues/1",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Add a section that describes the expected PSA supply-chain actors:\r\n\r\n* ODM\r\n* (maybe) ISV\r\n* certification body\r\n\r\nSay what kind of material they use to assemble their CoRIMs.\r\n\r\n\r\n**Note**\r\nAs per discussion in Veraison public meeting (27/04/2021):\r\n\r\n* keep supply chain actors open, i.e. not rigidly coupled as this is very much dependent on the deployment / use case.",
+      "createdAt": "2023-02-21T09:32:56Z",
+      "updatedAt": "2023-02-21T09:32:56Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOJAQ3_M5e9V_7",
+      "title": "Add configuration data",
+      "url": "https://github.com/thomas-fossati/corim-psa/issues/2",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "As per discussion starting at https://github.com/thomas-fossati/draft-psa-token/issues/71#issuecomment-1418944582 we want to allow a verifier to tell whether a measurement is FW/SW or configuration.\r\n\r\n## Proposal\r\n\r\nAdd an optional boolean flag (defaulting to false) to the `psa-swcomp-id` that, if asserted, marks the swcomp as containing a measurement of some configuration data:\r\n\r\n```cddl\r\npsa-swcomp-id = {\r\n  psa.measurement-type => text\r\n  psa.version => text\r\n  psa.signer-id => psa.hash-type\r\n  ? psa.is-config => bool .default false\r\n}\r\n```",
+      "createdAt": "2023-02-21T09:34:41Z",
+      "updatedAt": "2023-02-21T09:34:41Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOJAQ3_M5e9X5q",
+      "title": "Hammering blocklists",
+      "url": "https://github.com/thomas-fossati/corim-psa/issues/3",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The blocklist definition needs:\r\n\r\n* more descriptive text\r\n* precise CDDL description\r\n* CBOR DIAG examples\r\n\r\nAlso, the triple should allow a \"qualified predicate\" to explain the reason for block listing, e.g.:\r\n\r\n* Security vulnerability\r\n* Key Compromise\r\n* Device decommissioned\r\n* Device revoked\r\n",
+      "createdAt": "2023-02-21T09:40:05Z",
+      "updatedAt": "2023-03-09T11:07:29Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "This needs revising once x-triples are available in CoRIM.",
+          "createdAt": "2023-03-09T11:07:29Z",
+          "updatedAt": "2023-03-09T11:07:29Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOJAQ3_M5fHOJO",
+      "title": "new swcomp-id structure",
+      "url": "https://github.com/thomas-fossati/corim-psa/issues/5",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "As discussed, let's change the mkey as follows:\r\n```\r\nswcomp-id = {\r\n  signer-id hash-type\r\n  measurement-id hash-type\r\n}\r\n```\r\n\r\nin the mval, we will map the `psa-software-component` attributes as follows:\r\n\r\n* `measurement-type` -> `name`\r\n* `measurement-desc` -> `digests[0].hash-alg-id`\r\n* `version` -> `version.version`\r\n* `measurement-value` -> `digests[0].hash-value`\r\n\r\nWe will also allow carrying the optional fields (`measurement-type`, `measurement-desc` and `version`) as endorsed values.",
+      "createdAt": "2023-02-22T19:44:58Z",
+      "updatedAt": "2023-02-22T19:44:58Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 4,
+      "id": "PR_kwDOJAQ3_M5KaebV",
+      "title": "Yd issue 3 branch ",
+      "url": "https://github.com/thomas-fossati/corim-psa/pull/4",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "(NOTE: this is a verbatim copy of https://github.com/thomas-fossati/draft-psa-endorsements/pull/15)\r\n\r\nRequesting an Early feedback on the change specific to section!\r\n\r\nFix #1",
+      "createdAt": "2023-02-21T09:56:46Z",
+      "updatedAt": "2023-02-21T09:56:46Z",
+      "baseRepository": "thomas-fossati/corim-psa",
+      "baseRefName": "main",
+      "baseRefOid": "81834b4a62c111659f1f6741c10a0929394b89a7",
+      "headRepository": "thomas-fossati/corim-psa",
+      "headRefName": "actors-model",
+      "headRefOid": "d7e82c32c6856c88733172df5312899824b0921c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJAQ3_M5LZUCT",
+      "title": "no more `mkey`s + reuse as much CoRIM as possible",
+      "url": "https://github.com/thomas-fossati/corim-psa/pull/6",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "* remove mkey\r\n* use conditional endorsements for certification data",
+      "createdAt": "2023-03-06T17:47:10Z",
+      "updatedAt": "2023-03-09T11:26:07Z",
+      "baseRepository": "thomas-fossati/corim-psa",
+      "baseRefName": "main",
+      "baseRefOid": "a56b41be5b82e50c83a38dd3583d692708bf5c6c",
+      "headRepository": "thomas-fossati/corim-psa",
+      "headRefName": "new-swcomp-id",
+      "headRefOid": "1f5c788568d38b1f39f7d40eb1c6e43f654b82bf",
+      "closedAt": "2023-03-09T11:26:04Z",
+      "mergedAt": "2023-03-09T11:26:04Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "c53bbc4823edaaababde648124865c8b1da6173f"
+      },
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "not sure what's wrong with the action, but it seems like a CI artefact rather than anything substantial.",
+          "createdAt": "2023-03-06T17:53:00Z",
+          "updatedAt": "2023-03-06T17:53:00Z"
+        },
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Also we need to sort the failing CI.",
+          "createdAt": "2023-03-08T11:50:47Z",
+          "updatedAt": "2023-03-08T11:50:47Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJAQ3_M5PTPQO",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-08T11:10:03Z",
+          "updatedAt": "2023-03-08T11:10:04Z",
+          "comments": [
+            {
+              "originalPosition": 173,
+              "body": "It would be a good and handy reference to use a third column with a short sentence what each element means ",
+              "createdAt": "2023-03-08T11:10:03Z",
+              "updatedAt": "2023-03-08T11:10:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PTR96",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-08T11:15:25Z",
+          "updatedAt": "2023-03-08T11:15:25Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "I think, we agreed that Certification Status bakes into \"Verifier Added Claims\" which are strictly not required to appraise attestation Evidence. Hence we should set the expectations and \"bar\" accordingly for certification status, right from the start.",
+              "createdAt": "2023-03-08T11:15:25Z",
+              "updatedAt": "2023-03-08T11:15:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PTSzA",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-08T11:17:01Z",
+          "updatedAt": "2023-03-08T11:17:02Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "```suggestion\r\nappraise attestation Evidence produced by a PSA device.  This memo defines PSA Endorsements which is a profile of the CoRIM data model.\r\n```",
+              "createdAt": "2023-03-08T11:17:01Z",
+              "updatedAt": "2023-03-08T11:17:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PTVL8",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-08T11:21:41Z",
+          "updatedAt": "2023-03-08T11:21:41Z",
+          "comments": [
+            {
+              "originalPosition": 108,
+              "body": "```suggestion\r\nThe list of CoMIDs that are currently \"active\" (i.e. CoMIDs that contain triples that can be used for appraisal of evidence) is provided in a CoBOM tag.\r\n```",
+              "createdAt": "2023-03-08T11:21:41Z",
+              "updatedAt": "2023-03-08T11:21:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PTbQU",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-08T11:31:34Z",
+          "updatedAt": "2023-03-08T11:31:34Z",
+          "comments": [
+            {
+              "originalPosition": 74,
+              "body": "As we have removed \"Block List Triples\" from here it is better we remove it from everywhere in the document. The last section on Block List is quite confusing!",
+              "createdAt": "2023-03-08T11:31:34Z",
+              "updatedAt": "2023-03-08T11:31:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PTb4r",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-08T11:32:41Z",
+          "updatedAt": "2023-03-08T11:32:42Z",
+          "comments": [
+            {
+              "originalPosition": 312,
+              "body": "Suggest please remove 309 onwards till 323!",
+              "createdAt": "2023-03-08T11:32:41Z",
+              "updatedAt": "2023-03-08T11:33:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PTjGy",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "In general LGTM, left few tidy up comments for you to look at! Happy to discuss F2F if needed.",
+          "createdAt": "2023-03-08T11:49:32Z",
+          "updatedAt": "2023-03-08T11:49:32Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PbLtP",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-09T11:03:02Z",
+          "updatedAt": "2023-03-09T11:03:02Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "will use \"may need\" instead of \"needs\"",
+              "createdAt": "2023-03-09T11:03:02Z",
+              "updatedAt": "2023-03-09T11:03:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PbOsl",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-09T11:09:46Z",
+          "updatedAt": "2023-03-09T11:09:46Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "ok",
+              "createdAt": "2023-03-09T11:09:46Z",
+              "updatedAt": "2023-03-09T11:09:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PbO2k",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-09T11:10:12Z",
+          "updatedAt": "2023-03-09T11:10:13Z",
+          "comments": [
+            {
+              "originalPosition": 74,
+              "body": "ok",
+              "createdAt": "2023-03-09T11:10:12Z",
+              "updatedAt": "2023-03-09T11:10:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PbRxD",
+          "commit": {
+            "abbreviatedOid": "da90b11"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-09T11:17:46Z",
+          "updatedAt": "2023-03-09T11:17:46Z",
+          "comments": [
+            {
+              "originalPosition": 173,
+              "body": "this may not be as short as you imagine :-) adding a reference to the relevant PSA-TOKEN section instead",
+              "createdAt": "2023-03-09T11:17:46Z",
+              "updatedAt": "2023-03-09T11:17:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M5PbTYI",
+          "commit": {
+            "abbreviatedOid": "1f5c788"
+          },
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks for addressing my comments",
+          "createdAt": "2023-03-09T11:22:18Z",
+          "updatedAt": "2023-03-09T11:22:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOJAQ3_M6c4SDS",
+      "title": "Align PSA Endorsements Draft to CoRIM V7",
+      "url": "https://github.com/thomas-fossati/corim-psa/pull/7",
+      "state": "MERGED",
+      "author": "yogeshbdeshpande",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-01T10:59:05Z",
+      "updatedAt": "2025-07-01T12:25:23Z",
+      "baseRepository": "thomas-fossati/corim-psa",
+      "baseRefName": "main",
+      "baseRefOid": "03c2a5e229c9e2fe25c82d239d0efd609457e604",
+      "headRepository": "thomas-fossati/corim-psa",
+      "headRefName": "uplift-psa-endorsements",
+      "headRefOid": "29714527175021cac027e354741d2b5991a819be",
+      "closedAt": "2025-07-01T12:25:19Z",
+      "mergedAt": "2025-07-01T12:25:19Z",
+      "mergedBy": "yogeshbdeshpande",
+      "mergeCommit": {
+        "oid": "381d1936a39ab4dbc8469fb940cf756a531f1bb0"
+      },
+      "comments": [
+        {
+          "author": "yogeshbdeshpande",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@thomas-fossati I have verified locally that xml2rfc works and so everything builds fine locally.\r\nPlease review!",
+          "createdAt": "2025-07-01T10:59:47Z",
+          "updatedAt": "2025-07-01T11:00:00Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "> Gave \"PSA Endorsements to PSA RoT Linkage\" a quick read and did not find horrible things (with the exception of still violating standard XKCD 1285).\r\n\r\nYeah\u2026 unfortunately, this is an old document.  It was started before we adopted NSNL wholeheartedly.",
+          "createdAt": "2025-07-01T12:22:05Z",
+          "updatedAt": "2025-07-01T12:22:05Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJAQ3_M6xVCqk",
+          "commit": {
+            "abbreviatedOid": "a83c5ca"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "awesome, thank you!",
+          "createdAt": "2025-07-01T11:48:12Z",
+          "updatedAt": "2025-07-01T12:01:39Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "no need to capitalise \u201cattestation\" here\r\n\r\n```suggestion\r\nappraise attestation Evidence produced by a PSA device {{PSA-TOKEN}}.  This\r\n```",
+              "createdAt": "2025-07-01T11:48:12Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 52,
+              "body": "remove some randomness\r\n\r\n```suggestion\r\n* Software Relations ({{sec-swrel}}), used to model upgrade and patch\r\n```",
+              "createdAt": "2025-07-01T11:49:39Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 74,
+              "body": "```suggestion\r\n{: #ex-arm-psa-profile title=\"CoRIM profile for PSA Endorsements version 1.0.0\" }\r\n```",
+              "createdAt": "2025-07-01T11:50:11Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 141,
+              "body": "This is a very strong statement / requirement.",
+              "createdAt": "2025-07-01T11:52:01Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 144,
+              "body": "NSNL\r\n```suggestion\r\nEach PSA Software Component (i.e., the `psa-software-component` defined in {{Section 4.4.1 of PSA-TOKEN}}) is encoded in a `measurement-values-map` as defined in {{cddl-swcomp-mvm}}.\r\n```",
+              "createdAt": "2025-07-01T11:52:59Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 195,
+              "body": "```suggestion\r\nThe `version` field is optional.\r\n```",
+              "createdAt": "2025-07-01T11:54:07Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 202,
+              "body": "```suggestion\r\nThe `digests` field is mandatory.\r\n```",
+              "createdAt": "2025-07-01T11:54:42Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 206,
+              "body": "```suggestion\r\nThe `name` field is optional.\r\n```",
+              "createdAt": "2025-07-01T11:54:53Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 211,
+              "body": "```suggestion\r\nThe `cryptokeys` field is mandatory.\r\n```",
+              "createdAt": "2025-07-01T11:55:12Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 216,
+              "body": "```suggestion\r\nSee {{cddl-swcomp-mm}} for the related CDDL definitions.\r\n```",
+              "createdAt": "2025-07-01T11:56:29Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 292,
+              "body": "```suggestion\r\n`measurement-values-map`.  See {{ex-cert-triple}}.",
+              "createdAt": "2025-07-01T11:57:31Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 312,
+              "body": "```suggestion\r\n* The unique SAC Certificate Number is encoded as `psa-cert-num` (key 100) in the `measurement-values-map`.\r\n```",
+              "createdAt": "2025-07-01T12:00:41Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            },
+            {
+              "originalPosition": 330,
+              "body": "remove randomness (part 2)\r\n```suggestion\r\nof software component \"PRoT\" within the target environment associated with\r\n```",
+              "createdAt": "2025-07-01T12:01:07Z",
+              "updatedAt": "2025-07-01T12:01:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M6xVQT1",
+          "commit": {
+            "abbreviatedOid": "2193723"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T12:04:24Z",
+          "updatedAt": "2025-07-01T12:04:24Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "So... this is good?",
+              "createdAt": "2025-07-01T12:04:24Z",
+              "updatedAt": "2025-07-01T12:04:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M6xVYvd",
+          "commit": {
+            "abbreviatedOid": "2193723"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Gave \"PSA Endorsements to PSA RoT Linkage\" a quick read and did not find horrible things (with the exception of still violating standard XKCD 1285).",
+          "createdAt": "2025-07-01T12:13:17Z",
+          "updatedAt": "2025-07-01T12:13:17Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M6xVdx4",
+          "commit": {
+            "abbreviatedOid": "2193723"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T12:17:06Z",
+          "updatedAt": "2025-07-01T12:17:06Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "> So... this is good?\r\n\r\nUnsure\u2026 Implementation-wise is great.  I am not sure it\u2019s realistic, though.",
+              "createdAt": "2025-07-01T12:17:06Z",
+              "updatedAt": "2025-07-01T12:17:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJAQ3_M6xVkt9",
+          "commit": {
+            "abbreviatedOid": "2193723"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-01T12:22:40Z",
+          "updatedAt": "2025-07-01T12:22:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJAQ3_M6c5j6w",
+      "title": "Minor tidy up prior to release",
+      "url": "https://github.com/thomas-fossati/corim-psa/pull/8",
+      "state": "MERGED",
+      "author": "yogeshbdeshpande",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-01T12:40:01Z",
+      "updatedAt": "2025-07-01T12:50:03Z",
+      "baseRepository": "thomas-fossati/corim-psa",
+      "baseRefName": "main",
+      "baseRefOid": "381d1936a39ab4dbc8469fb940cf756a531f1bb0",
+      "headRepository": "thomas-fossati/corim-psa",
+      "headRefName": "minor-tidy-up",
+      "headRefOid": "02b553c8b57343ce7f18c19c910559c0f2b1ef22",
+      "closedAt": "2025-07-01T12:50:00Z",
+      "mergedAt": "2025-07-01T12:50:00Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "598d512286b03d96ffe6d64a4ccaf140217e8337"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJAQ3_M6xV6Zm",
+          "commit": {
+            "abbreviatedOid": "02b553c"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-01T12:49:56Z",
+          "updatedAt": "2025-07-01T12:49:56Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
