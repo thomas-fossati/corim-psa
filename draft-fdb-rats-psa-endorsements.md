@@ -25,8 +25,8 @@ author:
 
 -
   name: Thomas Fossati
-  org: Arm Ltd
-  email: thomas.fossati@arm.com
+  org: Linaro
+  email: thomas.fossati@linaro.org
 
 -
   name: Yogesh Deshpande
