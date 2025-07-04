@@ -3,11 +3,12 @@
 
 
 Remote ATtestation ProcedureS                                 T. Fossati
-Internet-Draft                                              Y. Deshpande
-Intended status: Informational                                   Arm Ltd
-Expires: 2 January 2026                                      H. Birkholz
+Internet-Draft                                                    Linaro
+Intended status: Informational                              Y. Deshpande
+Expires: 5 January 2026                                          Arm Ltd
+                                                             H. Birkholz
                                                           Fraunhofer SIT
-                                                             1 July 2025
+                                                             4 July 2025
 
 
      A CoRIM Profile for Arm's Platform Security Architecture (PSA)
@@ -48,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2026.
+   This Internet-Draft will expire on 5 January 2026.
 
 Copyright Notice
 
@@ -708,8 +709,8 @@ Informative References
 Authors' Addresses
 
    Thomas Fossati
-   Arm Ltd
-   Email: thomas.fossati@arm.com
+   Linaro
+   Email: thomas.fossati@linaro.org
 
 
    Yogesh Deshpande
