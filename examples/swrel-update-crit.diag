@@ -7,7 +7,7 @@
       [
         / environment-map / {
           / comid.class-id / 0 :
-          / tagged-impl-id-type / 600(
+          / tagged-impl-id-type / 560(
             h'61636d652d696d706c656d656e746174
               696f6e2d69642d303030303030303031'
           )
