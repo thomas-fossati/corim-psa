@@ -376,13 +376,17 @@ Table of Contents
       environment-map as shown in Figure 4;
 
    *  The IAK public key uses the tagged-pkix-base64-key-type variant of
-      the $crypto-key-type-choice.  The IAK public key is a PEM-encoded
-      SubjectPublicKeyInfo [RFC5280].  There MUST be only one key in an
-      attest-key-triple-record.
+      the $crypto-key-type-choice.
+
+   The IAK public key is a SubjectPublicKeyInfo [RFC5280] using the
+   encoding defined in Section 13 of [RFC7468].  There MUST be only one
+   key in an attest-key-triple-record.
 
    The example in Figure 8 shows the PSA Endorsement of type Attestation
    Verification Key carrying a secp256r1 EC public IAK associated with
    Instance ID 4ca3...d296.
+
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
 
    / concise-mid-tag / {
      / comid.tag-identity / 1 : {
@@ -408,10 +412,10 @@ Table of Contents
            },
            [
              / tagged-pkix-base64-key-type / 554(
-                "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA
-                 ETl4iCZ47zrRbRG0TVf0dw7VFlHtv18HInY
-                 hnmMNybo+A1wuECyVqrDSmLt4QQzZPBECV8
-                 ANHS5HgGCCSr7E/Lg=="
+               "-----BEGIN PUBLIC KEY-----\\
+   nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEIShnxS4rlQiwpCCpBWDzlNLfqiG911FP\\
+   n8akBr+fh94uxHU5m+Kijivp2r2oxxN6MhM4tr8mWQli1P61xh3T0ViDREbF26DGO\\
+          nEYfbAjWjGNN7pZf+6A4OTHYqEryz6m7U\n-----END PUBLIC KEY-----\n"
              )
            ]
          ]
@@ -685,6 +689,10 @@ Normative References
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/rfc/rfc5280>.
+
+   [RFC7468]  Josefsson, S. and S. Leonard, "Textual Encodings of PKIX,
+              PKCS, and CMS Structures", RFC 7468, DOI 10.17487/RFC7468,
+              April 2015, <https://www.rfc-editor.org/rfc/rfc7468>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,

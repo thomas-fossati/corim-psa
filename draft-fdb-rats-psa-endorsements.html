@@ -1567,18 +1567,20 @@ and Implementation IDs (and, possibly, a product identifier) in an
             <p id="section-3.4-3.1.1">The Instance and Implementation IDs are encoded in the environment-map as shown in <a href="#ex-psa-rot-id" class="auto internal xref">Figure 4</a>;<a href="#section-3.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-3.2">
-            <p id="section-3.4-3.2.1">The IAK public key uses the <code>tagged-pkix-base64-key-type</code> variant of the <code>$crypto-key-type-choice</code>.
-The IAK public key is a PEM-encoded SubjectPublicKeyInfo <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
-There MUST be only one key in an <code>attest-key-triple-record</code>.<a href="#section-3.4-3.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-3.2.1">The IAK public key uses the <code>tagged-pkix-base64-key-type</code> variant of the <code>$crypto-key-type-choice</code>.<a href="#section-3.4-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.4-4">The example in <a href="#ex-attestation-verification-claim" class="auto internal xref">Figure 8</a> shows the PSA Endorsement
+<p id="section-3.4-4">The IAK public key is a SubjectPublicKeyInfo <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> using the encoding defined in <span><a href="https://rfc-editor.org/rfc/rfc7468#section-13" class="relref">Section 13</a> of [<a href="#RFC7468" class="cite xref">RFC7468</a>]</span>.
+There MUST be only one key in an <code>attest-key-triple-record</code>.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+<p id="section-3.4-5">The example in <a href="#ex-attestation-verification-claim" class="auto internal xref">Figure 8</a> shows the PSA Endorsement
 of type Attestation Verification Key carrying a secp256r1 EC public IAK
-associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.4-5" class="pilcrow">¶</a></p>
 <span id="name-example-attestation-verific"></span><div id="ex-attestation-verification-claim">
 <figure id="figure-8">
-          <div class="lang-cbor-diag sourcecode" id="section-3.4-5.1">
+          <div class="lang-cbor-diag sourcecode" id="section-3.4-6.1">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 / concise-mid-tag / {
   / comid.tag-identity / 1 : {
     / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
@@ -1603,10 +1605,10 @@ associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.4-4" cl
         },
         [
           / tagged-pkix-base64-key-type / 554(
-             "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA
-              ETl4iCZ47zrRbRG0TVf0dw7VFlHtv18HInY
-              hnmMNybo+A1wuECyVqrDSmLt4QQzZPBECV8
-              ANHS5HgGCCSr7E/Lg=="
+            "-----BEGIN PUBLIC KEY-----\\
+nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEIShnxS4rlQiwpCCpBWDzlNLfqiG911FP\\
+n8akBr+fh94uxHU5m+Kijivp2r2oxxN6MhM4tr8mWQli1P61xh3T0ViDREbF26DGO\\
+       nEYfbAjWjGNN7pZf+6A4OTHYqEryz6m7U\n-----END PUBLIC KEY-----\n"
           )
         ]
       ]
@@ -1972,6 +1974,10 @@ Map" registry.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 <dt id="RFC5280">[RFC5280]</dt>
         <dd>
 <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7468">[RFC7468]</dt>
+        <dd>
+<span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">S. Leonard</span>, <span class="refTitle">"Textual Encodings of PKIX, PKCS, and CMS Structures"</span>, <span class="seriesInfo">RFC 7468</span>, <span class="seriesInfo">DOI 10.17487/RFC7468</span>, <time datetime="2015-04" class="refDate">April 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7468">https://www.rfc-editor.org/rfc/rfc7468</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
       <dd>
