@@ -42,6 +42,7 @@ normative:
   PSA-TOKEN: RFC9783
   CoRIM: I-D.ietf-rats-corim
   RFC5280: pkix-x509
+  RFC7468: pem
 
 informative:
   RATS-ARCH: RFC9334
@@ -256,7 +257,8 @@ and Implementation IDs (and, possibly, a product identifier) in an
 
 * The Instance and Implementation IDs are encoded in the environment-map as shown in {{ex-psa-rot-id}};
 * The IAK public key uses the `tagged-pkix-base64-key-type` variant of the `$crypto-key-type-choice`.
-The IAK public key is a PEM-encoded SubjectPublicKeyInfo {{-pkix-x509}}.
+
+The IAK public key is a SubjectPublicKeyInfo {{-pkix-x509}} using the encoding defined in {{Section 13 of -pem}}.
 There MUST be only one key in an `attest-key-triple-record`.
 
 The example in {{ex-attestation-verification-claim}} shows the PSA Endorsement
@@ -264,7 +266,7 @@ of type Attestation Verification Key carrying a secp256r1 EC public IAK
 associated with Instance ID `4ca3...d296`.
 
 ~~~ cbor-diag
-{::include examples/instance-pub.diag}
+{::include-fold examples/instance-pub.diag}
 ~~~
 {: #ex-attestation-verification-claim title="Example Attestation Verification Key"}
 

@@ -22,10 +22,7 @@
         },
         [
           / tagged-pkix-base64-key-type / 554(
-             "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA
-              ETl4iCZ47zrRbRG0TVf0dw7VFlHtv18HInY
-              hnmMNybo+A1wuECyVqrDSmLt4QQzZPBECV8
-              ANHS5HgGCCSr7E/Lg=="
+            "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEIShnxS4rlQiwpCCpBWDzlNLfqiG911FP\n8akBr+fh94uxHU5m+Kijivp2r2oxxN6MhM4tr8mWQli1P61xh3T0ViDREbF26DGO\nEYfbAjWjGNN7pZf+6A4OTHYqEryz6m7U\n-----END PUBLIC KEY-----\n"
           )
         ]
       ]
