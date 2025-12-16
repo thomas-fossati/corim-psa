@@ -25,9 +25,9 @@
                                   fad053beb8ebfd8977b010655bfdd3c3'
               ],
               / name / 11 : "PRoT",
-              / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
-                                        e2dc5641419c3d3060cfe32238
-                                        c0fa973f7aa4')
+              / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
+                                          e2dc5641419c3d3060cfe32238
+                                          c0fa973f7aa4') ]
             }
           },
           / rel / [
@@ -46,9 +46,9 @@
                                   fad053beb8ebfd8978b010655bfdd3c3'
               ],
               / name / 11 : "PRoT",
-              / cryptokeys / 13 : 560(h'5378796307535df3ec8d8b15a2
-                                        e2dc5641419c3d3060cfe32238
-                                        c0fa973f7ad4')
+              / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
+                                          e2dc5641419c3d3060cfe32238
+                                          c0fa973f7ad4') ]
             }
           }
         ]
