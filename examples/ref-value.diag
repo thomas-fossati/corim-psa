@@ -19,9 +19,11 @@
             / comid.mkey / 0 : "psa.software-component",
             / comid.mval / 1 : {
               / comid.digests / 2 : [
-                / hash-alg-id / "sha-256",
-                / hash-value /  h'9a271f2a916b0b6ee6cecb2426f0b320
+                [
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'9a271f2a916b0b6ee6cecb2426f0b320
                                   6ef074578be55d9bc94f6f3fe3ab86aa'
+                ]
               ],
               / name / 11 : "BL",
               / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
@@ -33,9 +35,11 @@
             / comid.mkey / 0 : "psa.software-component",
             / comid.mval / 1 : {
               / comid.digests / 2 : [
-                / hash-alg-id / "sha-256",
-                / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                [
+                  / hash-alg-id / "sha-256",
+                  / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
                                   fad053beb8ebfd8977b010655bfdd3c3'
+                ]
               ],
               / name / 11 : "PRoT",
               / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
