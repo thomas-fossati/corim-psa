@@ -5,10 +5,10 @@
 Remote ATtestation ProcedureS                                 T. Fossati
 Internet-Draft                                                    Linaro
 Intended status: Informational                              Y. Deshpande
-Expires: 9 July 2026                                             Arm Ltd
+Expires: 31 December 2026                                        Arm Ltd
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                          5 January 2026
+                                                            29 June 2026
 
 
      A CoRIM Profile for Arm's Platform Security Architecture (PSA)
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 July 2026.
+   This Internet-Draft will expire on 31 December 2026.
 
 Copyright Notice
 
@@ -326,9 +326,11 @@ Table of Contents
                / comid.mkey / 0 : "psa.software-component",
                / comid.mval / 1 : {
                  / comid.digests / 2 : [
-                   / hash-alg-id / "sha-256",
-                   / hash-value /  h'9a271f2a916b0b6ee6cecb2426f0b320
+                   [
+                     / hash-alg-id / "sha-256",
+                     / hash-value /  h'9a271f2a916b0b6ee6cecb2426f0b320
                                      6ef074578be55d9bc94f6f3fe3ab86aa'
+                   ]
                  ],
                  / name / 11 : "BL",
                  / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
@@ -340,9 +342,11 @@ Table of Contents
                / comid.mkey / 0 : "psa.software-component",
                / comid.mval / 1 : {
                  / comid.digests / 2 : [
-                   / hash-alg-id / "sha-256",
-                   / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                   [
+                     / hash-alg-id / "sha-256",
+                     / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
                                      fad053beb8ebfd8977b010655bfdd3c3'
+                   ]
                  ],
                  / name / 11 : "PRoT",
                  / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
@@ -499,9 +503,11 @@ Table of Contents
                / comid.mkey / 0 : "psa.software-component",
                / comid.mval / 1 : {
                  / comid.digests / 2 : [
-                   / hash-alg-id / "sha-256",
-                   / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                   [
+                     / hash-alg-id / "sha-256",
+                     / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
                                      fad053beb8ebfd8977b010655bfdd3c3'
+                   ]
                  ],
                  / name / 11 : "PRoT",
                  / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
@@ -587,9 +593,11 @@ Table of Contents
                  / comid.version / 0 : "1.3.0",
                },
                  / comid.digests / 2 : [
-                   / hash-alg-id / "sha-256",
-                   / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                   [
+                     / hash-alg-id / "sha-256",
+                     / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
                                      fad053beb8ebfd8977b010655bfdd3c3'
+                   ]
                  ],
                  / name / 11 : "PRoT",
                  / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
@@ -608,9 +616,11 @@ Table of Contents
                      / comid.version / 0 : "1.2.5",
                    },
                  / comid.digests / 2 : [
-                   / hash-alg-id / "sha-256",
-                   / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
+                   [
+                     / hash-alg-id / "sha-256",
+                     / hash-value /  h'53c234e5e8472b6ac51c1ae1cab3fe06
                                      fad053beb8ebfd8978b010655bfdd3c3'
+                   ]
                  ],
                  / name / 11 : "PRoT",
                  / cryptokeys / 13 : [ 560(h'5378796307535df3ec8d8b15a2
@@ -669,9 +679,9 @@ Normative References
 
    [CoRIM]    Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
-              Progress, Internet-Draft, draft-ietf-rats-corim-09, 20
-              October 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-corim-09>.
+              Progress, Internet-Draft, draft-ietf-rats-corim-10, 2
+              March 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-rats-corim-10>.
 
    [PSA-TOKEN]
               Tschofenig, H., Frost, S., Brossard, M., Shaw, A., and T.
